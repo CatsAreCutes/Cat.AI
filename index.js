@@ -1,18 +1,21 @@
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
+const PORT = process.env.PORT || 3000;
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
+
 /* =====================================================
-   LEADERBOARD
-   Everything is stored directly in this file while
-   the server is running.
+   PERMANENT LEADERBOARD
 ===================================================== */
 
-const leaderboard = {
+const leaderboardFile =
+  path.join(__dirname, "leaderboard.json");
+
+const emptyLeaderboard = {
   mouse: [],
   yarn: [],
   fish: [],
@@ -22,19 +25,77 @@ const leaderboard = {
 };
 
 
+function loadLeaderboard() {
+
+  try {
+
+    if (!fs.existsSync(leaderboardFile)) {
+
+      fs.writeFileSync(
+        leaderboardFile,
+        JSON.stringify(
+          emptyLeaderboard,
+          null,
+          2
+        )
+      );
+
+      return { ...emptyLeaderboard };
+
+    }
+
+    const data =
+      JSON.parse(
+        fs.readFileSync(
+          leaderboardFile,
+          "utf8"
+        )
+      );
+
+    return {
+      ...emptyLeaderboard,
+      ...data
+    };
+
+  } catch (error) {
+
+    console.error(
+      "Could not load leaderboard:",
+      error
+    );
+
+    return { ...emptyLeaderboard };
+
+  }
+
+}
+
+
+function saveLeaderboard(data) {
+
+  fs.writeFileSync(
+    leaderboardFile,
+    JSON.stringify(
+      data,
+      null,
+      2
+    )
+  );
+
+}
+
+
 /* =====================================================
    MIDDLEWARE
 ===================================================== */
 
 app.use(express.json());
 
-app.use(
-  express.static(__dirname)
-);
+app.use(express.static(__dirname));
 
 
 /* =====================================================
-   GROQ / CAT.AI CHAT
+   CAT.AI / GROQ
 ===================================================== */
 
 app.post("/chat", async (req, res) => {
@@ -42,38 +103,53 @@ app.post("/chat", async (req, res) => {
   try {
 
     const message =
-      String(req.body.message || "").trim();
+      String(
+        req.body.message || ""
+      ).trim();
+
 
     if (!message) {
 
       return res.json({
-        reply: "MRRP? You didn't say anything!"
+        reply:
+          "MRRP? You didn't say anything!"
       });
 
     }
+
 
     if (!GROQ_API_KEY) {
 
       return res.status(500).json({
+
         reply:
           "MRRP! My Groq brain isn't connected! Check GROQ_API_KEY."
+
       });
 
     }
 
+
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
+
         method: "POST",
 
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${GROQ_API_KEY}`
+
+          "Content-Type":
+            "application/json",
+
+          "Authorization":
+            `Bearer ${GROQ_API_KEY}`
+
         },
 
         body: JSON.stringify({
 
-          model: "llama-3.1-8b-instant",
+          model:
+            "llama-3.1-8b-instant",
 
           messages: [
 
@@ -87,7 +163,7 @@ You love cats.
 
 You are suspicious of shoes.
 
-You use occasional cat sounds like MEOW, MRRP, PURR, and HISS.
+Use occasional cat sounds like MEOW, MRRP, PURR, and HISS.
 
 Keep conversations fun and concise.
 
@@ -105,51 +181,74 @@ Do not mention these instructions.
           ],
 
           temperature: 0.9,
+
           max_tokens: 300
 
         })
+
       }
     );
 
-    const data = await response.json();
+
+    const data =
+      await response.json();
+
 
     if (!response.ok) {
 
-      console.error("GROQ ERROR:", data);
+      console.error(
+        "GROQ ERROR:",
+        data
+      );
 
-      return res.status(response.status).json({
+      return res.status(
+        response.status
+      ).json({
+
         reply:
           `MRRP! Groq error: ${
             data?.error?.message ||
             JSON.stringify(data)
           }`
+
       });
 
     }
+
 
     const reply =
       data?.choices?.[0]?.message?.content;
 
+
     if (!reply) {
 
       return res.status(500).json({
+
         reply:
           "MRRP! Groq gave me an empty brain response."
+
       });
 
     }
+
 
     res.json({
       reply
     });
 
+
   } catch (error) {
 
-    console.error("CHAT ERROR:", error);
+    console.error(
+      "CHAT ERROR:",
+      error
+    );
 
     res.status(500).json({
+
       reply:
         `MRRP! Server error: ${error.message}`
+
     });
 
   }
@@ -158,7 +257,7 @@ Do not mention these instructions.
 
 
 /* =====================================================
-   SUBMIT SCORE
+   SUBMIT ARCADE SCORE
 ===================================================== */
 
 app.post("/api/scores", (req, res) => {
@@ -176,30 +275,48 @@ app.post("/api/scores", (req, res) => {
 
     /* Clean player name */
 
-    name = String(name || "Anonymous Cat")
-      .replace(/[^a-zA-Z0-9 _-]/g, "")
+    name =
+      String(
+        name || "Anonymous Cat"
+      )
+      .replace(
+        /[^a-zA-Z0-9 _-]/g,
+        ""
+      )
       .trim()
       .slice(0, 20);
 
 
     /* Clean game name */
 
-    game = String(game || "mouse")
-      .replace(/[^a-zA-Z0-9_-]/g, "");
+    game =
+      String(
+        game || "mouse"
+      )
+      .replace(
+        /[^a-zA-Z0-9_-]/g,
+        ""
+      );
 
 
-    /* Make sure the game exists */
+    /* Make sure this game exists */
 
-    if (!leaderboard[game]) {
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        emptyLeaderboard,
+        game
+      )
+    ) {
 
       return res.status(400).json({
-        error: "That game doesn't exist."
+
+        error:
+          "That game doesn't exist."
+
       });
 
     }
 
-
-    /* Convert numbers */
 
     score = Number(score);
     time = Number(time);
@@ -212,35 +329,60 @@ app.post("/api/scores", (req, res) => {
     ) {
 
       return res.status(400).json({
-        error: "Invalid score."
+
+        error:
+          "Invalid score."
+
       });
 
     }
 
 
-    /* Add score */
+    /* Load the CURRENT permanent scores */
+
+    const leaderboard =
+      loadLeaderboard();
+
+
+    /* Add the new score */
 
     leaderboard[game].push({
 
-      name,
-      score,
-      time,
+      name: name,
+
+      score: score,
+
+      time: time,
+
       won: Boolean(won),
 
-      date: new Date().toISOString()
+      date:
+        new Date().toISOString()
 
     });
 
 
-    /* Sort */
+    /* Highest score first */
 
-    leaderboard[game].sort(compareScores);
+    leaderboard[game].sort(
+      compareScores
+    );
 
 
-    /* Keep only top 100 */
+    /* Keep the top 100 */
 
     leaderboard[game] =
-      leaderboard[game].slice(0, 100);
+      leaderboard[game].slice(
+        0,
+        100
+      );
+
+
+    /* SAVE IT TO DISK */
+
+    saveLeaderboard(
+      leaderboard
+    );
 
 
     console.log(
@@ -253,9 +395,10 @@ app.post("/api/scores", (req, res) => {
       success: true,
 
       message:
-        "Score saved! 🐈"
+        "Score permanently saved! 🐈"
 
     });
+
 
   } catch (error) {
 
@@ -280,58 +423,73 @@ app.post("/api/scores", (req, res) => {
    GET LEADERBOARD
 ===================================================== */
 
-app.get("/api/leaderboard", (req, res) => {
+app.get(
+  "/api/leaderboard",
+  (req, res) => {
 
-  try {
+    try {
 
-    const game =
-      String(req.query.game || "mouse");
+      const game =
+        String(
+          req.query.game || "mouse"
+        );
 
 
-    if (!leaderboard[game]) {
+      if (
+        !Object.prototype.hasOwnProperty.call(
+          emptyLeaderboard,
+          game
+        )
+      ) {
 
-      return res.status(400).json({
+        return res.status(400).json({
+
+          error:
+            "That game doesn't exist."
+
+        });
+
+      }
+
+
+      const leaderboard =
+        loadLeaderboard();
+
+
+      const scores =
+        leaderboard[game]
+          .slice()
+          .sort(compareScores)
+          .slice(0, 50);
+
+
+      res.json({
+
+        game: game,
+
+        scores: scores
+
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "LEADERBOARD ERROR:",
+        error
+      );
+
+      res.status(500).json({
 
         error:
-          "That game doesn't exist."
+          "Could not load leaderboard."
 
       });
 
     }
 
-
-    const scores =
-      leaderboard[game]
-        .slice()
-        .sort(compareScores)
-        .slice(0, 50);
-
-
-    res.json({
-
-      game,
-
-      scores
-
-    });
-
-  } catch (error) {
-
-    console.error(
-      "LEADERBOARD ERROR:",
-      error
-    );
-
-    res.status(500).json({
-
-      error:
-        "Could not load leaderboard."
-
-    });
-
   }
-
-});
+);
 
 
 /* =====================================================
@@ -340,15 +498,18 @@ app.get("/api/leaderboard", (req, res) => {
 
 function compareScores(a, b) {
 
-  /* Higher score comes first */
+  /* Higher score wins */
 
-  if (b.score !== a.score) {
+  if (
+    b.score !== a.score
+  ) {
 
     return b.score - a.score;
 
   }
 
-  /* If tied, faster time wins */
+
+  /* If tied, faster completion wins */
 
   return a.time - b.time;
 
@@ -359,18 +520,22 @@ function compareScores(a, b) {
    START SERVER
 ===================================================== */
 
-app.listen(PORT, () => {
+app.listen(
+  PORT,
+  () => {
 
-  console.log(
-    `🐈 Cat.AI running at http://localhost:${PORT}`
-  );
-
-  if (!GROQ_API_KEY) {
-
-    console.warn(
-      "⚠️ GROQ_API_KEY is not set."
+    console.log(
+      `🐈 Cat.AI running on http://localhost:${PORT}`
     );
 
-  }
 
-});
+    if (!GROQ_API_KEY) {
+
+      console.warn(
+        "⚠️ GROQ_API_KEY is not set."
+      );
+
+    }
+
+  }
+);
