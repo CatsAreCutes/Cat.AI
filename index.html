@@ -3,1160 +3,794 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Cat.AI 🐈</title>
 
 <style>
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
 * {
   box-sizing: border-box;
 }
 
 :root {
-  --text: #f8f3ff;
-  --muted: #aaa0bd;
-  --panel: rgba(25,18,42,.88);
-  --panel2: rgba(255,255,255,.07);
-  --border: rgba(255,255,255,.14);
-  --accent: #9b62ff;
-  --accent2: #5d7cff;
-  --user1: #7550c9;
-  --user2: #536dd5;
+  --text:#f8f3ff;
+  --muted:#aaa0bd;
+  --panel:rgba(25,18,42,.88);
+  --panel2:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.14);
+  --accent:#9b62ff;
+  --accent2:#5d7cff;
+  --user1:#7550c9;
+  --user2:#536dd5;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
-
-  overflow: hidden;
-
-  font-family: Arial, sans-serif;
-
-  color: var(--text);
-
-  background: #080611;
-
-  transition: .4s;
+  margin:0;
+  min-height:100vh;
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  color:var(--text);
+  background:#080611;
+  transition:.4s;
 }
 
+button,
+input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
 
 /* =====================================================
-   OG THEME
+   THEMES
 ===================================================== */
 
 body.theme-og {
-  --text: #eeeeee;
-  --muted: #999999;
-  --panel: #191919;
-  --panel2: #252525;
-  --border: #3a3a3a;
-  --accent: #888888;
-  --accent2: #555555;
-  --user1: #444444;
-  --user2: #303030;
-
-  background: #111111;
+  --text:#eee;
+  --muted:#999;
+  --panel:#191919;
+  --panel2:#252525;
+  --border:#3a3a3a;
+  --accent:#888;
+  --accent2:#555;
+  --user1:#444;
+  --user2:#303030;
+  background:#111;
 }
 
-
-/* =====================================================
-   PURPLE THEME
-===================================================== */
-
 body.theme-purple {
-  --text: #f8f3ff;
-  --muted: #aaa0bd;
-  --panel: rgba(25,18,42,.88);
-  --panel2: rgba(255,255,255,.07);
-  --border: rgba(255,255,255,.14);
-  --accent: #9b62ff;
-  --accent2: #5d7cff;
-  --user1: #7550c9;
-  --user2: #536dd5;
-
   background:
-    radial-gradient(
-      circle at 10% 20%,
-      rgba(155,98,255,.3),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 90% 80%,
-      rgba(70,110,255,.25),
-      transparent 30%
-    ),
+    radial-gradient(circle at 10% 20%,rgba(155,98,255,.3),transparent 30%),
+    radial-gradient(circle at 90% 80%,rgba(70,110,255,.25),transparent 30%),
     #080611;
 }
 
-
-/* =====================================================
-   YARN THEME
-===================================================== */
-
 body.theme-yarn {
-  --text: #fff8f2;
-  --muted: #d8c2b2;
-  --panel: rgba(76,45,35,.88);
-  --panel2: rgba(255,230,210,.10);
-  --border: rgba(255,225,205,.22);
-  --accent: #ff9b68;
-  --accent2: #e76f9b;
-  --user1: #c96572;
-  --user2: #a85282;
+  --text:#fff8f2;
+  --muted:#d8c2b2;
+  --panel:rgba(76,45,35,.9);
+  --panel2:rgba(255,230,210,.1);
+  --border:rgba(255,225,205,.22);
+  --accent:#ff9b68;
+  --accent2:#e76f9b;
+  --user1:#c96572;
+  --user2:#a85282;
 
-  background-color: #704536;
+  background-color:#704536;
 
   background-image:
     repeating-linear-gradient(
       25deg,
-      rgba(255,255,255,.13) 0px,
-      rgba(255,255,255,.13) 2px,
-      transparent 2px,
-      transparent 7px
+      rgba(255,255,255,.13) 0 2px,
+      transparent 2px 7px
     ),
     repeating-linear-gradient(
       -25deg,
-      rgba(0,0,0,.13) 0px,
-      rgba(0,0,0,.13) 2px,
-      transparent 2px,
-      transparent 7px
+      rgba(0,0,0,.13) 0 2px,
+      transparent 2px 7px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(255,255,255,.035) 0px,
-      rgba(255,255,255,.035) 1px,
-      transparent 1px,
-      transparent 5px
-    );
-
-  background-size:
-    18px 18px,
-    18px 18px,
-    7px 7px;
-}
-
-body.theme-yarn::before {
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: -1;
-
-  background:
-    repeating-linear-gradient(
-      115deg,
-      transparent 0px,
-      transparent 9px,
-      rgba(255,255,255,.045) 10px,
-      rgba(255,255,255,.045) 12px,
-      transparent 13px,
-      transparent 22px
+      rgba(255,255,255,.035) 0 1px,
+      transparent 1px 5px
     );
 }
 
 body.theme-yarn::after {
-  content: "";
-
-  position: fixed;
-
-  inset: 0;
-
-  pointer-events: none;
-
-  z-index: -1;
-
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
   background-image:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.10) 0 1px,
-      transparent 2px
-    );
-
-  background-size: 13px 13px;
-
-  opacity: .35;
+    radial-gradient(circle,rgba(255,255,255,.1) 0 1px,transparent 2px);
+  background-size:13px 13px;
+  opacity:.35;
 }
 
+body.theme-pillow {
+  --text:#44364c;
+  --muted:#786b7e;
+  --panel:rgba(255,255,255,.88);
+  --panel2:rgba(255,255,255,.62);
+  --border:rgba(80,50,100,.16);
+  --accent:#a879d4;
+  --accent2:#7d9ee6;
+  --user1:#a96fce;
+  --user2:#718fd8;
+  background:#cfc3d3;
+}
 
 /* =====================================================
    PILLOW WALL
 ===================================================== */
 
-body.theme-pillow {
-  --text: #44364c;
-  --muted: #786b7e;
-  --panel: rgba(255,255,255,.88);
-  --panel2: rgba(255,255,255,.62);
-  --border: rgba(80,50,100,.16);
-  --accent: #a879d4;
-  --accent2: #7d9ee6;
-  --user1: #a96fce;
-  --user2: #718fd8;
-
-  background: #cfc3d3;
-}
-
 .pillow-wall {
-  display: none;
+  display:none;
+  position:fixed;
+  inset:-40px;
+  z-index:-5;
+  overflow:hidden;
+  padding:25px;
+  transform:rotate(-1deg) scale(1.04);
+  pointer-events:none;
 
-  position: fixed;
+  grid-template-columns:repeat(6,minmax(130px,1fr));
+  grid-auto-rows:105px;
+  gap:8px;
 
-  inset: -40px;
-
-  z-index: -5;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      180deg,
-      #b9adbe,
-      #d8cbd9
-    );
-
-  padding: 25px;
-
-  transform:
-    rotate(-1deg)
-    scale(1.04);
-
-  pointer-events: none;
-
-  grid-template-columns:
-    repeat(6, minmax(130px, 1fr));
-
-  grid-auto-rows: 105px;
-
-  gap: 8px;
+  background:linear-gradient(180deg,#b9adbe,#d8cbd9);
 }
 
 body.theme-pillow .pillow-wall {
-  display: grid;
+  display:grid;
 }
 
 .pillow {
-  position: relative;
-
-  min-width: 130px;
-  min-height: 105px;
-
-  border-radius: 28px;
+  min-width:130px;
+  min-height:105px;
+  border-radius:28px;
 
   background:
-    radial-gradient(
-      ellipse at 30% 20%,
-      rgba(255,255,255,.9),
-      transparent 32%
-    ),
-    radial-gradient(
-      ellipse at 70% 80%,
-      rgba(90,60,100,.18),
-      transparent 45%
-    ),
-    linear-gradient(
-      145deg,
-      #f9e9f4,
-      #d9bfd4
-    );
+    radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.9),transparent 32%),
+    radial-gradient(ellipse at 70% 80%,rgba(90,60,100,.18),transparent 45%),
+    linear-gradient(145deg,#f9e9f4,#d9bfd4);
 
-  border:
-    4px solid rgba(170,130,170,.35);
+  border:4px solid rgba(170,130,170,.35);
 
   box-shadow:
     inset 8px 8px 14px rgba(255,255,255,.65),
     inset -9px -10px 16px rgba(90,60,100,.16),
     0 12px 16px rgba(65,45,75,.28);
 
-  transform:
-    rotate(var(--rotation));
+  transform:rotate(var(--rotation));
 }
 
 .pillow::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 9px;
-
-  border-radius: 21px;
-
-  border:
-    2px dashed rgba(125,90,130,.28);
-
-  box-shadow:
-    inset 0 0 10px rgba(100,70,110,.12);
+  content:"";
+  position:absolute;
+  inset:9px;
+  border-radius:21px;
+  border:2px dashed rgba(125,90,130,.28);
 }
 
 .pillow:nth-child(3n) {
-  background:
-    linear-gradient(
-      145deg,
-      #e9d9ff,
-      #c8b5e0
-    );
+  background:linear-gradient(145deg,#e9d9ff,#c8b5e0);
 }
 
 .pillow:nth-child(4n) {
-  background:
-    linear-gradient(
-      145deg,
-      #dcecff,
-      #b9cbe7
-    );
+  background:linear-gradient(145deg,#dcecff,#b9cbe7);
 }
 
 .pillow:nth-child(5n) {
-  background:
-    linear-gradient(
-      145deg,
-      #ffe2ee,
-      #ddbaca
-    );
+  background:linear-gradient(145deg,#ffe2ee,#ddbaca);
 }
-
 
 /* =====================================================
    APP
 ===================================================== */
 
 .app {
-  width: 100vw;
-  height: 100vh;
-
-  display: flex;
-
-  position: relative;
-
-  z-index: 2;
+  width:100vw;
+  height:100vh;
+  display:flex;
+  position:relative;
+  z-index:2;
 }
-
 
 /* =====================================================
    SIDEBAR
 ===================================================== */
 
 .sidebar {
-  width: 270px;
-
-  padding: 18px;
-
-  background: var(--panel);
-
-  border-right:
-    1px solid var(--border);
-
-  backdrop-filter: blur(20px);
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 14px;
-
-  z-index: 5;
+  width:270px;
+  padding:18px;
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:5;
 }
 
 .logo {
-  display: flex;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:21px;
+  font-weight:bold;
+}
 
-  align-items: center;
-
-  gap: 12px;
-
-  font-size: 21px;
-
-  font-weight: bold;
+.logo-cat,
+.avatar {
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
 .logo-cat {
-  width: 44px;
-  height: 44px;
-
-  display: grid;
-
-  place-items: center;
-
-  border-radius: 15px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-
-  font-size: 26px;
+  width:44px;
+  height:44px;
+  border-radius:15px;
+  font-size:26px;
 }
 
 .new-chat,
 .arcade-button {
-  border: 0;
-
-  border-radius: 14px;
-
-  padding: 13px;
-
-  color: white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-
-  font-weight: bold;
-
-  cursor: pointer;
+  border:0;
+  border-radius:14px;
+  padding:13px;
+  color:white;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-weight:bold;
 }
 
 .arcade-button {
-  background:
-    linear-gradient(
-      135deg,
-      #ff8a3d,
-      #e74d91
-    );
+  background:linear-gradient(135deg,#ff8a3d,#e74d91);
 }
 
 .history-title {
-  color: var(--muted);
-
-  font-size: 11px;
-
-  font-weight: bold;
-
-  letter-spacing: 1px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
 .history {
-  flex: 1;
-
-  overflow-y: auto;
+  flex:1;
+  overflow-y:auto;
 }
 
 .history-item {
-  padding: 11px;
-
-  margin-bottom: 7px;
-
-  border-radius: 12px;
-
-  cursor: pointer;
-
-  color: var(--muted);
-
-  font-size: 13px;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
+  padding:11px;
+  margin-bottom:7px;
+  border-radius:12px;
+  cursor:pointer;
+  color:var(--muted);
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .history-item:hover {
-  background: var(--panel2);
-
-  color: var(--text);
+  background:var(--panel2);
+  color:var(--text);
 }
 
 .sidebar-buttons {
-  display: flex;
-
-  gap: 8px;
+  display:flex;
+  gap:8px;
 }
 
 .small-button {
-  flex: 1;
-
-  padding: 10px 5px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 12px;
-
-  color: var(--text);
-
-  background: var(--panel2);
-
-  cursor: pointer;
+  flex:1;
+  padding:10px 5px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--text);
+  background:var(--panel2);
 }
-
 
 /* =====================================================
    THEME MENU
 ===================================================== */
 
 .theme-menu {
-  position: absolute;
-
-  left: 18px;
-
-  bottom: 70px;
-
-  width: 234px;
-
-  padding: 12px;
-
-  background: var(--panel);
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 16px;
-
-  backdrop-filter: blur(20px);
-
-  display: none;
-
-  z-index: 20;
+  position:absolute;
+  left:18px;
+  bottom:70px;
+  width:234px;
+  padding:12px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  backdrop-filter:blur(20px);
+  display:none;
+  z-index:20;
 }
 
 .theme-menu.open {
-  display: block;
+  display:block;
 }
 
 .theme-menu h3 {
-  margin: 4px 5px 10px;
-
-  font-size: 13px;
+  margin:4px 5px 10px;
+  font-size:13px;
 }
 
 .theme-option {
-  width: 100%;
-
-  border: 0;
-
-  padding: 11px;
-
-  margin: 4px 0;
-
-  border-radius: 11px;
-
-  text-align: left;
-
-  color: var(--text);
-
-  background: var(--panel2);
-
-  cursor: pointer;
+  width:100%;
+  border:0;
+  padding:11px;
+  margin:4px 0;
+  border-radius:11px;
+  text-align:left;
+  color:var(--text);
+  background:var(--panel2);
 }
-
-.theme-option:hover {
-  outline:
-    1px solid var(--accent);
-}
-
 
 /* =====================================================
-   MAIN
+   MAIN CHAT
 ===================================================== */
 
 .main {
-  flex: 1;
-
-  min-width: 0;
-
-  display: flex;
-
-  flex-direction: column;
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
 }
 
 header {
-  height: 76px;
-
-  padding: 14px 22px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-  border-bottom:
-    1px solid var(--border);
-
-  background: var(--panel);
-
-  backdrop-filter: blur(20px);
+  height:76px;
+  padding:14px 22px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  border-bottom:1px solid var(--border);
+  background:var(--panel);
+  backdrop-filter:blur(20px);
 }
 
 .avatar {
-  width: 48px;
-  height: 48px;
-
-  display: grid;
-
-  place-items: center;
-
-  border-radius: 15px;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-
-  font-size: 28px;
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  font-size:28px;
 }
 
 .header-text h1 {
-  margin: 0;
-
-  font-size: 19px;
+  margin:0;
+  font-size:19px;
 }
 
 .header-text span {
-  color: #55dc8a;
-
-  font-size: 10px;
-
-  font-weight: bold;
+  color:#55dc8a;
+  font-size:10px;
+  font-weight:bold;
 }
 
 .shoe-meter {
-  margin-left: auto;
-
-  padding: 8px 12px;
-
-  border-radius: 999px;
-
-  border:
-    1px solid rgba(255,180,100,.25);
-
-  background:
-    rgba(255,160,70,.08);
-
-  color: #d99049;
-
-  font-size: 11px;
+  margin-left:auto;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,180,100,.25);
+  background:rgba(255,160,70,.08);
+  color:#d99049;
+  font-size:11px;
 }
 
-
-/* =====================================================
-   MESSAGES
-===================================================== */
-
 #messages {
-  flex: 1;
-
-  overflow-y: auto;
-
-  padding: 28px;
+  flex:1;
+  overflow-y:auto;
+  padding:28px;
 }
 
 .message {
-  max-width: 78%;
-
-  margin: 13px 0;
-
-  padding: 14px 17px;
-
-  border-radius: 20px;
-
-  line-height: 1.5;
-
-  white-space: pre-wrap;
-
-  overflow-wrap: anywhere;
+  max-width:78%;
+  margin:13px 0;
+  padding:14px 17px;
+  border-radius:20px;
+  line-height:1.5;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
 
 .user {
-  margin-left: auto;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--user1),
-      var(--user2)
-    );
-
-  color: white;
-
-  border-bottom-right-radius: 6px;
+  margin-left:auto;
+  background:linear-gradient(135deg,var(--user1),var(--user2));
+  color:white;
+  border-bottom-right-radius:6px;
 }
 
 .cat {
-  background: var(--panel2);
-
-  border:
-    1px solid var(--border);
-
-  border-bottom-left-radius: 6px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-bottom-left-radius:6px;
 }
 
 .cat-label {
-  font-weight: bold;
-
-  margin-bottom: 6px;
+  font-weight:bold;
+  margin-bottom:6px;
 }
 
-
-/* =====================================================
-   INPUT
-===================================================== */
-
 .bottom {
-  padding: 15px 22px 20px;
-
-  border-top:
-    1px solid var(--border);
-
-  background: var(--panel);
-
-  backdrop-filter: blur(20px);
+  padding:15px 22px 20px;
+  border-top:1px solid var(--border);
+  background:var(--panel);
+  backdrop-filter:blur(20px);
 }
 
 .input-row {
-  display: flex;
-
-  gap: 10px;
+  display:flex;
+  gap:10px;
 }
 
 #input {
-  flex: 1;
-
-  min-width: 0;
-
-  padding: 15px 17px;
-
-  border-radius: 15px;
-
-  border:
-    1px solid var(--border);
-
-  outline: none;
-
-  color: var(--text);
-
-  background: var(--panel2);
-
-  font-size: 15px;
-}
-
-#input:focus {
-  border-color: var(--accent);
+  flex:1;
+  min-width:0;
+  padding:15px 17px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  outline:none;
+  color:var(--text);
+  background:var(--panel2);
 }
 
 .send {
-  width: 90px;
-
-  border: 0;
-
-  border-radius: 15px;
-
-  color: white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-
-  font-weight: bold;
-
-  cursor: pointer;
+  width:90px;
+  border:0;
+  border-radius:15px;
+  color:white;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-weight:bold;
 }
 
 .hint {
-  text-align: center;
-
-  color: var(--muted);
-
-  font-size: 10px;
-
-  margin-top: 8px;
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:8px;
 }
-
 
 /* =====================================================
    ARCADE
 ===================================================== */
 
 .arcade {
-  display: none;
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 30;
-
-  background:
-    rgba(5,3,12,.82);
-
-  backdrop-filter: blur(15px);
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 20px;
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:30;
+  background:rgba(5,3,12,.84);
+  backdrop-filter:blur(15px);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
 
 .arcade.open {
-  display: flex;
+  display:flex;
 }
 
-.game-card {
-  width: min(850px, 100%);
-
-  height: min(650px, 90vh);
-
-  display: flex;
-
-  flex-direction: column;
-
-  overflow: hidden;
-
-  border-radius: 25px;
-
-  border:
-    1px solid var(--border);
-
-  background: var(--panel);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.5);
+.arcade-card {
+  width:min(950px,100%);
+  height:min(720px,92vh);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border-radius:25px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
 }
 
-.game-header {
-  padding: 18px 22px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 12px;
-
-  border-bottom:
-    1px solid var(--border);
+.arcade-header {
+  display:flex;
+  align-items:center;
+  padding:18px 22px;
+  gap:12px;
+  border-bottom:1px solid var(--border);
 }
 
-.game-header h2 {
-  margin: 0;
-
-  font-size: 20px;
+.arcade-header h2 {
+  margin:0;
 }
 
 .close-game {
-  margin-left: auto;
-
-  width: 38px;
-  height: 38px;
-
-  border: 0;
-
-  border-radius: 12px;
-
-  color: var(--text);
-
-  background: var(--panel2);
-
-  cursor: pointer;
-
-  font-size: 18px;
+  margin-left:auto;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:12px;
+  color:var(--text);
+  background:var(--panel2);
 }
 
-.game-info {
-  display: flex;
-
-  justify-content: center;
-
-  gap: 25px;
-
-  padding: 15px;
-
-  font-weight: bold;
-
-  border-bottom:
-    1px solid var(--border);
+.arcade-tabs {
+  display:flex;
+  gap:8px;
+  padding:12px 18px;
+  border-bottom:1px solid var(--border);
 }
 
-.game-info span {
-  color: var(--accent);
+.arcade-tab {
+  padding:9px 14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--text);
+  background:var(--panel2);
+}
+
+.arcade-tab.active {
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+}
+
+.arcade-view {
+  flex:1;
+  overflow:auto;
+  padding:20px;
+}
+
+.game-list {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.game-card {
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--panel2);
+}
+
+.game-card-icon {
+  font-size:38px;
+}
+
+.game-card h3 {
+  margin:10px 0 5px;
+}
+
+.game-card p {
+  margin:0 0 15px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.play-button {
+  width:100%;
+  padding:11px;
+  border:0;
+  border-radius:12px;
+  color:white;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+.leaderboard-table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding:12px 9px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+}
+
+.leaderboard-table th {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.player-name-box {
+  max-width:500px;
+  margin:auto;
+  padding:30px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--panel2);
+}
+
+.player-name-box input {
+  width:100%;
+  padding:13px;
+  margin:15px 0;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+}
+
+.game-screen {
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.game-stats {
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:12px;
+  font-weight:bold;
+}
+
+.game-stats span {
+  color:var(--accent);
 }
 
 .game-board {
-  flex: 1;
-
-  position: relative;
-
-  margin: 18px;
-
-  overflow: hidden;
-
-  border-radius: 20px;
-
-  border:
-    2px solid var(--border);
-
+  flex:1;
+  position:relative;
+  overflow:hidden;
+  margin:12px;
+  border-radius:20px;
+  border:2px solid var(--border);
   background:
-    radial-gradient(
-      circle at 20% 20%,
-      rgba(155,98,255,.18),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(93,124,255,.18),
-      transparent 30%
-    ),
+    radial-gradient(circle at 20% 20%,rgba(155,98,255,.18),transparent 30%),
+    radial-gradient(circle at 80% 70%,rgba(93,124,255,.18),transparent 30%),
     var(--panel2);
 }
 
-.mouse {
-  position: absolute;
-
-  width: 54px;
-  height: 54px;
-
-  border: 0;
-
-  background: transparent;
-
-  cursor: pointer;
-
-  font-size: 40px;
-
-  user-select: none;
-
-  transition: transform .08s;
+.target {
+  position:absolute;
+  border:0;
+  background:transparent;
+  font-size:42px;
+  cursor:pointer;
+  user-select:none;
+  transition:transform .08s;
 }
 
-.mouse:hover {
-  transform: scale(1.2);
+.target:hover {
+  transform:scale(1.2);
 }
 
 .game-message {
-  min-height: 55px;
-
-  margin: 0 20px 18px;
-
-  padding: 13px 16px;
-
-  border-radius: 15px;
-
-  background: var(--panel2);
-
-  border:
-    1px solid var(--border);
-
-  text-align: center;
-
-  color: var(--text);
+  min-height:55px;
+  margin:0 20px 12px;
+  padding:13px;
+  border-radius:15px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  text-align:center;
 }
 
 .start-game {
-  align-self: center;
-
-  margin: 0 0 20px;
-
-  padding: 13px 25px;
-
-  border: 0;
-
-  border-radius: 14px;
-
-  color: white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff8a3d,
-      #e74d91
-    );
-
-  font-weight: bold;
-
-  cursor: pointer;
+  align-self:center;
+  margin:0 0 18px;
+  padding:13px 25px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  background:linear-gradient(135deg,#ff8a3d,#e74d91);
+  font-weight:bold;
 }
 
+/* =====================================================
+   NAME PROMPT
+===================================================== */
+
+.name-overlay {
+  position:absolute;
+  inset:0;
+  z-index:50;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(10px);
+  padding:20px;
+}
+
+.name-overlay.open {
+  display:flex;
+}
+
+.name-box {
+  width:min(450px,100%);
+  padding:28px;
+  border-radius:22px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  text-align:center;
+}
+
+.name-box input {
+  width:100%;
+  padding:14px;
+  margin:14px 0;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--text);
+}
+
+.name-box button {
+  padding:12px 20px;
+  border:0;
+  border-radius:12px;
+  color:white;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
 
 /* =====================================================
    SECRET CAT
 ===================================================== */
 
 .secret-cat {
-  position: fixed;
-
-  right: 18px;
-  bottom: 18px;
-
-  width: 45px;
-  height: 45px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius: 50%;
-
-  background: var(--panel);
-
-  backdrop-filter: blur(12px);
-
-  font-size: 25px;
-
-  cursor: pointer;
-
-  opacity: .3;
-
-  transition: .2s;
-
-  z-index: 999;
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:45px;
+  height:45px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:var(--panel);
+  backdrop-filter:blur(12px);
+  font-size:25px;
+  opacity:.3;
+  transition:.2s;
+  z-index:999;
 }
 
 .secret-cat:hover {
-  opacity: 1;
-
-  transform:
-    scale(1.15)
-    rotate(-6deg);
+  opacity:1;
+  transform:scale(1.15) rotate(-6deg);
 }
 
 .secret-cat.meowing {
-  animation:
-    catMeow .5s ease;
+  animation:catMeow .5s ease;
 }
 
 @keyframes catMeow {
-
-  0% {
-    transform: scale(1);
-  }
-
-  30% {
-    transform:
-      scale(1.35)
-      rotate(-8deg);
-  }
-
-  60% {
-    transform:
-      scale(.9)
-      rotate(8deg);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-
+  0% { transform:scale(1); }
+  30% { transform:scale(1.35) rotate(-8deg); }
+  60% { transform:scale(.9) rotate(8deg); }
+  100% { transform:scale(1); }
 }
-
-.secret-meow-bubble {
-  position: fixed;
-
-  right: 70px;
-  bottom: 70px;
-
-  padding: 10px 15px;
-
-  border-radius: 15px;
-
-  background: var(--panel);
-
-  color: var(--text);
-
-  border:
-    1px solid var(--border);
-
-  backdrop-filter: blur(12px);
-
-  font-weight: bold;
-
-  z-index: 1000;
-
-  box-shadow:
-    0 5px 20px rgba(0,0,0,.25);
-
-  animation:
-    meowBubble .2s ease;
-}
-
-@keyframes meowBubble {
-
-  from {
-    opacity: 0;
-
-    transform:
-      scale(.7)
-      translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      scale(1)
-      translateY(0);
-  }
-
-}
-
 
 /* =====================================================
    MOBILE
 ===================================================== */
 
-@media (max-width: 700px) {
-
+@media(max-width:700px) {
   .sidebar {
-    display: none;
+    display:none;
   }
 
   .shoe-meter {
-    display: none;
+    display:none;
   }
 
   #messages {
-    padding: 16px;
+    padding:16px;
   }
 
   .message {
-    max-width: 90%;
+    max-width:90%;
   }
 
   .secret-cat {
-    bottom: 80px;
+    bottom:80px;
   }
 
-  .game-card {
-    height: 90vh;
+  .arcade-card {
+    height:92vh;
   }
-
-  .game-info {
-    gap: 12px;
-
-    font-size: 13px;
-  }
-
 }
-
 </style>
 </head>
 
-
 <body class="theme-purple">
 
-
-<!-- =====================================================
-     PILLOW WALL
-===================================================== -->
-
 <div class="pillow-wall">
-
   <div class="pillow" style="--rotation:-2deg"></div>
   <div class="pillow" style="--rotation:2deg"></div>
   <div class="pillow" style="--rotation:-1deg"></div>
@@ -1177,158 +811,73 @@ header {
   <div class="pillow" style="--rotation:3deg"></div>
   <div class="pillow" style="--rotation:-2deg"></div>
   <div class="pillow" style="--rotation:1deg"></div>
-
-  <div class="pillow" style="--rotation:2deg"></div>
-  <div class="pillow" style="--rotation:-1deg"></div>
-  <div class="pillow" style="--rotation:3deg"></div>
-  <div class="pillow" style="--rotation:-2deg"></div>
-  <div class="pillow" style="--rotation:1deg"></div>
-  <div class="pillow" style="--rotation:-3deg"></div>
-
 </div>
 
-
-<!-- =====================================================
-     APP
-===================================================== -->
-
 <div class="app">
-
-
-  <!-- SIDEBAR -->
 
   <aside class="sidebar">
 
     <div class="logo">
-
-      <div class="logo-cat">
-        🐈
-      </div>
-
+      <div class="logo-cat">🐈</div>
       Cat.AI
-
     </div>
 
-
-    <button
-      class="new-chat"
-      onclick="newChat()">
-
+    <button class="new-chat" onclick="newChat()">
       🐾 New Chat
-
     </button>
 
-
-    <button
-      class="arcade-button"
-      onclick="openArcade()">
-
+    <button class="arcade-button" onclick="openArcade()">
       🎮 Cat Arcade
-
     </button>
-
 
     <div class="history-title">
       CHAT HISTORY
     </div>
 
-
-    <div
-      id="history"
-      class="history">
-    </div>
-
+    <div id="history" class="history"></div>
 
     <div class="sidebar-buttons">
-
-      <button
-        class="small-button"
-        onclick="toggleThemeMenu()">
-
+      <button class="small-button" onclick="toggleThemeMenu()">
         🎨 Themes
-
       </button>
 
-
-      <button
-        class="small-button"
-        onclick="clearHistory()">
-
+      <button class="small-button" onclick="clearHistory()">
         🗑️ Clear
-
       </button>
-
     </div>
 
+    <div id="themeMenu" class="theme-menu">
+      <h3>🎨 Cat.AI Themes</h3>
 
-    <div
-      id="themeMenu"
-      class="theme-menu">
-
-      <h3>
-        🎨 Cat.AI Themes
-      </h3>
-
-      <button
-        class="theme-option"
-        onclick="setTheme('og')">
-
+      <button class="theme-option" onclick="setTheme('og')">
         🩶 OG
-
       </button>
 
-      <button
-        class="theme-option"
-        onclick="setTheme('purple')">
-
+      <button class="theme-option" onclick="setTheme('purple')">
         💜 Purple Shade
-
       </button>
 
-      <button
-        class="theme-option"
-        onclick="setTheme('yarn')">
-
+      <button class="theme-option" onclick="setTheme('yarn')">
         🧶 Yarn Texture
-
       </button>
 
-      <button
-        class="theme-option"
-        onclick="setTheme('pillow')">
-
+      <button class="theme-option" onclick="setTheme('pillow')">
         🛏️ Pillow Wall
-
       </button>
-
     </div>
 
   </aside>
 
-
-  <!-- MAIN CHAT -->
-
   <main class="main">
-
 
     <header>
 
-      <div class="avatar">
-        🐈
-      </div>
+      <div class="avatar">🐈</div>
 
       <div class="header-text">
-
-        <h1>
-          Cat.AI
-        </h1>
-
-        <span>
-          ● BRAIN ONLINE
-        </span>
-
+        <h1>Cat.AI</h1>
+        <span>● BRAIN ONLINE</span>
       </div>
-
 
       <div class="shoe-meter">
         👟 SHOES: SUSPICIOUS
@@ -1336,9 +885,7 @@ header {
 
     </header>
 
-
     <div id="messages"></div>
-
 
     <div class="bottom">
 
@@ -1350,16 +897,11 @@ header {
           autocomplete="off"
         >
 
-        <button
-          class="send"
-          onclick="sendMessage()">
-
+        <button class="send" onclick="sendMessage()">
           MEOW
-
         </button>
 
       </div>
-
 
       <div class="hint">
         Enter to send • Cat.AI is watching the shoes
@@ -1371,116 +913,84 @@ header {
 
 </div>
 
-
-<!-- =====================================================
-     SECRET CAT
-===================================================== -->
-
-<button
-  class="secret-cat"
-  onclick="secretMeow()"
-  aria-label="Secret cat">
-
+<button class="secret-cat" onclick="secretMeow()">
   🐈
-
 </button>
 
 
 <!-- =====================================================
-     ARCADE WINDOW
+     ARCADE
 ===================================================== -->
 
-<div
-  id="arcade"
-  class="arcade">
+<div id="arcade" class="arcade">
 
+  <div class="arcade-card">
 
-  <div class="game-card">
-
-
-    <div class="game-header">
-
-      <div style="font-size:30px">
-        🐭
-      </div>
+    <div class="arcade-header">
+      <div style="font-size:32px">🐈</div>
 
       <div>
-
-        <h2>
-          Catch the Mouse!
-        </h2>
-
-        <div
-          style="
-            font-size:11px;
-            color:var(--muted);
-          ">
-
-          Catch 20 mice in 1 minute!
-
+        <h2>Cat.AI Arcade</h2>
+        <div style="font-size:11px;color:var(--muted)">
+          Games • Scores • Achievements
         </div>
-
       </div>
 
+      <button class="close-game" onclick="closeArcade()">
+        ✕
+      </button>
+    </div>
+
+    <div class="arcade-tabs">
 
       <button
-        class="close-game"
-        onclick="closeArcade()">
+        id="gamesTab"
+        class="arcade-tab active"
+        onclick="showArcadeTab('games')">
+        🎮 Games
+      </button>
 
-        ✕
-
+      <button
+        id="leaderboardTab"
+        class="arcade-tab"
+        onclick="showArcadeTab('leaderboard')">
+        🏆 Leaderboard
       </button>
 
     </div>
 
+    <div id="arcadeView" class="arcade-view"></div>
 
-    <div class="game-info">
+  </div>
 
-      <div>
-        Mice:
-        <span id="score">
-          0
-        </span>
-        / 20
-      </div>
-
-      <div>
-        Time:
-        <span id="timer">
-          60
-        </span>
-        s
-      </div>
-
-    </div>
+</div>
 
 
-    <div
-      id="gameBoard"
-      class="game-board">
+<!-- =====================================================
+     NAME OVERLAY
+===================================================== -->
 
-    </div>
+<div id="nameOverlay" class="name-overlay">
 
+  <div class="name-box">
 
-    <div
-      id="gameMessage"
-      class="game-message">
+    <h2>🐈 Who are you?</h2>
 
-      🐈 Cat.AI:
-      Ready to hunt some mice?
+    <p>
+      Enter a display name for the Cat.AI Arcade.
+    </p>
 
-    </div>
+    <input
+      id="playerName"
+      maxlength="20"
+      placeholder="Cookie"
+    >
 
+    <br>
 
-    <button
-      id="startGameButton"
-      class="start-game"
-      onclick="startMouseGame()">
-
-      🐭 START GAME
-
+    <button onclick="savePlayerName()">
+      MEOW, LET'S PLAY!
     </button>
-
 
   </div>
 
@@ -1494,9 +1004,23 @@ header {
 ===================================================== */
 
 let currentChat = {
-  id: Date.now(),
-  title: "New Chat",
-  messages: []
+  id:Date.now(),
+  title:"New Chat",
+  messages:[]
+};
+
+let playerName =
+  localStorage.getItem("catAIPlayerName") || "";
+
+let selectedGame = null;
+
+let gameState = {
+  running:false,
+  score:0,
+  time:60,
+  startedAt:0,
+  timer:null,
+  target:null
 };
 
 
@@ -1513,26 +1037,179 @@ const messages =
 const historyBox =
   document.getElementById("history");
 
-const themeMenu =
-  document.getElementById("themeMenu");
-
 const arcade =
   document.getElementById("arcade");
 
-const gameBoard =
-  document.getElementById("gameBoard");
+const arcadeView =
+  document.getElementById("arcadeView");
 
-const scoreElement =
-  document.getElementById("score");
+const nameOverlay =
+  document.getElementById("nameOverlay");
 
-const timerElement =
-  document.getElementById("timer");
+const playerNameInput =
+  document.getElementById("playerName");
 
-const gameMessage =
-  document.getElementById("gameMessage");
 
-const startGameButton =
-  document.getElementById("startGameButton");
+/* =====================================================
+   CHAT
+===================================================== */
+
+function addMessage(text,type,save=true) {
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "message " + type;
+
+  if(type === "cat") {
+
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "cat-label";
+
+    label.textContent =
+      "🐈 Cat.AI";
+
+    div.appendChild(label);
+
+    div.appendChild(
+      document.createTextNode(text)
+    );
+
+  } else {
+
+    div.textContent = text;
+
+  }
+
+  messages.appendChild(div);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+  if(save) {
+
+    currentChat.messages.push({
+      text,
+      type
+    });
+
+    if(
+      type === "user" &&
+      currentChat.title === "New Chat"
+    ) {
+
+      currentChat.title =
+        text.slice(0,30) +
+        (text.length > 30 ? "..." : "");
+
+    }
+
+    saveChat();
+  }
+}
+
+
+function showWelcome() {
+
+  addMessage(
+    "MEOW! New chat detected! What are we talking about?",
+    "cat"
+  );
+
+}
+
+
+async function sendMessage() {
+
+  const text =
+    input.value.trim();
+
+  if(!text) return;
+
+  addMessage(text,"user");
+
+  input.value = "";
+
+  const thinking =
+    document.createElement("div");
+
+  thinking.className =
+    "message cat";
+
+  thinking.innerHTML = `
+    <div class="cat-label">
+      🐈 Cat.AI
+    </div>
+    Cat.AI is thinking... 🧠
+  `;
+
+  messages.appendChild(thinking);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+  try {
+
+    const response =
+      await fetch("/chat",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          message:text
+        })
+      });
+
+    const data =
+      await response.json();
+
+    const reply =
+      data.reply ||
+      "MRRP! My brain exploded! 🐈";
+
+    thinking.innerHTML = `
+      <div class="cat-label">
+        🐈 Cat.AI
+      </div>
+    `;
+
+    thinking.appendChild(
+      document.createTextNode(reply)
+    );
+
+    currentChat.messages.push({
+      text:reply,
+      type:"cat"
+    });
+
+    saveChat();
+
+  } catch(error) {
+
+    thinking.innerHTML = `
+      <div class="cat-label">
+        🐈 Cat.AI
+      </div>
+      MRRP! I can't reach my brain! 🧠💥
+    `;
+
+  }
+}
+
+
+input.addEventListener(
+  "keydown",
+  e => {
+    if(e.key === "Enter") {
+      sendMessage();
+    }
+  }
+);
 
 
 /* =====================================================
@@ -1541,52 +1218,30 @@ const startGameButton =
 
 function saveChat() {
 
-  if (
-    currentChat.messages.length === 0
-  ) {
+  if(!currentChat.messages.length)
     return;
-  }
-
 
   const chats =
     JSON.parse(
-      localStorage.getItem(
-        "catAIChats"
-      ) || "[]"
+      localStorage.getItem("catAIChats") || "[]"
     );
-
 
   const index =
     chats.findIndex(
-      chat =>
-        chat.id === currentChat.id
+      chat => chat.id === currentChat.id
     );
 
-
-  if (index >= 0) {
-
-    chats[index] =
-      currentChat;
-
-  } else {
-
-    chats.unshift(
-      currentChat
-    );
-
-  }
-
+  if(index >= 0)
+    chats[index] = currentChat;
+  else
+    chats.unshift(currentChat);
 
   localStorage.setItem(
     "catAIChats",
-    JSON.stringify(
-      chats.slice(0, 30)
-    )
+    JSON.stringify(chats.slice(0,30))
   );
 
-
   loadHistory();
-
 }
 
 
@@ -1594,45 +1249,29 @@ function loadHistory() {
 
   const chats =
     JSON.parse(
-      localStorage.getItem(
-        "catAIChats"
-      ) || "[]"
+      localStorage.getItem("catAIChats") || "[]"
     );
 
-
   historyBox.innerHTML = "";
-
 
   chats.forEach(chat => {
 
     const item =
-      document.createElement(
-        "div"
-      );
-
+      document.createElement("div");
 
     item.className =
       "history-item";
 
-
     item.textContent =
       "🐾 " +
-      (
-        chat.title ||
-        "Untitled Chat"
-      );
-
+      (chat.title || "Untitled Chat");
 
     item.onclick =
       () => loadChat(chat.id);
 
-
-    historyBox.appendChild(
-      item
-    );
+    historyBox.appendChild(item);
 
   });
-
 }
 
 
@@ -1640,42 +1279,25 @@ function loadChat(id) {
 
   const chats =
     JSON.parse(
-      localStorage.getItem(
-        "catAIChats"
-      ) || "[]"
+      localStorage.getItem("catAIChats") || "[]"
     );
-
 
   const chat =
-    chats.find(
-      c => c.id === id
-    );
+    chats.find(c => c.id === id);
 
+  if(!chat) return;
 
-  if (!chat) {
-    return;
-  }
-
-
-  currentChat =
-    chat;
-
+  currentChat = chat;
 
   messages.innerHTML = "";
 
-
-  currentChat.messages.forEach(
-    message => {
-
-      addMessage(
-        message.text,
-        message.type,
-        false
-      );
-
-    }
-  );
-
+  currentChat.messages.forEach(message => {
+    addMessage(
+      message.text,
+      message.type,
+      false
+    );
+  });
 }
 
 
@@ -1683,306 +1305,27 @@ function newChat() {
 
   saveChat();
 
-
   currentChat = {
-    id: Date.now(),
-    title: "New Chat",
-    messages: []
+    id:Date.now(),
+    title:"New Chat",
+    messages:[]
   };
-
 
   messages.innerHTML = "";
 
-
   showWelcome();
-
 }
 
 
 function clearHistory() {
 
-  if (
-    !confirm(
-      "Delete all saved Cat.AI chats?"
-    )
-  ) {
+  if(!confirm("Delete all saved Cat.AI chats?"))
     return;
-  }
 
-
-  localStorage.removeItem(
-    "catAIChats"
-  );
-
+  localStorage.removeItem("catAIChats");
 
   loadHistory();
-
 }
-
-
-/* =====================================================
-   CHAT UI
-===================================================== */
-
-function showWelcome() {
-
-  addMessage(
-    "MEOW! New chat detected! What are we talking about?",
-    "cat",
-    true
-  );
-
-}
-
-
-function addMessage(
-  text,
-  type,
-  save = true
-) {
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-
-  div.className =
-    "message " + type;
-
-
-  if (type === "cat") {
-
-    const label =
-      document.createElement(
-        "div"
-      );
-
-
-    label.className =
-      "cat-label";
-
-
-    label.textContent =
-      "🐈 Cat.AI";
-
-
-    div.appendChild(
-      label
-    );
-
-
-    div.appendChild(
-      document.createTextNode(
-        text
-      )
-    );
-
-  } else {
-
-    div.textContent =
-      text;
-
-  }
-
-
-  messages.appendChild(
-    div
-  );
-
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-
-  if (save) {
-
-    currentChat.messages.push({
-      text,
-      type
-    });
-
-
-    if (
-      type === "user" &&
-      currentChat.title === "New Chat"
-    ) {
-
-      currentChat.title =
-        text.slice(0, 30) +
-        (
-          text.length > 30
-            ? "..."
-            : ""
-        );
-
-    }
-
-
-    saveChat();
-
-  }
-
-}
-
-
-/* =====================================================
-   SEND CHAT MESSAGE
-===================================================== */
-
-async function sendMessage() {
-
-  const text =
-    input.value.trim();
-
-
-  if (!text) {
-    return;
-  }
-
-
-  addMessage(
-    text,
-    "user"
-  );
-
-
-  input.value = "";
-
-
-  const thinking =
-    document.createElement(
-      "div"
-    );
-
-
-  thinking.className =
-    "message cat";
-
-
-  thinking.innerHTML = `
-    <div class="cat-label">
-      🐈 Cat.AI
-    </div>
-
-    <div class="thinking">
-      <i></i>
-      <i></i>
-      <i></i>
-    </div>
-  `;
-
-
-  messages.appendChild(
-    thinking
-  );
-
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-
-  try {
-
-    const response =
-      await fetch(
-        "/chat",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              message: text
-            })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    const reply =
-      data.reply ||
-      "MRRP! My brain went on vacation!";
-
-
-    thinking.innerHTML = "";
-
-
-    const label =
-      document.createElement(
-        "div"
-      );
-
-
-    label.className =
-      "cat-label";
-
-
-    label.textContent =
-      "🐈 Cat.AI";
-
-
-    thinking.appendChild(
-      label
-    );
-
-
-    thinking.appendChild(
-      document.createTextNode(
-        reply
-      )
-    );
-
-
-    currentChat.messages.push({
-      text: reply,
-      type: "cat"
-    });
-
-
-    saveChat();
-
-
-  } catch (error) {
-
-    thinking.innerHTML = `
-      <div class="cat-label">
-        🐈 Cat.AI
-      </div>
-
-      MRRP! I can't reach my brain! 🧠💥
-    `;
-
-  }
-
-}
-
-
-/* =====================================================
-   ENTER TO SEND
-===================================================== */
-
-input.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key === "Enter"
-    ) {
-
-      sendMessage();
-
-    }
-
-  }
-);
 
 
 /* =====================================================
@@ -1991,9 +1334,9 @@ input.addEventListener(
 
 function toggleThemeMenu() {
 
-  themeMenu.classList.toggle(
-    "open"
-  );
+  document
+    .getElementById("themeMenu")
+    .classList.toggle("open");
 
 }
 
@@ -2007,273 +1350,533 @@ function setTheme(theme) {
     "theme-pillow"
   );
 
-
   document.body.classList.add(
     "theme-" + theme
   );
-
 
   localStorage.setItem(
     "catAITheme",
     theme
   );
-
-
-  themeMenu.classList.remove(
-    "open"
-  );
-
 }
 
 
 const savedTheme =
-  localStorage.getItem(
-    "catAITheme"
+  localStorage.getItem("catAITheme");
+
+if(savedTheme)
+  setTheme(savedTheme);
+
+
+/* =====================================================
+   PLAYER NAME
+===================================================== */
+
+function ensurePlayerName(callback) {
+
+  if(playerName) {
+
+    callback();
+
+    return;
+  }
+
+  nameOverlay.classList.add("open");
+
+  playerNameInput.focus();
+
+  window.pendingGame =
+    callback;
+}
+
+
+function savePlayerName() {
+
+  const name =
+    playerNameInput.value.trim();
+
+  if(!name) return;
+
+  playerName =
+    name.slice(0,20);
+
+  localStorage.setItem(
+    "catAIPlayerName",
+    playerName
   );
 
+  nameOverlay.classList.remove("open");
 
-if (savedTheme) {
+  if(window.pendingGame) {
 
-  setTheme(
-    savedTheme
-  );
+    const callback =
+      window.pendingGame;
 
+    window.pendingGame =
+      null;
+
+    callback();
+
+  }
 }
 
 
 /* =====================================================
-   CAT ARCADE
+   ARCADE
 ===================================================== */
 
 function openArcade() {
 
-  arcade.classList.add(
-    "open"
-  );
+  arcade.classList.add("open");
+
+  showArcadeTab("games");
 
 }
 
 
 function closeArcade() {
 
-  arcade.classList.remove(
-    "open"
-  );
+  stopGame();
+
+  arcade.classList.remove("open");
 
 }
 
 
+function showArcadeTab(tab) {
+
+  document
+    .getElementById("gamesTab")
+    .classList.toggle(
+      "active",
+      tab === "games"
+    );
+
+  document
+    .getElementById("leaderboardTab")
+    .classList.toggle(
+      "active",
+      tab === "leaderboard"
+    );
+
+  if(tab === "games")
+    renderGameList();
+  else
+    loadLeaderboard();
+}
+
+
 /* =====================================================
-   MOUSE GAME VARIABLES
+   GAME LIST
 ===================================================== */
 
-let mouseScore = 0;
+function renderGameList() {
 
-let mouseTime = 60;
+  arcadeView.innerHTML = `
+    <div class="game-list">
 
-let mouseTimer = null;
+      <div class="game-card">
+        <div class="game-card-icon">🐭</div>
+        <h3>Catch the Mouse!</h3>
+        <p>Catch 20 mice in 1 minute.</p>
+        <button class="play-button"
+          onclick="startGame('mouse')">
+          PLAY
+        </button>
+      </div>
 
-let mouseRunning = false;
+      <div class="game-card">
+        <div class="game-card-icon">🧶</div>
+        <h3>Yarn Frenzy</h3>
+        <p>Catch as much yarn as possible.</p>
+        <button class="play-button"
+          onclick="startGame('yarn')">
+          PLAY
+        </button>
+      </div>
 
-let mouseElement = null;
+      <div class="game-card">
+        <div class="game-card-icon">🐟</div>
+        <h3>Fish Frenzy</h3>
+        <p>Catch as many fish as possible.</p>
+        <button class="play-button"
+          onclick="startGame('fish')">
+          PLAY
+        </button>
+      </div>
+
+      <div class="game-card">
+        <div class="game-card-icon">👟</div>
+        <h3>Shoe Destroyer</h3>
+        <p>Destroy suspicious footwear.</p>
+        <button class="play-button"
+          onclick="startGame('shoe')">
+          PLAY
+        </button>
+      </div>
+
+      <div class="game-card">
+        <div class="game-card-icon">🪶</div>
+        <h3>Feather Chase</h3>
+        <p>Chase the feather before it escapes.</p>
+        <button class="play-button"
+          onclick="startGame('feather')">
+          PLAY
+        </button>
+      </div>
+
+      <div class="game-card">
+        <div class="game-card-icon">📦</div>
+        <h3>Box Attack</h3>
+        <p>Find toys hidden inside boxes.</p>
+        <button class="play-button"
+          onclick="startGame('box')">
+          PLAY
+        </button>
+      </div>
+
+    </div>
+  `;
+}
 
 
 /* =====================================================
-   START MOUSE GAME
+   START GAME
+===================================================== */
+
+function startGame(type) {
+
+  ensurePlayerName(() => {
+
+    selectedGame = type;
+
+    if(type === "mouse")
+      startMouseGame();
+    else
+      startGenericGame(type);
+
+  });
+}
+
+
+/* =====================================================
+   MOUSE GAME
 ===================================================== */
 
 function startMouseGame() {
 
-  clearInterval(
-    mouseTimer
+  gameState = {
+    running:true,
+    score:0,
+    time:60,
+    startedAt:performance.now(),
+    timer:null,
+    target:null
+  };
+
+  renderGameScreen(
+    "🐭 Catch the Mouse!",
+    "Catch 20 mice in 1 minute!"
   );
 
+  spawnTarget("🐭");
 
-  mouseScore = 0;
+  gameState.timer =
+    setInterval(() => {
 
-  mouseTime = 60;
+      gameState.time--;
 
-  mouseRunning = true;
+      updateGameStats();
 
+      if(gameState.time <= 0) {
 
-  scoreElement.textContent =
-    mouseScore;
+        finishGame(false);
 
+      }
 
-  timerElement.textContent =
-    mouseTime;
-
-
-  gameBoard.innerHTML =
-    "";
-
-
-  startGameButton.disabled =
-    true;
-
-
-  startGameButton.textContent =
-    "🐭 CATCH THEM!";
-
-
-  gameMessage.textContent =
-    "🐈 Cat.AI: GO GO GO! CATCH THOSE MICE!";
-
-
-  spawnMouse();
-
-
-  mouseTimer =
-    setInterval(
-      () => {
-
-        mouseTime--;
-
-        timerElement.textContent =
-          mouseTime;
-
-
-        if (
-          mouseTime <= 0
-        ) {
-
-          endMouseGame(
-            false
-          );
-
-        }
-
-      },
-      1000
-    );
-
+    },1000);
 }
 
 
 /* =====================================================
-   SPAWN MOUSE
+   GENERIC GAMES
 ===================================================== */
 
-function spawnMouse() {
+function startGenericGame(type) {
 
-  if (
-    !mouseRunning
-  ) {
-    return;
-  }
+  const configs = {
 
+    yarn:{
+      icon:"🧶",
+      title:"Yarn Frenzy",
+      description:"Catch as much yarn as possible!",
+      time:30,
+      goal:50
+    },
 
-  if (
-    mouseElement
-  ) {
+    fish:{
+      icon:"🐟",
+      title:"Fish Frenzy",
+      description:"Catch as many fish as possible!",
+      time:30,
+      goal:30
+    },
 
-    mouseElement.remove();
+    shoe:{
+      icon:"👟",
+      title:"Shoe Destroyer",
+      description:"DESTROY THE SUSPICIOUS FOOTWEAR!",
+      time:30,
+      goal:50
+    },
 
-  }
+    feather:{
+      icon:"🪶",
+      title:"Feather Chase",
+      description:"Catch the feather!",
+      time:30,
+      goal:25
+    },
 
+    box:{
+      icon:"📦",
+      title:"Box Attack",
+      description:"Find the toys!",
+      time:30,
+      goal:20
+    }
 
-  const mouse =
-    document.createElement(
-      "button"
-    );
+  };
 
+  const config =
+    configs[type];
 
-  mouse.className =
-    "mouse";
+  gameState = {
+    running:true,
+    score:0,
+    time:config.time,
+    startedAt:performance.now(),
+    timer:null,
+    target:null,
+    goal:config.goal,
+    type
+  };
 
-
-  mouse.textContent =
-    "🐭";
-
-
-  mouse.setAttribute(
-    "aria-label",
-    "Catch mouse"
+  renderGameScreen(
+    `${config.icon} ${config.title}`,
+    config.description
   );
 
+  spawnTarget(config.icon);
+
+  gameState.timer =
+    setInterval(() => {
+
+      gameState.time--;
+
+      updateGameStats();
+
+      if(gameState.time <= 0)
+        finishGame(false);
+
+    },1000);
+}
+
+
+/* =====================================================
+   GAME SCREEN
+===================================================== */
+
+function renderGameScreen(title,description) {
+
+  arcadeView.innerHTML = `
+
+    <div class="game-screen">
+
+      <div style="
+        text-align:center;
+        margin-bottom:5px;
+      ">
+
+        <h2>${title}</h2>
+
+        <div style="
+          color:var(--muted);
+          font-size:13px;
+        ">
+          ${description}
+        </div>
+
+      </div>
+
+      <div class="game-stats">
+
+        <div>
+          Score:
+          <span id="gameScore">
+            0
+          </span>
+        </div>
+
+        <div>
+          Time:
+          <span id="gameTime">
+            ${gameState.time}
+          </span>
+        </div>
+
+      </div>
+
+      <div
+        id="gameBoard"
+        class="game-board">
+      </div>
+
+      <div
+        id="gameMessage"
+        class="game-message">
+
+        🐈 Cat.AI:
+        ${gameStartMessage()}
+
+      </div>
+
+      <button
+        class="start-game"
+        onclick="stopGame();renderGameList()">
+
+        ← EXIT GAME
+
+      </button>
+
+    </div>
+  `;
+}
+
+
+function gameStartMessage() {
+
+  if(selectedGame === "shoe")
+    return "HISS! DESTROY THE FOOTWEAR!";
+
+  return `GO ${playerName.toUpperCase()}! GET IT!`;
+}
+
+
+/* =====================================================
+   TARGET
+===================================================== */
+
+function spawnTarget(icon) {
+
+  if(!gameState.running)
+    return;
+
+  const board =
+    document.getElementById("gameBoard");
+
+  if(!board)
+    return;
+
+  if(gameState.target)
+    gameState.target.remove();
+
+  const target =
+    document.createElement("button");
+
+  target.className =
+    "target";
+
+  target.textContent =
+    icon;
 
   const maxX =
     Math.max(
       0,
-      gameBoard.clientWidth - 65
+      board.clientWidth - 65
     );
-
 
   const maxY =
     Math.max(
       0,
-      gameBoard.clientHeight - 65
+      board.clientHeight - 65
     );
 
+  target.style.left =
+    Math.random() * maxX + "px";
 
-  mouse.style.left =
-    Math.random() *
-    maxX +
-    "px";
+  target.style.top =
+    Math.random() * maxY + "px";
+
+  target.onclick =
+    hitTarget;
+
+  board.appendChild(target);
+
+  gameState.target =
+    target;
+}
 
 
-  mouse.style.top =
-    Math.random() *
-    maxY +
-    "px";
+function hitTarget() {
 
+  if(!gameState.running)
+    return;
 
-  mouse.onclick =
-    catchMouse;
+  gameState.score++;
 
+  updateGameStats();
 
-  gameBoard.appendChild(
-    mouse
+  playMeow();
+
+  const goal =
+    selectedGame === "mouse"
+      ? 20
+      : gameState.goal;
+
+  if(gameState.score >= goal) {
+
+    finishGame(true);
+
+    return;
+  }
+
+  updateEncouragement();
+
+  const icons = {
+    yarn:"🧶",
+    fish:"🐟",
+    shoe:"👟",
+    feather:"🪶",
+    box:"📦",
+    mouse:"🐭"
+  };
+
+  spawnTarget(
+    icons[selectedGame]
   );
-
-
-  mouseElement =
-    mouse;
-
 }
 
 
 /* =====================================================
-   CATCH MOUSE
+   GAME STATS
 ===================================================== */
 
-function catchMouse() {
+function updateGameStats() {
 
-  if (
-    !mouseRunning
-  ) {
-    return;
-  }
+  const score =
+    document.getElementById("gameScore");
 
+  const time =
+    document.getElementById("gameTime");
 
-  mouseScore++;
+  if(score)
+    score.textContent =
+      gameState.score;
 
-
-  scoreElement.textContent =
-    mouseScore;
-
-
-  playTinyMeow();
-
-
-  if (
-    mouseScore >= 20
-  ) {
-
-    endMouseGame(
-      true
-    );
-
-    return;
-
-  }
-
-
-  updateCatEncouragement();
-
-
-  spawnMouse();
-
+  if(time)
+    time.textContent =
+      gameState.time;
 }
 
 
@@ -2281,291 +1884,434 @@ function catchMouse() {
    CAT.AI ENCOURAGEMENT
 ===================================================== */
 
-async function updateCatEncouragement() {
-
-  /*
-    We only ask Groq at milestones,
-    so the game doesn't spam the API.
-  */
+async function updateEncouragement() {
 
   const milestones =
-    [1, 5, 10, 15, 18, 19];
+    selectedGame === "mouse"
+      ? [1,5,10,15,18,19]
+      : [5,10,20,30,40];
 
-
-  if (
+  if(
     !milestones.includes(
-      mouseScore
+      gameState.score
     )
-  ) {
-
+  )
     return;
 
-  }
+  const message =
+    document.getElementById(
+      "gameMessage"
+    );
 
+  if(!message)
+    return;
 
-  gameMessage.textContent =
+  message.textContent =
     "🐈 Cat.AI is thinking... 🧠";
-
 
   try {
 
     const response =
-      await fetch(
-        "/chat",
-        {
-          method: "POST",
+      await fetch("/chat",{
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+        body:JSON.stringify({
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
+          message:
+            `You are Cat.AI encouraging ${playerName} during a minigame. They have ${gameState.score} points and ${gameState.time} seconds left. Give ONE very short excited cat-like encouragement. Maximum 15 words. No question.`
 
-          body:
-            JSON.stringify({
-
-              message:
-                `You are Cat.AI encouraging a player in a minigame called Catch the Mouse. The player has caught ${mouseScore} out of 20 mice and has ${mouseTime} seconds left. Give ONE very short excited cat-like encouragement. Maximum 15 words. Do not ask a question. Do not mention being an AI.`
-
-            })
-
-        }
-      );
-
+        })
+      });
 
     const data =
       await response.json();
 
-
-    if (
-      data.reply
-    ) {
-
-      gameMessage.textContent =
-        "🐈 Cat.AI: " +
-        data.reply;
-
-    }
-
-  } catch (error) {
-
-    /*
-      If Groq isn't available,
-      the game still works.
-    */
-
-    const fallback =
-      getFallbackEncouragement();
-
-
-    gameMessage.textContent =
+    message.textContent =
       "🐈 Cat.AI: " +
-      fallback;
+      (
+        data.reply ||
+        fallbackEncouragement()
+      );
+
+  } catch {
+
+    message.textContent =
+      "🐈 Cat.AI: " +
+      fallbackEncouragement();
 
   }
+}
 
+
+function fallbackEncouragement() {
+
+  if(selectedGame === "shoe")
+    return "HISS! DESTROY MORE SHOES!";
+
+  if(gameState.score >= 18)
+    return "MRRP! ALMOST THERE!";
+
+  if(gameState.score >= 10)
+    return "MEOW! KEEP GOING!";
+
+  return "PURR! NICE CATCH!";
 }
 
 
 /* =====================================================
-   FALLBACK ENCOURAGEMENT
+   FINISH GAME
 ===================================================== */
 
-function getFallbackEncouragement() {
+async function finishGame(won) {
 
-  if (
-    mouseScore >= 18
-  ) {
+  if(!gameState.running)
+    return;
 
-    return "MRRP! ALMOST THERE! DON'T LET THOSE MICE ESCAPE!";
-
-  }
-
-
-  if (
-    mouseScore >= 15
-  ) {
-
-    return "PURR! FIFTEEN! YOU'RE A MOUSE-CATCHING MACHINE!";
-
-  }
-
-
-  if (
-    mouseScore >= 10
-  ) {
-
-    return "MEOW! HALFWAY THERE! KEEP GOING!";
-
-  }
-
-
-  if (
-    mouseScore >= 5
-  ) {
-
-    return "MRRP! FIVE MICE! YOU'RE GETTING FAST!";
-
-  }
-
-
-  return "MEOW! GET THAT MOUSE!";
-
-}
-
-
-/* =====================================================
-   END GAME
-===================================================== */
-
-function endMouseGame(won) {
-
-  mouseRunning =
+  gameState.running =
     false;
-
 
   clearInterval(
-    mouseTimer
+    gameState.timer
   );
 
+  if(gameState.target)
+    gameState.target.remove();
 
-  mouseTimer =
-    null;
+  const completionTime =
+    Math.round(
+      (performance.now() -
+       gameState.startedAt) / 1000
+    );
 
+  const message =
+    document.getElementById(
+      "gameMessage"
+    );
 
-  if (
-    mouseElement
-  ) {
+  if(won) {
 
-    mouseElement.remove();
-
-    mouseElement =
-      null;
-
-  }
-
-
-  startGameButton.disabled =
-    false;
-
-
-  startGameButton.textContent =
-    "🐭 PLAY AGAIN";
-
-
-  if (won) {
-
-    gameMessage.textContent =
-      "🐈 Cat.AI: MEOW!!! YOU CAUGHT ALL 20 MICE! 🎉";
+    message.textContent =
+      `🐈 Cat.AI: MEOW!!! ${playerName.toUpperCase()} DID IT! 🎉`;
 
     playWinSound();
 
   } else {
 
-    gameMessage.textContent =
-      `🐈 Cat.AI: Time's up! You caught ${mouseScore}/20 mice!`;
+    message.textContent =
+      `🐈 Cat.AI: Time's up! ${gameState.score} points!`;
 
   }
 
+  await submitScore(
+    gameState.score,
+    completionTime,
+    won
+  );
+
+  const button =
+    document.querySelector(
+      ".start-game"
+    );
+
+  if(button) {
+
+    button.textContent =
+      "🏆 VIEW LEADERBOARD";
+
+    button.onclick =
+      () => showArcadeTab("leaderboard");
+
+  }
 }
 
 
 /* =====================================================
-   TINY MEOW SOUND
+   SUBMIT SCORE
 ===================================================== */
 
-function playTinyMeow() {
+async function submitScore(
+  score,
+  time,
+  won
+) {
+
+  try {
+
+    await fetch(
+      "/api/scores",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+
+        body:JSON.stringify({
+
+          name:playerName,
+          game:selectedGame,
+          score,
+          time,
+          won
+
+        })
+      }
+    );
+
+  } catch(error) {
+
+    console.error(
+      "Score submission failed:",
+      error
+    );
+
+  }
+}
+
+
+/* =====================================================
+   LEADERBOARD
+===================================================== */
+
+async function loadLeaderboard() {
+
+  arcadeView.innerHTML = `
+    <h2>🏆 Leaderboard</h2>
+
+    <p style="color:var(--muted)">
+      Loading the world's cats...
+    </p>
+  `;
+
+  try {
+
+    const response =
+      await fetch(
+        `/api/leaderboard?game=${encodeURIComponent(
+          selectedGame || "mouse"
+        )}`
+      );
+
+    const data =
+      await response.json();
+
+    const rows =
+      data.scores || [];
+
+    arcadeView.innerHTML = `
+
+      <h2>
+        🏆 ${
+          gameTitle(
+            selectedGame || "mouse"
+          )
+        }
+      </h2>
+
+      <p style="color:var(--muted)">
+        Global Cat.AI Arcade leaderboard
+      </p>
+
+      <table class="leaderboard-table">
+
+        <thead>
+
+          <tr>
+            <th>#</th>
+            <th>PLAYER</th>
+            <th>SCORE</th>
+            <th>TIME</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${
+            rows.length
+              ? rows.map(
+                  (row,index) => `
+
+                    <tr>
+
+                      <td>
+                        ${
+                          index === 0
+                            ? "👑"
+                            : index + 1
+                        }
+                      </td>
+
+                      <td>
+                        ${escapeHtml(row.name)}
+                      </td>
+
+                      <td>
+                        ${row.score}
+                      </td>
+
+                      <td>
+                        ${row.time}s
+                      </td>
+
+                    </tr>
+
+                  `
+                ).join("")
+              : `
+                <tr>
+                  <td colspan="4">
+                    No scores yet.
+                    Be the first cat!
+                  </td>
+                </tr>
+              `
+          }
+
+        </tbody>
+
+      </table>
+    `;
+
+  } catch(error) {
+
+    arcadeView.innerHTML = `
+      <h2>🏆 Leaderboard</h2>
+
+      <p>
+        MRRP! The leaderboard server
+        isn't responding yet. 🐈
+      </p>
+    `;
+
+  }
+}
+
+
+function gameTitle(game) {
+
+  const titles = {
+    mouse:"Catch the Mouse",
+    yarn:"Yarn Frenzy",
+    fish:"Fish Frenzy",
+    shoe:"Shoe Destroyer",
+    feather:"Feather Chase",
+    box:"Box Attack"
+  };
+
+  return titles[game] || "Cat.AI Arcade";
+
+}
+
+
+function escapeHtml(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+}
+
+
+/* =====================================================
+   GAME CONTROL
+===================================================== */
+
+function stopGame() {
+
+  gameState.running =
+    false;
+
+  clearInterval(
+    gameState.timer
+  );
+
+  gameState.timer =
+    null;
+
+  if(gameState.target) {
+
+    gameState.target.remove();
+
+    gameState.target =
+      null;
+
+  }
+}
+
+
+/* =====================================================
+   SOUND
+===================================================== */
+
+function playMeow() {
 
   const AudioContext =
     window.AudioContext ||
     window.webkitAudioContext;
 
-
-  if (!AudioContext) {
+  if(!AudioContext)
     return;
-  }
-
 
   const audio =
     new AudioContext();
 
-
-  const oscillator =
+  const osc =
     audio.createOscillator();
-
 
   const gain =
     audio.createGain();
 
-
-  oscillator.type =
+  osc.type =
     "sine";
 
-
-  oscillator.frequency.setValueAtTime(
+  osc.frequency.setValueAtTime(
     650,
     audio.currentTime
   );
 
-
-  oscillator.frequency.exponentialRampToValueAtTime(
+  osc.frequency.exponentialRampToValueAtTime(
     900,
     audio.currentTime + .08
   );
 
-
-  oscillator.frequency.exponentialRampToValueAtTime(
+  osc.frequency.exponentialRampToValueAtTime(
     420,
     audio.currentTime + .22
   );
-
 
   gain.gain.setValueAtTime(
     .001,
     audio.currentTime
   );
 
-
   gain.gain.exponentialRampToValueAtTime(
     .18,
     audio.currentTime + .02
   );
-
 
   gain.gain.exponentialRampToValueAtTime(
     .001,
     audio.currentTime + .22
   );
 
+  osc.connect(gain);
+  gain.connect(audio.destination);
 
-  oscillator.connect(
-    gain
-  );
+  osc.start();
 
-
-  gain.connect(
-    audio.destination
-  );
-
-
-  oscillator.start();
-
-
-  oscillator.stop(
+  osc.stop(
     audio.currentTime + .22
   );
-
-
-  setTimeout(
-    () => audio.close(),
-    400
-  );
-
 }
 
-
-/* =====================================================
-   WIN SOUND
-===================================================== */
 
 function playWinSound() {
 
@@ -2573,90 +2319,51 @@ function playWinSound() {
     window.AudioContext ||
     window.webkitAudioContext;
 
-
-  if (!AudioContext) {
+  if(!AudioContext)
     return;
-  }
-
 
   const audio =
     new AudioContext();
 
+  [523,659,784].forEach(
+    (frequency,index) => {
 
-  const notes =
-    [523, 659, 784];
-
-
-  notes.forEach(
-    (frequency, index) => {
-
-      const oscillator =
+      const osc =
         audio.createOscillator();
-
 
       const gain =
         audio.createGain();
-
 
       const start =
         audio.currentTime +
         index * .12;
 
-
-      oscillator.type =
-        "sine";
-
-
-      oscillator.frequency.value =
+      osc.frequency.value =
         frequency;
-
 
       gain.gain.setValueAtTime(
         .001,
         start
       );
 
-
       gain.gain.exponentialRampToValueAtTime(
         .2,
         start + .02
       );
-
 
       gain.gain.exponentialRampToValueAtTime(
         .001,
         start + .18
       );
 
+      osc.connect(gain);
+      gain.connect(audio.destination);
 
-      oscillator.connect(
-        gain
-      );
-
-
-      gain.connect(
-        audio.destination
-      );
-
-
-      oscillator.start(
-        start
-      );
-
-
-      oscillator.stop(
-        start + .18
-      );
+      osc.start(start);
+      osc.stop(start + .18);
 
     }
   );
-
-
-  setTimeout(
-    () => audio.close(),
-    700
-  );
-
 }
 
 
@@ -2671,52 +2378,46 @@ function secretMeow() {
       ".secret-cat"
     );
 
-
-  cat.classList.remove(
-    "meowing"
-  );
-
+  cat.classList.remove("meowing");
 
   void cat.offsetWidth;
 
+  cat.classList.add("meowing");
 
-  cat.classList.add(
-    "meowing"
-  );
-
+  playMeow();
 
   const bubble =
-    document.createElement(
-      "div"
-    );
-
-
-  bubble.className =
-    "secret-meow-bubble";
-
+    document.createElement("div");
 
   bubble.textContent =
     "MEOW! 🐈";
 
+  bubble.style.cssText = `
+    position:fixed;
+    right:70px;
+    bottom:70px;
+    padding:10px 15px;
+    border-radius:15px;
+    background:var(--panel);
+    color:var(--text);
+    border:1px solid var(--border);
+    z-index:1000;
+    font-weight:bold;
+  `;
 
   document.body.appendChild(
     bubble
   );
 
-
   setTimeout(
     () => bubble.remove(),
     1200
   );
-
-
-  playTinyMeow();
-
 }
 
 
 /* =====================================================
-   START
+   STARTUP
 ===================================================== */
 
 loadHistory();
