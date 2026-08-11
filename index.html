@@ -840,10 +840,11 @@ header {
   margin-top: 8px;
 }
 
-/* =====================================================
-   SECRET CAT
-===================================================== */
+<!-- =====================================================
+     SECRET CAT
+===================================================== -->
 
+<style>
 .secret-cat {
   position: fixed;
 
@@ -853,8 +854,7 @@ header {
   width: 45px;
   height: 45px;
 
-  border:
-    1px solid var(--border);
+  border: 1px solid var(--border);
 
   border-radius: 50%;
 
@@ -900,6 +900,171 @@ header {
   }
 }
 
+.secret-meow-bubble {
+  position: fixed;
+
+  right: 70px;
+  bottom: 70px;
+
+  padding: 10px 15px;
+
+  border-radius: 15px;
+
+  background: var(--panel);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  backdrop-filter: blur(12px);
+
+  font-weight: bold;
+
+  z-index: 1000;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,.25);
+
+  animation: meowBubble .2s ease;
+}
+
+@keyframes meowBubble {
+  from {
+    opacity: 0;
+    transform: scale(.7) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+</style>
+
+<button
+  class="secret-cat"
+  onclick="secretMeow()"
+  aria-label="Secret cat">
+
+  🐈
+
+</button>
+
+<script>
+function secretMeow() {
+
+  const cat =
+    document.querySelector(".secret-cat");
+
+
+  /* Make the tiny cat bounce */
+
+  cat.classList.remove("meowing");
+
+  void cat.offsetWidth;
+
+  cat.classList.add("meowing");
+
+
+  /* Make the cat say MEOW */
+
+  const bubble =
+    document.createElement("div");
+
+  bubble.className =
+    "secret-meow-bubble";
+
+  bubble.textContent =
+    "MEOW! 🐈";
+
+  document.body.appendChild(bubble);
+
+
+  setTimeout(() => {
+    bubble.remove();
+  }, 1200);
+
+
+  /* Create a silly little meow sound */
+
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+  if (!AudioContext) return;
+
+  const audio =
+    new AudioContext();
+
+  const oscillator =
+    audio.createOscillator();
+
+  const gain =
+    audio.createGain();
+
+
+  oscillator.type = "sine";
+
+
+  /* Start low */
+
+  oscillator.frequency.setValueAtTime(
+    500,
+    audio.currentTime
+  );
+
+
+  /* Go UP like a meow */
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    850,
+    audio.currentTime + 0.12
+  );
+
+
+  /* Then drop back down */
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    350,
+    audio.currentTime + 0.5
+  );
+
+
+  /* Volume */
+
+  gain.gain.setValueAtTime(
+    0.001,
+    audio.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.3,
+    audio.currentTime + 0.04
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    0.001,
+    audio.currentTime + 0.5
+  );
+
+
+  oscillator.connect(gain);
+
+  gain.connect(audio.destination);
+
+
+  oscillator.start();
+
+  oscillator.stop(
+    audio.currentTime + 0.5
+  );
+
+
+  setTimeout(() => {
+    audio.close();
+  }, 800);
+
+}
+</script>
 /* =====================================================
    MOBILE
 ===================================================== */
