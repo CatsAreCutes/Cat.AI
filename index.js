@@ -732,17 +732,8 @@ You are Cat.AI.
 
       const data =
         await response.json();
-
-
-      const reply =
-        data
-          ?.choices
-          ?.0
-          ?.message
-          ?.content
-          ?.trim();
-
-
+const reply =
+  data?.choices?.[0]?.message?.content?.trim();
       if (!reply) {
 
         return res.json({
