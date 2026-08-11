@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cat.AI</title>
+<title>Cat.AI 🐈</title>
 
 <style>
 * {
@@ -14,7 +13,7 @@
 :root {
   --text:#f8f3ff;
   --muted:#aaa0bd;
-  --panel:rgba(25,18,42,.92);
+  --panel:rgba(25,18,42,.9);
   --panel2:rgba(255,255,255,.07);
   --border:rgba(255,255,255,.14);
   --accent:#9b62ff;
@@ -34,8 +33,7 @@ body {
     #080611;
 }
 
-button,
-input {
+button,input {
   font:inherit;
 }
 
@@ -48,10 +46,6 @@ button {
   height:100vh;
   display:flex;
 }
-
-/* =========================
-   SIDEBAR
-========================= */
 
 .sidebar {
   width:260px;
@@ -102,25 +96,11 @@ button {
   font-size:11px;
   letter-spacing:1px;
   font-weight:bold;
-  margin-top:4px;
 }
 
 .history {
   flex:1;
-  min-height:0;
-  overflow-y:auto;
-  overflow-x:hidden;
-  padding-right:4px;
-  scrollbar-width:thin;
-}
-
-.history::-webkit-scrollbar {
-  width:8px;
-}
-
-.history::-webkit-scrollbar-thumb {
-  background:rgba(255,255,255,.2);
-  border-radius:10px;
+  overflow:auto;
 }
 
 .history-item {
@@ -129,8 +109,8 @@ button {
   border-radius:10px;
   color:var(--muted);
   cursor:pointer;
-  white-space:nowrap;
   overflow:hidden;
+  white-space:nowrap;
   text-overflow:ellipsis;
 }
 
@@ -139,24 +119,10 @@ button {
   color:var(--text);
 }
 
-.history-controls {
-  display:flex;
-  gap:8px;
+.history-item.active {
+  background:rgba(155,98,255,.2);
+  color:var(--text);
 }
-
-.history-controls button {
-  flex:1;
-  padding:9px;
-  font-size:12px;
-}
-
-.clear-history {
-  background:#713c50;
-}
-
-/* =========================
-   MAIN CHAT
-========================= */
 
 .main {
   flex:1;
@@ -202,20 +168,8 @@ header {
 
 #messages {
   flex:1;
-  min-height:0;
-  overflow-y:auto;
-  overflow-x:hidden;
+  overflow:auto;
   padding:28px;
-  scrollbar-width:thin;
-}
-
-#messages::-webkit-scrollbar {
-  width:10px;
-}
-
-#messages::-webkit-scrollbar-thumb {
-  background:rgba(255,255,255,.2);
-  border-radius:10px;
 }
 
 .message {
@@ -274,66 +228,9 @@ header {
   font-weight:bold;
 }
 
-/* =========================
-   SECRET CAT
-========================= */
-
-.secret-cat {
-  position:fixed;
-  left:8px;
-  top:8px;
-  width:18px;
-  height:18px;
-  padding:0;
-  border:0;
-  background:transparent;
-  opacity:.08;
-  font-size:12px;
-  z-index:500;
-  transition:
-    opacity .2s,
-    transform .2s;
-}
-
-.secret-cat:hover {
-  opacity:.35;
-  transform:scale(1.3);
-}
-
-.secret-bubble {
-  position:fixed;
-  display:none;
-  left:30px;
-  top:8px;
-  z-index:501;
-  max-width:180px;
-  padding:7px 10px;
-  border-radius:12px;
-  background:white;
-  color:#222;
-  font-size:12px;
-  box-shadow:0 4px 18px rgba(0,0,0,.3);
-}
-
-.secret-bubble.show {
-  display:block;
-  animation:pop .2s ease-out;
-}
-
-@keyframes pop {
-  from {
-    opacity:0;
-    transform:scale(.8);
-  }
-  to {
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-/* =========================
+/* =====================================================
    ARCADE
-========================= */
+===================================================== */
 
 .arcade {
   display:none;
@@ -406,7 +303,6 @@ header {
 
 .arcade-view {
   flex:1;
-  min-height:0;
   overflow:auto;
   padding:20px;
 }
@@ -537,10 +433,6 @@ header {
   color:var(--muted);
 }
 
-/* =========================
-   NAME
-========================= */
-
 .name-overlay {
   display:none;
   position:fixed;
@@ -583,12 +475,56 @@ header {
   background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* SECRET CAT
+   Hidden somewhere else instead of being an obvious
+   permanent chat button.
+*/
+
+.secret-cat {
+  position:fixed;
+  right:7px;
+  bottom:7px;
+  z-index:300;
+  width:18px;
+  height:18px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  opacity:.08;
+  font-size:12px;
+  transition:.2s;
+}
+
+.secret-cat:hover {
+  opacity:.5;
+}
+
+.secret-bubble {
+  position:fixed;
+  right:28px;
+  bottom:42px;
+  z-index:301;
+  max-width:220px;
+  padding:9px 12px;
+  border-radius:12px;
+  color:var(--text);
+  background:var(--panel);
+  border:1px solid var(--border);
+  box-shadow:0 8px 30px rgba(0,0,0,.35);
+  font-size:13px;
+  opacity:0;
+  transform:translateY(5px);
+  pointer-events:none;
+  transition:.2s;
+}
+
+.secret-bubble.show {
+  opacity:1;
+  transform:translateY(0);
+}
 
 @media(max-width:700px) {
-
   .sidebar {
     display:none;
   }
@@ -612,10 +548,8 @@ header {
   .arcade-card {
     height:97vh;
   }
-
 }
 </style>
-
 </head>
 
 <body>
@@ -629,36 +563,19 @@ header {
     Cat.AI
   </div>
 
-<button
- class="new-chat"
- onclick="newChat()">
-🐾 New Chat </button>
+  <button class="new-chat" onclick="newChat()">
+    🐾 New Chat
+  </button>
 
-<button
- class="arcade-button"
- onclick="openArcade()">
-🎮 Cat Arcade </button>
+  <button class="arcade-button" onclick="openArcade()">
+    🎮 Cat Arcade
+  </button>
 
   <div class="history-title">
     CHAT HISTORY
   </div>
 
-  <div
-    id="history"
-    class="history">
-  </div>
-
-  <div class="history-controls">
-
-```
-<button
-  class="clear-history"
-  onclick="clearHistory()">
-  🗑 Clear
-</button>
-```
-
-  </div>
+  <div id="history" class="history"></div>
 
 </aside>
 
@@ -669,15 +586,8 @@ header {
   <div class="avatar">🐈</div>
 
   <div class="header-text">
-
-```
-<h1>Cat.AI</h1>
-
-<span>
-  ● BRAIN ONLINE
-</span>
-```
-
+    <h1>Cat.AI</h1>
+    <span>● BRAIN ONLINE</span>
   </div>
 
   <div class="shoe-meter">
@@ -692,106 +602,84 @@ header {
 
   <div class="input-row">
 
-```
-<input
-  id="input"
-  placeholder="Talk to Cat.AI..."
-  autocomplete="off"
->
+    <input
+      id="input"
+      placeholder="Talk to Cat.AI..."
+      autocomplete="off"
+    >
 
-<button
-  class="send"
-  onclick="sendMessage()">
-  SEND
-</button>
-```
+    <button class="send" onclick="sendMessage()">
+      SEND
+    </button>
 
   </div>
 
 </div>
 
 </main>
-
 </div>
 
-<!-- SECRET CAT -->
 
-<button
-class="secret-cat"
-onclick="secretMeow()"
-aria-label="Something secret">
-🐈 </button>
+<!-- =====================================================
+     ARCADE
+===================================================== -->
 
-<div
-  id="secretBubble"
-  class="secret-bubble">
-  hi. you found me.
-</div>
-
-<!-- ARCADE -->
-
-<div
-  id="arcade"
-  class="arcade">
+<div id="arcade" class="arcade">
 
   <div class="arcade-card">
 
-```
-<div class="arcade-header">
+    <div class="arcade-header">
 
-  <div style="font-size:32px">
-    🐈
-  </div>
+      <div style="font-size:32px">
+        🐈
+      </div>
 
-  <div>
+      <div>
+        <h2>Cat.AI Arcade</h2>
+        <div style="font-size:11px;color:var(--muted)">
+          SIX GAMES • GLOBAL SCORES
+        </div>
+      </div>
 
-    <h2>
-      Cat.AI Arcade
-    </h2>
+      <button
+        class="close-game"
+        onclick="closeArcade()">
+        ✕
+      </button>
 
-    <div style="font-size:11px;color:var(--muted)">
-      SIX GAMES • GLOBAL SCORES
+    </div>
+
+    <div class="arcade-tabs">
+
+      <button
+        id="gamesTab"
+        class="arcade-tab active"
+        onclick="showTab('games')">
+        🎮 Games
+      </button>
+
+      <button
+        id="leaderboardTab"
+        class="arcade-tab"
+        onclick="showTab('leaderboard')">
+        🏆 Leaderboard
+      </button>
+
+    </div>
+
+    <div
+      id="arcadeView"
+      class="arcade-view">
     </div>
 
   </div>
 
-  <button
-    class="close-game"
-    onclick="closeArcade()">
-    ✕
-  </button>
-
 </div>
 
-<div class="arcade-tabs">
 
-  <button
-    id="gamesTab"
-    class="arcade-tab active"
-    onclick="showTab('games')">
-    🎮 Games
-  </button>
-
-  <button
-    id="leaderboardTab"
-    class="arcade-tab"
-    onclick="showTab('leaderboard')">
-    🏆 Leaderboard
-  </button>
-
-</div>
-
-<div
-  id="arcadeView"
-  class="arcade-view">
-</div>
-```
-
-  </div>
-
-</div>
-
-<!-- NAME -->
+<!-- =====================================================
+     NAME
+===================================================== -->
 
 <div
   id="nameOverlay"
@@ -799,45 +687,56 @@ aria-label="Something secret">
 
   <div class="name-box">
 
-```
-<h2>
-  Who are you?
-</h2>
+    <h2>🐈 Who are you?</h2>
 
-<p>
-  Pick the name Cat.AI will use.
-</p>
+    <p>
+      Pick the name Cat.AI will use.
+    </p>
 
-<input
-  id="playerName"
-  maxlength="20"
-  placeholder="Cookie"
->
+    <input
+      id="playerName"
+      maxlength="20"
+      placeholder="Cookie"
+    >
 
-<button onclick="saveName()">
-  LET'S PLAY!
-</button>
-```
+    <button onclick="saveName()">
+      MEOW, LET'S PLAY!
+    </button>
 
   </div>
 
 </div>
 
+
+<!-- =====================================================
+     SECRET CAT
+===================================================== -->
+
+<div
+  id="secretBubble"
+  class="secret-bubble">
+</div>
+
+<button
+  class="secret-cat"
+  aria-label="Secret cat"
+  onclick="secretMeow()">
+  🐈
+</button>
+
+
 <script>
 
-/* =========================
+/* =====================================================
    STATE
-========================= */
+===================================================== */
 
 let playerName =
-  localStorage.getItem("catAIPlayerName") || "";
+  localStorage.getItem(
+    "catAIPlayerName"
+  ) || "";
 
 let currentGame = null;
-
-let currentTitle =
-  "New Chat";
-
-let pendingAction = null;
 
 let game = {
   running:false,
@@ -847,14 +746,37 @@ let game = {
   target:null
 };
 
+let pendingAction = null;
 
-/* =========================
-   GAMES
-========================= */
+
+/*
+   Current conversation.
+
+   Each chat is stored like:
+
+   {
+     id,
+     title,
+     date,
+     messages: [
+       { type:"user", text:"hello" },
+       { type:"cat", text:"MEOW!" }
+     ]
+   }
+*/
+
+let currentChatId = null;
+let currentTitle = "New Chat";
+let conversation = [];
+
+
+/* =====================================================
+   SIX GAMES
+===================================================== */
 
 const games = {
 
-  mouse:{
+  mouse: {
     name:"Catch the Mouse!",
     icon:"🐭",
     description:"Catch 20 mice in 1 minute!",
@@ -862,7 +784,7 @@ const games = {
     goal:20
   },
 
-  yarn:{
+  yarn: {
     name:"Yarn Frenzy",
     icon:"🧶",
     description:"Catch 30 balls of yarn!",
@@ -870,7 +792,7 @@ const games = {
     goal:30
   },
 
-  fish:{
+  fish: {
     name:"Fish Frenzy",
     icon:"🐟",
     description:"Catch 25 fish!",
@@ -878,7 +800,7 @@ const games = {
     goal:25
   },
 
-  shoe:{
+  shoe: {
     name:"Shoe Destroyer",
     icon:"👟",
     description:"DESTROY 30 SUSPICIOUS SHOES!",
@@ -886,7 +808,7 @@ const games = {
     goal:30
   },
 
-  feather:{
+  feather: {
     name:"Feather Chase",
     icon:"🪶",
     description:"Catch 25 feathers!",
@@ -894,7 +816,7 @@ const games = {
     goal:25
   },
 
-  box:{
+  box: {
     name:"Box Attack",
     icon:"📦",
     description:"Attack 20 boxes!",
@@ -905,9 +827,9 @@ const games = {
 };
 
 
-/* =========================
+/* =====================================================
    ELEMENTS
-========================= */
+===================================================== */
 
 const messages =
   document.getElementById("messages");
@@ -934,14 +856,324 @@ const secretBubble =
   document.getElementById("secretBubble");
 
 
-/* =========================
-   CHAT
-========================= */
+/* =====================================================
+   CHAT STORAGE
+===================================================== */
 
-function addMessage(text,type) {
+function getChats() {
+
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        "catAIChats"
+      ) || "[]"
+    );
+
+  } catch {
+
+    return [];
+
+  }
+
+}
+
+
+function saveChats(chats) {
+
+  localStorage.setItem(
+    "catAIChats",
+    JSON.stringify(chats)
+  );
+
+}
+
+
+function saveCurrentChat() {
+
+  if(!conversation.length)
+    return;
+
+  const chats =
+    getChats();
+
+  const existingIndex =
+    chats.findIndex(
+      chat =>
+        chat.id === currentChatId
+    );
+
+  const chat = {
+
+    id:
+      currentChatId ||
+      (
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .slice(2)
+      ),
+
+    title:
+      currentTitle,
+
+    date:
+      Date.now(),
+
+    messages:
+      conversation
+
+  };
+
+  currentChatId =
+    chat.id;
+
+  if(existingIndex >= 0) {
+
+    chats[existingIndex] =
+      chat;
+
+  } else {
+
+    chats.unshift(chat);
+
+  }
+
+  /*
+     Newest first.
+  */
+
+  chats.sort(
+    (a,b) =>
+      b.date - a.date
+  );
+
+  /*
+     Keep the most recent 30.
+  */
+
+  saveChats(
+    chats.slice(0,30)
+  );
+
+  loadHistory();
+
+}
+
+
+function loadHistory() {
+
+  const chats =
+    getChats();
+
+  historyBox.innerHTML = "";
+
+  if(!chats.length) {
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+    empty.className =
+      "history-item";
+
+    empty.style.cursor =
+      "default";
+
+    empty.textContent =
+      "No chats yet...";
+
+    historyBox.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+  chats.forEach(
+    chat => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "history-item";
+
+      if(
+        chat.id ===
+        currentChatId
+      ) {
+
+        item.classList.add(
+          "active"
+        );
+
+      }
+
+      item.textContent =
+        "🐾 " +
+        (
+          chat.title ||
+          "New Chat"
+        );
+
+      item.title =
+        chat.title ||
+        "New Chat";
+
+      item.onclick =
+        () =>
+          loadChat(chat.id);
+
+      historyBox.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+function loadChat(id) {
+
+  const chats =
+    getChats();
+
+  const chat =
+    chats.find(
+      item =>
+        item.id === id
+    );
+
+  if(!chat)
+    return;
+
+  stopGame();
+
+  currentChatId =
+    chat.id;
+
+  currentTitle =
+    chat.title ||
+    "New Chat";
+
+  conversation =
+    Array.isArray(
+      chat.messages
+    )
+      ? chat.messages
+      : [];
+
+  messages.innerHTML =
+    "";
+
+  conversation.forEach(
+    item => {
+
+      addMessage(
+        item.text,
+        item.type,
+        false
+      );
+
+    }
+  );
+
+  loadHistory();
+
+}
+
+
+function makeTitle(text) {
+
+  const clean =
+    String(text || "")
+      .replace(/\s+/g," ")
+      .trim();
+
+  if(!clean)
+    return "New Chat";
+
+  return clean.length > 32
+    ? clean.slice(0,32) + "..."
+    : clean;
+
+}
+
+
+/* =====================================================
+   MARKDOWN / CODE-FENCE CLEANUP
+===================================================== */
+
+function cleanAIResponse(text) {
+
+  let result =
+    String(text || "");
+
+  /*
+     Remove Markdown code fences.
+
+     This catches:
+
+     ```
+     text
+     ```
+
+     and:
+
+     ```text
+     text
+     ```
+
+     without touching normal apostrophes
+     or quotation marks.
+  */
+
+  result =
+    result.replace(
+      /```[a-zA-Z0-9_-]*\s*/g,
+      ""
+    );
+
+  result =
+    result.replace(
+      /```/g,
+      ""
+    );
+
+  /*
+     Remove accidental leading/trailing
+     whitespace left behind by fences.
+  */
+
+  return result.trim();
+
+}
+
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+function addMessage(
+  text,
+  type,
+  save = true
+) {
+
+  const cleanText =
+    String(text || "");
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.className =
     "message " + type;
@@ -950,17 +1182,21 @@ function addMessage(text,type) {
 
     div.innerHTML =
       `<div class="cat-label">
-        Cat.AI
+        🐈 Cat.AI
       </div>`;
 
     div.appendChild(
-      document.createTextNode(text)
+      document.createTextNode(
+        cleanAIResponse(
+          cleanText
+        )
+      )
     );
 
   } else {
 
     div.textContent =
-      text;
+      cleanText;
 
   }
 
@@ -968,6 +1204,17 @@ function addMessage(text,type) {
 
   messages.scrollTop =
     messages.scrollHeight;
+
+  if(save) {
+
+    conversation.push({
+      type,
+      text: cleanText
+    });
+
+    saveCurrentChat();
+
+  }
 
 }
 
@@ -980,6 +1227,20 @@ async function sendMessage() {
   if(!text)
     return;
 
+  /*
+     First user message becomes
+     the chat title.
+  */
+
+  if(
+    conversation.length === 0
+  ) {
+
+    currentTitle =
+      makeTitle(text);
+
+  }
+
   addMessage(
     text,
     "user"
@@ -988,18 +1249,27 @@ async function sendMessage() {
   input.value = "";
 
   const thinking =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   thinking.className =
     "message cat";
 
   thinking.innerHTML =
     `<div class="cat-label">
-      Cat.AI
-    </div>
-    Thinking...`;
+      🐈 Cat.AI
+    </div>`;
 
-  messages.appendChild(thinking);
+  thinking.appendChild(
+    document.createTextNode(
+      "Cat.AI is thinking... 🧠"
+    )
+  );
+
+  messages.appendChild(
+    thinking
+  );
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -1024,27 +1294,67 @@ async function sendMessage() {
         }
       );
 
+    if(!response.ok) {
+
+      throw new Error(
+        "Chat request failed"
+      );
+
+    }
+
     const data =
       await response.json();
 
+    const reply =
+      cleanAIResponse(
+        data.reply ||
+        "MEOW!"
+      );
+
     thinking.innerHTML =
       `<div class="cat-label">
-        Cat.AI
+        🐈 Cat.AI
       </div>`;
 
     thinking.appendChild(
       document.createTextNode(
-        data.reply || "I don't have an answer yet."
+        reply
       )
     );
 
+    /*
+       Save the AI response.
+    */
+
+    conversation.push({
+      type:"cat",
+      text:reply
+    });
+
+    saveCurrentChat();
+
   } catch {
+
+    const reply =
+      "MRRP! I can't reach my brain! 🧠💥";
 
     thinking.innerHTML =
       `<div class="cat-label">
-        Cat.AI
-      </div>
-      I can't reach the AI server right now.`;
+        🐈 Cat.AI
+      </div>`;
+
+    thinking.appendChild(
+      document.createTextNode(
+        reply
+      )
+    );
+
+    conversation.push({
+      type:"cat",
+      text:reply
+    });
+
+    saveCurrentChat();
 
   }
 
@@ -1053,104 +1363,56 @@ async function sendMessage() {
 
 input.addEventListener(
   "keydown",
-  event => {
+  e => {
 
-    if(event.key === "Enter")
+    if(e.key === "Enter") {
+
+      e.preventDefault();
+
       sendMessage();
+
+    }
 
   }
 );
 
 
-/* =========================
-   CHAT HISTORY
-========================= */
-
-function saveChat() {
-
-  const chats =
-    JSON.parse(
-      localStorage.getItem("catAIChats") || "[]"
-    );
-
-  chats.unshift({
-    title:currentTitle,
-    date:Date.now()
-  });
-
-  localStorage.setItem(
-    "catAIChats",
-    JSON.stringify(
-      chats.slice(0,100)
-    )
-  );
-
-  loadHistory();
-
-}
-
-
-function loadHistory() {
-
-  const chats =
-    JSON.parse(
-      localStorage.getItem("catAIChats") || "[]"
-    );
-
-  historyBox.innerHTML = "";
-
-  chats.forEach(
-    chat => {
-
-      const item =
-        document.createElement("div");
-
-      item.className =
-        "history-item";
-
-      item.textContent =
-        "🐾 " + chat.title;
-
-      historyBox.appendChild(item);
-
-    }
-  );
-
-}
-
-
-function clearHistory() {
-
-  if(!confirm("Clear all saved chat history?"))
-    return;
-
-  localStorage.removeItem("catAIChats");
-
-  historyBox.innerHTML = "";
-
-}
-
+/* =====================================================
+   NEW CHAT
+===================================================== */
 
 function newChat() {
 
+  stopGame();
+
   messages.innerHTML = "";
+
+  currentChatId =
+    null;
 
   currentTitle =
     "New Chat";
 
+  conversation =
+    [];
+
+  loadHistory();
+
   addMessage(
-    "New chat started. What are we talking about?",
+    "Cat.AI is online. Ask me anything or open the Cat Arcade! 6 Games in the arcade! Yay!",
     "cat"
   );
 
 }
 
 
-/* =========================
+/* =====================================================
    PLAYER NAME
-========================= */
+===================================================== */
 
-function requireName(action) {
+function requireName(
+  action
+) {
 
   if(playerName) {
 
@@ -1163,7 +1425,9 @@ function requireName(action) {
   pendingAction =
     action;
 
-  nameOverlay.classList.add("open");
+  nameOverlay.classList.add(
+    "open"
+  );
 
   playerNameInput.focus();
 
@@ -1175,7 +1439,10 @@ function saveName() {
   const name =
     playerNameInput.value
       .trim()
-      .replace(/[<>]/g,"")
+      .replace(
+        /[<>]/g,
+        ""
+      )
       .slice(0,20);
 
   if(!name)
@@ -1189,7 +1456,9 @@ function saveName() {
     playerName
   );
 
-  nameOverlay.classList.remove("open");
+  nameOverlay.classList.remove(
+    "open"
+  );
 
   if(pendingAction) {
 
@@ -1206,15 +1475,30 @@ function saveName() {
 }
 
 
-/* =========================
+playerNameInput.addEventListener(
+  "keydown",
+  e => {
+
+    if(e.key === "Enter")
+      saveName();
+
+  }
+);
+
+
+/* =====================================================
    ARCADE
-========================= */
+===================================================== */
 
 function openArcade() {
 
-  arcade.classList.add("open");
+  arcade.classList.add(
+    "open"
+  );
 
-  showTab("games");
+  showTab(
+    "games"
+  );
 
 }
 
@@ -1223,7 +1507,9 @@ function closeArcade() {
 
   stopGame();
 
-  arcade.classList.remove("open");
+  arcade.classList.remove(
+    "open"
+  );
 
 }
 
@@ -1252,9 +1538,9 @@ function showTab(tab) {
 }
 
 
-/* =========================
-   GAME MENU
-========================= */
+/* =====================================================
+   SIX GAME MENU
+===================================================== */
 
 function renderGames() {
 
@@ -1296,9 +1582,9 @@ function renderGames() {
 }
 
 
-/* =========================
+/* =====================================================
    START GAME
-========================= */
+===================================================== */
 
 function playGame(id) {
 
@@ -1320,11 +1606,18 @@ function startGame(id) {
     games[id];
 
   game = {
+
     running:true,
+
     score:0,
-    time:config.time,
+
+    time:
+      config.time,
+
     timer:null,
+
     target:null
+
   };
 
   renderGame();
@@ -1339,8 +1632,15 @@ function startGame(id) {
 
         updateStats();
 
-        if(game.time <= 0)
-          finishGame(false);
+        if(
+          game.time <= 0
+        ) {
+
+          finishGame(
+            false
+          );
+
+        }
 
       },
       1000
@@ -1349,9 +1649,9 @@ function startGame(id) {
 }
 
 
-/* =========================
+/* =====================================================
    GAME SCREEN
-========================= */
+===================================================== */
 
 function renderGame() {
 
@@ -1379,14 +1679,18 @@ function renderGame() {
 
         <div>
           Score:
-          <span id="score">0</span>
+          <span id="score">
+            0
+          </span>
           /
           ${config.goal}
         </div>
 
         <div>
           Time:
-          <span id="time">${config.time}</span>
+          <span id="time">
+            ${config.time}
+          </span>
           s
         </div>
 
@@ -1401,6 +1705,7 @@ function renderGame() {
         id="gameMessage"
         class="game-message">
 
+        🐈 Cat.AI:
         Ready, ${escapeHTML(playerName)}?
 
       </div>
@@ -1408,7 +1713,9 @@ function renderGame() {
       <button
         class="exit-button"
         onclick="exitGame()">
+
         ← EXIT GAME
+
       </button>
 
     </div>
@@ -1421,10 +1728,14 @@ function renderGame() {
 function updateStats() {
 
   const score =
-    document.getElementById("score");
+    document.getElementById(
+      "score"
+    );
 
   const time =
-    document.getElementById("time");
+    document.getElementById(
+      "time"
+    );
 
   if(score)
     score.textContent =
@@ -1437,9 +1748,9 @@ function updateStats() {
 }
 
 
-/* =========================
+/* =====================================================
    TARGET
-========================= */
+===================================================== */
 
 function spawnTarget() {
 
@@ -1447,7 +1758,9 @@ function spawnTarget() {
     return;
 
   const board =
-    document.getElementById("gameBoard");
+    document.getElementById(
+      "gameBoard"
+    );
 
   if(!board)
     return;
@@ -1456,7 +1769,9 @@ function spawnTarget() {
     game.target.remove();
 
   const target =
-    document.createElement("button");
+    document.createElement(
+      "button"
+    );
 
   target.className =
     "target";
@@ -1464,30 +1779,42 @@ function spawnTarget() {
   target.textContent =
     games[currentGame].icon;
 
-  target.style.left =
+  const x =
     Math.random() *
     Math.max(
       1,
       board.clientWidth - 60
-    ) + "px";
+    );
 
-  target.style.top =
+  const y =
     Math.random() *
     Math.max(
       1,
       board.clientHeight - 60
-    ) + "px";
+    );
+
+  target.style.left =
+    x + "px";
+
+  target.style.top =
+    y + "px";
 
   target.onclick =
     hitTarget;
 
-  board.appendChild(target);
+  board.appendChild(
+    target
+  );
 
   game.target =
     target;
 
 }
 
+
+/* =====================================================
+   HIT TARGET
+===================================================== */
 
 function hitTarget() {
 
@@ -1505,7 +1832,9 @@ function hitTarget() {
     games[currentGame].goal
   ) {
 
-    finishGame(true);
+    finishGame(
+      true
+    );
 
     return;
 
@@ -1518,14 +1847,16 @@ function hitTarget() {
 }
 
 
-/* =========================
-   ENCOURAGEMENT
-========================= */
+/* =====================================================
+   CAT.AI GAME ENCOURAGEMENT
+===================================================== */
 
 async function catEncouragement() {
 
   const message =
-    document.getElementById("gameMessage");
+    document.getElementById(
+      "gameMessage"
+    );
 
   if(!message)
     return;
@@ -1537,7 +1868,7 @@ async function catEncouragement() {
     return;
 
   message.textContent =
-    "Thinking...";
+    "🐈 Cat.AI is thinking... 🧠";
 
   try {
 
@@ -1545,6 +1876,7 @@ async function catEncouragement() {
       await fetch(
         "/chat",
         {
+
           method:"POST",
 
           headers:{
@@ -1554,9 +1886,12 @@ async function catEncouragement() {
 
           body:
             JSON.stringify({
+
               message:
-                `Encourage ${playerName} during ${games[currentGame].name}. They have ${game.score} points and ${game.time} seconds left. Give one short excited encouragement. Maximum 12 words. Do not say meow.`
+                `You are Cat.AI encouraging ${playerName} during ${games[currentGame].name}. They have ${game.score} points and ${game.time} seconds left. Give one extremely short excited cat-like encouragement. Maximum 12 words.`
+
             })
+
         }
       );
 
@@ -1564,24 +1899,29 @@ async function catEncouragement() {
       await response.json();
 
     message.textContent =
-      data.reply ||
-      "KEEP GOING!";
+      "🐈 Cat.AI: " +
+      cleanAIResponse(
+        data.reply ||
+        "KEEP GOING!"
+      );
 
   } catch {
 
     message.textContent =
-      "KEEP GOING!";
+      "🐈 Cat.AI: KEEP GOING!";
 
   }
 
 }
 
 
-/* =========================
+/* =====================================================
    FINISH
-========================= */
+===================================================== */
 
-async function finishGame(won) {
+async function finishGame(
+  won
+) {
 
   if(!game.running)
     return;
@@ -1597,30 +1937,35 @@ async function finishGame(won) {
     game.target.remove();
 
   const message =
-    document.getElementById("gameMessage");
+    document.getElementById(
+      "gameMessage"
+    );
 
   if(won) {
 
     message.textContent =
-      `${playerName.toUpperCase()} WON! 🎉`;
+      `🐈 Cat.AI: MEOW!!! ${playerName.toUpperCase()} WON! 🎉`;
 
     playWinSound();
 
   } else {
 
     message.textContent =
-      `TIME'S UP! ${game.score} points!`;
+      `🐈 Cat.AI: TIME'S UP! ${game.score} points!`;
 
   }
 
   await submitScore(
     game.score,
-    games[currentGame].time - game.time,
+    games[currentGame].time -
+      game.time,
     won
   );
 
   const button =
-    document.querySelector(".exit-button");
+    document.querySelector(
+      ".exit-button"
+    );
 
   if(button) {
 
@@ -1628,16 +1973,19 @@ async function finishGame(won) {
       "🏆 VIEW LEADERBOARD";
 
     button.onclick =
-      () => showTab("leaderboard");
+      () =>
+        showTab(
+          "leaderboard"
+        );
 
   }
 
 }
 
 
-/* =========================
-   SCORE
-========================= */
+/* =====================================================
+   SCORE SUBMISSION
+===================================================== */
 
 async function submitScore(
   score,
@@ -1650,6 +1998,7 @@ async function submitScore(
     await fetch(
       "/api/scores",
       {
+
         method:"POST",
 
         headers:{
@@ -1659,12 +2008,21 @@ async function submitScore(
 
         body:
           JSON.stringify({
-            name:playerName,
-            game:currentGame,
+
+            name:
+              playerName,
+
+            game:
+              currentGame,
+
             score,
+
             time,
+
             won
+
           })
+
       }
     );
 
@@ -1680,9 +2038,9 @@ async function submitScore(
 }
 
 
-/* =========================
+/* =====================================================
    LEADERBOARD
-========================= */
+===================================================== */
 
 async function renderLeaderboard() {
 
@@ -1715,7 +2073,9 @@ async function renderLeaderboard() {
             <button
               class="play-button"
               onclick="loadScores('${id}')">
+
               VIEW SCORES
+
             </button>
 
           </div>
@@ -1731,7 +2091,9 @@ async function renderLeaderboard() {
 }
 
 
-async function loadScores(id) {
+async function loadScores(
+  id
+) {
 
   arcadeView.innerHTML = `
 
@@ -1765,7 +2127,9 @@ async function loadScores(id) {
       <button
         class="arcade-tab"
         onclick="renderLeaderboard()">
+
         ← All Games
+
       </button>
 
       <h2>
@@ -1775,12 +2139,14 @@ async function loadScores(id) {
       <table class="leaderboard-table">
 
         <thead>
+
           <tr>
             <th>#</th>
             <th>PLAYER</th>
             <th>SCORE</th>
             <th>TIME</th>
           </tr>
+
         </thead>
 
         <tbody>
@@ -1801,7 +2167,9 @@ async function loadScores(id) {
                       </td>
 
                       <td>
-                        ${escapeHTML(row.name)}
+                        ${escapeHTML(
+                          row.name
+                        )}
                       </td>
 
                       <td>
@@ -1820,7 +2188,8 @@ async function loadScores(id) {
               `
                 <tr>
                   <td colspan="4">
-                    No scores yet! Be the first!
+                    No scores yet!
+                    Be the first cat!
                   </td>
                 </tr>
               `
@@ -1841,13 +2210,15 @@ async function loadScores(id) {
       </h2>
 
       <p>
-        I can't reach the leaderboard server.
+        MRRP! I can't reach the leaderboard server!
       </p>
 
       <button
         class="arcade-tab"
         onclick="renderLeaderboard()">
+
         TRY AGAIN
+
       </button>
 
     `;
@@ -1857,9 +2228,9 @@ async function loadScores(id) {
 }
 
 
-/* =========================
+/* =====================================================
    GAME CONTROL
-========================= */
+===================================================== */
 
 function stopGame() {
 
@@ -1894,9 +2265,9 @@ function exitGame() {
 }
 
 
-/* =========================
+/* =====================================================
    SOUND
-========================= */
+===================================================== */
 
 function playMeow() {
 
@@ -1961,64 +2332,70 @@ function playWinSound() {
   const audio =
     new AC();
 
-  [523,659,784,1046].forEach(
-    (freq,i) => {
+  [523,659,784,1046]
+    .forEach(
+      (freq,i) => {
 
-      const osc =
-        audio.createOscillator();
+        const osc =
+          audio.createOscillator();
 
-      const gain =
-        audio.createGain();
+        const gain =
+          audio.createGain();
 
-      const start =
-        audio.currentTime +
-        i * .12;
+        const start =
+          audio.currentTime +
+          i * .12;
 
-      osc.frequency.value =
-        freq;
+        osc.frequency.value =
+          freq;
 
-      gain.gain.setValueAtTime(
-        .001,
-        start
-      );
+        gain.gain.setValueAtTime(
+          .001,
+          start
+        );
 
-      gain.gain.exponentialRampToValueAtTime(
-        .18,
-        start + .02
-      );
+        gain.gain.exponentialRampToValueAtTime(
+          .18,
+          start + .02
+        );
 
-      gain.gain.exponentialRampToValueAtTime(
-        .001,
-        start + .18
-      );
+        gain.gain.exponentialRampToValueAtTime(
+          .001,
+          start + .18
+        );
 
-      osc.connect(gain);
+        osc.connect(gain);
 
-      gain.connect(
-        audio.destination
-      );
+        gain.connect(
+          audio.destination
+        );
 
-      osc.start(start);
+        osc.start(start);
 
-      osc.stop(
-        start + .18
-      );
+        osc.stop(
+          start + .18
+        );
 
-    }
-  );
+      }
+    );
 
 }
 
 
-/* =========================
+/* =====================================================
    SECRET CAT
-========================= */
+===================================================== */
 
 function secretMeow() {
 
-  secretBubble.classList.add("show");
-
   playMeow();
+
+  secretBubble.textContent =
+    "MEOW. You found me. 🐈";
+
+  secretBubble.classList.add(
+    "show"
+  );
 
   clearTimeout(
     window.secretBubbleTimer
@@ -2027,7 +2404,11 @@ function secretMeow() {
   window.secretBubbleTimer =
     setTimeout(
       () => {
-        secretBubble.classList.remove("show");
+
+        secretBubble.classList.remove(
+          "show"
+        );
+
       },
       2500
     );
@@ -2035,14 +2416,18 @@ function secretMeow() {
 }
 
 
-/* =========================
+/* =====================================================
    ESCAPE HTML
-========================= */
+===================================================== */
 
-function escapeHTML(value) {
+function escapeHTML(
+  value
+) {
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.textContent =
     String(value);
@@ -2052,16 +2437,34 @@ function escapeHTML(value) {
 }
 
 
-/* =========================
+/* =====================================================
    STARTUP
-========================= */
+===================================================== */
 
 loadHistory();
 
-addMessage(
-  "Cat.AI is online. Ask me anything or open the Cat Arcade! 6 Games in the arcade! Yay!",
-  "cat"
-);
+/*
+   If there are no saved chats,
+   start the first conversation.
+*/
+
+const savedChats =
+  getChats();
+
+if(savedChats.length) {
+
+  loadChat(
+    savedChats[0].id
+  );
+
+} else {
+
+  addMessage(
+    "Cat.AI is online. Ask me anything or open the Cat Arcade! 6 Games in the arcade! Yay!",
+    "cat"
+  );
+
+}
 
 </script>
 
