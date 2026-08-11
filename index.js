@@ -55,7 +55,7 @@ const server = http.createServer(async (req, res) => {
   // Website
   if (req.method === "GET" && req.url === "/") {
     const file = fs.readFileSync(
-      path.join(__dirname, "public", "index.html")
+      path.join(__dirname, "index.html")
     );
 
     res.writeHead(200, {
@@ -110,7 +110,7 @@ const server = http.createServer(async (req, res) => {
   res.end("Not found");
 });
 
-server.listen(3000, "127.0.0.1", () => {
+server.listen(process.env.PORT || 3000, "0.0.0.0", () => {
   console.log("");
   console.log("🐈 CAT.AI WEBSITE IS ONLINE!");
   console.log("");
