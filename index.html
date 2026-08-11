@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,24 +12,16 @@
 }
 
 :root {
-  --bg: #080611;
-  --panel: rgba(24, 18, 40, 0.88);
-  --panel2: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.12);
   --text: #f8f3ff;
   --muted: #aaa0bd;
-  --purple: #9b62ff;
-  --blue: #5d7cff;
-  --pink: #d66cff;
-}
-
-.light {
-  --bg: #eeeaff;
-  --panel: rgba(255,255,255,0.88);
-  --panel2: rgba(100,70,150,0.08);
-  --border: rgba(70,40,100,0.15);
-  --text: #21152d;
-  --muted: #75687e;
+  --panel: rgba(24, 18, 40, .88);
+  --panel2: rgba(255,255,255,.07);
+  --border: rgba(255,255,255,.13);
+  --accent: #9b62ff;
+  --accent2: #5d7cff;
+  --user1: #7550c9;
+  --user2: #536dd5;
+  --shadow: rgba(0,0,0,.35);
 }
 
 body {
@@ -37,34 +30,103 @@ body {
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--text);
+  background: #080611;
+  transition: background .4s, color .4s;
+}
+
+/* =========================
+   THEMES
+========================= */
+
+/* OG */
+body.theme-og {
+  --text: #eeeeee;
+  --muted: #999999;
+  --panel: #191919;
+  --panel2: #252525;
+  --border: #3a3a3a;
+  --accent: #888888;
+  --accent2: #555555;
+  --user1: #444444;
+  --user2: #303030;
+  --shadow: rgba(0,0,0,.5);
+
+  background: #111111;
+}
+
+/* PURPLE */
+body.theme-purple {
+  --text: #f8f3ff;
+  --muted: #aaa0bd;
+  --panel: rgba(24,18,40,.88);
+  --panel2: rgba(255,255,255,.07);
+  --border: rgba(255,255,255,.13);
+  --accent: #9b62ff;
+  --accent2: #5d7cff;
+  --user1: #7550c9;
+  --user2: #536dd5;
+
   background:
-    radial-gradient(circle at 10% 20%, rgba(155,98,255,.22), transparent 30%),
-    radial-gradient(circle at 90% 80%, rgba(70,110,255,.18), transparent 30%),
-    var(--bg);
+    radial-gradient(circle at 10% 20%, rgba(155,98,255,.25), transparent 30%),
+    radial-gradient(circle at 90% 80%, rgba(70,110,255,.20), transparent 30%),
+    #080611;
 }
 
-/* floating background */
+/* YARN */
+body.theme-yarn {
+  --text: #fff6eb;
+  --muted: #d4bca5;
+  --panel: rgba(74,43,31,.88);
+  --panel2: rgba(255,220,180,.09);
+  --border: rgba(255,220,180,.20);
+  --accent: #ffad68;
+  --accent2: #d87b43;
+  --user1: #c86c3c;
+  --user2: #8e4f32;
 
-.bg-paw {
-  position: fixed;
-  font-size: 60px;
-  opacity: .035;
-  animation: float 12s infinite ease-in-out;
-  pointer-events: none;
+  background-color: #4b2e24;
+
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,.035) 0px,
+      rgba(255,255,255,.035) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(0,0,0,.05) 0px,
+      rgba(0,0,0,.05) 2px,
+      transparent 2px,
+      transparent 8px
+    );
 }
 
-.paw1 { left: 8%; top: 15%; }
-.paw2 { right: 10%; top: 30%; animation-delay: 3s; }
-.paw3 { left: 25%; bottom: 10%; animation-delay: 6s; }
-.paw4 { right: 30%; bottom: 20%; animation-delay: 2s; }
+/* PILLOW */
+body.theme-pillow {
+  --text: #382b40;
+  --muted: #7c6a80;
+  --panel: rgba(255,255,255,.88);
+  --panel2: rgba(255,255,255,.65);
+  --border: rgba(100,70,110,.18);
+  --accent: #bd83dc;
+  --accent2: #8ca8ed;
+  --user1: #b77bd5;
+  --user2: #829ee3;
 
-@keyframes float {
-  50% {
-    transform: translateY(-25px) rotate(8deg);
-  }
+  background-color: #dcd4ea;
+
+  background-image:
+    radial-gradient(circle at 20% 20%, #f8e5ed 0 7%, transparent 8%),
+    radial-gradient(circle at 80% 25%, #d8e5f7 0 8%, transparent 9%),
+    radial-gradient(circle at 35% 75%, #f5e0c7 0 8%, transparent 9%),
+    radial-gradient(circle at 75% 80%, #d5eedb 0 7%, transparent 8%);
 }
 
-/* app */
+/* =========================
+   APP
+========================= */
 
 .app {
   width: 100vw;
@@ -72,12 +134,14 @@ body {
   display: flex;
 }
 
-/* sidebar */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar {
-  width: 260px;
+  width: 270px;
   padding: 18px;
-  background: rgba(10,8,18,.72);
+  background: var(--panel);
   border-right: 1px solid var(--border);
   backdrop-filter: blur(20px);
   display: flex;
@@ -95,14 +159,14 @@ body {
 }
 
 .logo-cat {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  border-radius: 14px;
-  background: linear-gradient(135deg,var(--purple),var(--blue));
-  box-shadow: 0 0 25px rgba(150,90,255,.3);
-  font-size: 25px;
+  border-radius: 15px;
+  background: linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow: 0 0 25px var(--shadow);
+  font-size: 26px;
 }
 
 .new-chat {
@@ -110,7 +174,7 @@ body {
   border-radius: 14px;
   padding: 13px;
   color: white;
-  background: linear-gradient(135deg,var(--purple),var(--blue));
+  background: linear-gradient(135deg,var(--accent),var(--accent2));
   font-weight: bold;
   cursor: pointer;
   transition: .2s;
@@ -123,7 +187,9 @@ body {
 
 .history-title {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
   margin-top: 8px;
 }
 
@@ -133,13 +199,16 @@ body {
 }
 
 .history-item {
-  padding: 10px;
+  padding: 11px;
   margin-bottom: 7px;
   border-radius: 12px;
   cursor: pointer;
   color: var(--muted);
   font-size: 13px;
   transition: .15s;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .history-item:hover {
@@ -154,7 +223,7 @@ body {
 
 .small-button {
   flex: 1;
-  padding: 10px;
+  padding: 10px 5px;
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text);
@@ -162,7 +231,65 @@ body {
   cursor: pointer;
 }
 
-/* main */
+/* =========================
+   THEME MENU
+========================= */
+
+.theme-menu {
+  position: absolute;
+  left: 18px;
+  bottom: 70px;
+  width: 234px;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+  display: none;
+  z-index: 20;
+}
+
+.theme-menu.open {
+  display: block;
+  animation: menuIn .2s ease;
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.theme-menu h3 {
+  margin: 4px 5px 10px;
+  font-size: 13px;
+}
+
+.theme-option {
+  width: 100%;
+  border: 0;
+  padding: 11px;
+  margin: 4px 0;
+  border-radius: 11px;
+  text-align: left;
+  color: var(--text);
+  background: var(--panel2);
+  cursor: pointer;
+}
+
+.theme-option:hover {
+  outline: 1px solid var(--accent);
+}
+
+/* =========================
+   MAIN
+========================= */
 
 .main {
   flex: 1;
@@ -171,7 +298,9 @@ body {
   flex-direction: column;
 }
 
-/* header */
+/* =========================
+   HEADER
+========================= */
 
 header {
   height: 76px;
@@ -180,7 +309,7 @@ header {
   align-items: center;
   gap: 14px;
   border-bottom: 1px solid var(--border);
-  background: rgba(10,8,18,.35);
+  background: var(--panel);
   backdrop-filter: blur(20px);
 }
 
@@ -190,9 +319,8 @@ header {
   display: grid;
   place-items: center;
   border-radius: 15px;
-  background: linear-gradient(135deg,#7545bd,#4f69d9);
+  background: linear-gradient(135deg,var(--accent),var(--accent2));
   font-size: 28px;
-  box-shadow: 0 0 25px rgba(130,80,255,.25);
 }
 
 .header-text h1 {
@@ -201,21 +329,24 @@ header {
 }
 
 .header-text span {
-  color: #6effaa;
-  font-size: 11px;
+  color: #55dc8a;
+  font-size: 10px;
+  font-weight: bold;
 }
 
 .shoe-meter {
   margin-left: auto;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(255,180,100,.2);
-  background: rgba(255,160,70,.07);
-  color: #ffc98e;
+  border: 1px solid rgba(255,180,100,.25);
+  background: rgba(255,160,70,.08);
+  color: #d99049;
   font-size: 11px;
 }
 
-/* chat */
+/* =========================
+   CHAT
+========================= */
 
 #messages {
   flex: 1;
@@ -248,7 +379,8 @@ header {
 
 .user {
   margin-left: auto;
-  background: linear-gradient(135deg,#7550c9,#536dd5);
+  background: linear-gradient(135deg,var(--user1),var(--user2));
+  color: white;
   border-bottom-right-radius: 6px;
 }
 
@@ -260,10 +392,12 @@ header {
 
 .cat-label {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
-/* thinking */
+/* =========================
+   THINKING
+========================= */
 
 .thinking {
   display: flex;
@@ -275,7 +409,7 @@ header {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--purple);
+  background: var(--accent);
   animation: bounce 1s infinite;
 }
 
@@ -294,12 +428,15 @@ header {
   }
 }
 
-/* input */
+/* =========================
+   INPUT
+========================= */
 
 .bottom {
   padding: 15px 22px 20px;
   border-top: 1px solid var(--border);
-  background: rgba(8,6,15,.4);
+  background: var(--panel);
+  backdrop-filter: blur(20px);
 }
 
 .input-row {
@@ -320,8 +457,8 @@ header {
 }
 
 #input:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 18px rgba(150,90,255,.12);
+  border-color: var(--accent);
+  box-shadow: 0 0 18px var(--shadow);
 }
 
 .send {
@@ -329,9 +466,14 @@ header {
   border: 0;
   border-radius: 15px;
   color: white;
-  background: linear-gradient(135deg,var(--purple),var(--blue));
+  background: linear-gradient(135deg,var(--accent),var(--accent2));
   font-weight: bold;
   cursor: pointer;
+  transition: .2s;
+}
+
+.send:hover {
+  transform: scale(1.03);
 }
 
 .hint {
@@ -341,9 +483,115 @@ header {
   margin-top: 8px;
 }
 
-/* mobile */
+/* =========================
+   SECRET CAT
+========================= */
+
+.secret-cat {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+
+  width: 45px;
+  height: 45px;
+
+  border: 1px solid var(--border);
+  border-radius: 50%;
+
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+
+  font-size: 25px;
+  cursor: pointer;
+
+  opacity: .35;
+
+  transition: .2s;
+  z-index: 999;
+}
+
+.secret-cat:hover {
+  opacity: 1;
+  transform: scale(1.15) rotate(-6deg);
+}
+
+.secret-cat.meowing {
+  animation: catMeow .5s ease;
+}
+
+@keyframes catMeow {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+
+  30% {
+    transform: scale(1.35) rotate(-8deg);
+  }
+
+  60% {
+    transform: scale(.9) rotate(8deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* =========================
+   YARN DECORATIONS
+========================= */
+
+.yarn-ball {
+  position: fixed;
+  font-size: 48px;
+  opacity: .18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.yarn1 {
+  left: 30%;
+  top: 15%;
+}
+
+.yarn2 {
+  right: 12%;
+  bottom: 20%;
+}
+
+/* =========================
+   PILLOW CATS
+========================= */
+
+.pillow-cat {
+  position: fixed;
+  font-size: 48px;
+  opacity: .18;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pc1 {
+  left: 35%;
+  top: 12%;
+}
+
+.pc2 {
+  right: 18%;
+  top: 35%;
+}
+
+.pc3 {
+  left: 25%;
+  bottom: 14%;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:700px) {
+
   .sidebar {
     display: none;
   }
@@ -363,98 +611,183 @@ header {
   .message {
     max-width: 90%;
   }
+
+  .secret-cat {
+    bottom: 80px;
+  }
 }
 </style>
+
 </head>
 
-<body>
+<body class="theme-purple">
 
-<div class="bg-paw paw1">🐾</div>
-<div class="bg-paw paw2">🐾</div>
-<div class="bg-paw paw3">🐾</div>
-<div class="bg-paw paw4">🐾</div>
+<!-- Decorative cats/yarn -->
+
+<div class="yarn-ball yarn1">🧶</div>
+<div class="yarn-ball yarn2">🧶</div>
+
+<div class="pillow-cat pc1">🐱</div>
+<div class="pillow-cat pc2">🐱</div>
+<div class="pillow-cat pc3">🐱</div>
 
 <div class="app">
 
+  <!-- SIDEBAR -->
+
   <aside class="sidebar">
 
-    <div class="logo">
-      <div class="logo-cat">🐈</div>
-      Cat.AI
-    </div>
+```
+<div class="logo">
+  <div class="logo-cat">🐈</div>
+  Cat.AI
+</div>
 
-    <button class="new-chat" onclick="newChat()">
-      ＋ New Chat
-    </button>
+<button class="new-chat" onclick="newChat()">
+  ＋ New Chat
+</button>
 
-    <div class="history-title">
-      CHAT HISTORY
-    </div>
+<div class="history-title">
+  CHAT HISTORY
+</div>
 
-    <div id="history" class="history"></div>
+<div id="history" class="history"></div>
 
-    <div class="sidebar-buttons">
-      <button class="small-button" onclick="toggleTheme()">
-        🌙 Theme
-      </button>
+<div class="sidebar-buttons">
 
-      <button class="small-button" onclick="clearHistory()">
-        🗑️ Clear
-      </button>
-    </div>
+  <button class="small-button" onclick="toggleThemeMenu()">
+    🎨 Themes
+  </button>
+
+  <button class="small-button" onclick="clearHistory()">
+    🗑️ Clear
+  </button>
+
+</div>
+
+<!-- THEME MENU -->
+
+<div id="themeMenu" class="theme-menu">
+
+  <h3>🎨 Cat.AI Themes</h3>
+
+  <button
+    class="theme-option"
+    onclick="setTheme('og')">
+    🩶 OG
+  </button>
+
+  <button
+    class="theme-option"
+    onclick="setTheme('purple')">
+    💜 Purple Shade
+  </button>
+
+  <button
+    class="theme-option"
+    onclick="setTheme('yarn')">
+    🧶 Yarn Texture
+  </button>
+
+  <button
+    class="theme-option"
+    onclick="setTheme('pillow')">
+    🛏️ Pillow Wall
+  </button>
+
+</div>
+```
 
   </aside>
 
+  <!-- MAIN -->
+
   <main class="main">
 
-    <header>
+```
+<header>
 
-      <div class="avatar">🐈</div>
+  <div class="avatar">
+    🐈
+  </div>
 
-      <div class="header-text">
-        <h1>Cat.AI</h1>
-        <span>● BRAIN ONLINE</span>
-      </div>
+  <div class="header-text">
 
-      <div class="shoe-meter">
-        👟 SHOES: SUSPICIOUS
-      </div>
+    <h1>Cat.AI</h1>
 
-    </header>
+    <span>
+      ● BRAIN ONLINE
+    </span>
 
-    <div id="messages"></div>
+  </div>
 
-    <div class="bottom">
+  <div class="shoe-meter">
+    👟 SHOES: SUSPICIOUS
+  </div>
 
-      <div class="input-row">
+</header>
 
-        <input
-          id="input"
-          placeholder="Talk to Cat.AI..."
-          autocomplete="off"
-        >
+<div id="messages"></div>
 
-        <button class="send" onclick="sendMessage()">
-          MEOW
-        </button>
+<div class="bottom">
 
-      </div>
+  <div class="input-row">
 
-      <div class="hint">
-        Enter to send • Cat.AI remembers this conversation
-      </div>
+    <input
+      id="input"
+      placeholder="Talk to Cat.AI..."
+      autocomplete="off"
+    >
 
-    </div>
+    <button
+      class="send"
+      onclick="sendMessage()">
+      MEOW
+    </button>
+
+  </div>
+
+  <div class="hint">
+    Enter to send • Cat.AI is watching the shoes
+  </div>
+
+</div>
+```
 
   </main>
 
 </div>
 
+<!-- SECRET CAT -->
+
+<button
+class="secret-cat"
+onclick="secretMeow()"
+aria-label="Secret cat">
+🐈 </button>
+
 <script>
 
-const input = document.getElementById("input");
-const messages = document.getElementById("messages");
-const historyBox = document.getElementById("history");
+/* =========================
+   ELEMENTS
+========================= */
+
+const input =
+  document.getElementById("input");
+
+const messages =
+  document.getElementById("messages");
+
+const historyBox =
+  document.getElementById("history");
+
+const themeMenu =
+  document.getElementById("themeMenu");
+
+
+/* =========================
+   CURRENT CHAT
+========================= */
 
 let currentChat = {
   id: Date.now(),
@@ -463,17 +796,28 @@ let currentChat = {
 };
 
 
-/* -------------------------
+/* =========================
    CHAT HISTORY
-------------------------- */
+========================= */
 
 function saveChat() {
 
+  if (
+    currentChat.messages.length === 0
+  ) {
+    return;
+  }
+
   const chats =
-    JSON.parse(localStorage.getItem("catAIChats") || "[]");
+    JSON.parse(
+      localStorage.getItem("catAIChats")
+      || "[]"
+    );
 
   const index =
-    chats.findIndex(chat => chat.id === currentChat.id);
+    chats.findIndex(
+      chat => chat.id === currentChat.id
+    );
 
   if (index >= 0) {
     chats[index] = currentChat;
@@ -483,7 +827,9 @@ function saveChat() {
 
   localStorage.setItem(
     "catAIChats",
-    JSON.stringify(chats.slice(0, 30))
+    JSON.stringify(
+      chats.slice(0, 30)
+    )
   );
 
   loadHistory();
@@ -493,7 +839,10 @@ function saveChat() {
 function loadHistory() {
 
   const chats =
-    JSON.parse(localStorage.getItem("catAIChats") || "[]");
+    JSON.parse(
+      localStorage.getItem("catAIChats")
+      || "[]"
+    );
 
   historyBox.innerHTML = "";
 
@@ -502,12 +851,15 @@ function loadHistory() {
     const item =
       document.createElement("div");
 
-    item.className = "history-item";
+    item.className =
+      "history-item";
 
     item.textContent =
-      "🐾 " + (chat.title || "Untitled Chat");
+      "🐾 " +
+      (chat.title || "Untitled Chat");
 
-    item.onclick = () => loadChat(chat.id);
+    item.onclick =
+      () => loadChat(chat.id);
 
     historyBox.appendChild(item);
 
@@ -518,29 +870,42 @@ function loadHistory() {
 function loadChat(id) {
 
   const chats =
-    JSON.parse(localStorage.getItem("catAIChats") || "[]");
+    JSON.parse(
+      localStorage.getItem("catAIChats")
+      || "[]"
+    );
 
   const chat =
-    chats.find(c => c.id === id);
+    chats.find(
+      c => c.id === id
+    );
 
-  if (!chat) return;
+  if (!chat) {
+    return;
+  }
 
   currentChat = chat;
 
   messages.innerHTML = "";
 
-  currentChat.messages.forEach(message => {
+  currentChat.messages.forEach(
+    message => {
 
-    addMessage(
-      message.text,
-      message.type,
-      false
-    );
+      addMessage(
+        message.text,
+        message.type,
+        false
+      );
 
-  });
+    }
+  );
 
 }
 
+
+/* =========================
+   NEW CHAT
+========================= */
 
 function newChat() {
 
@@ -559,23 +924,37 @@ function newChat() {
 }
 
 
+/* =========================
+   CLEAR HISTORY
+========================= */
+
 function clearHistory() {
 
-  if (!confirm("Delete all saved Cat.AI chats?")) {
+  if (
+    !confirm(
+      "Delete all saved Cat.AI chats?"
+    )
+  ) {
     return;
   }
 
-  localStorage.removeItem("catAIChats");
+  localStorage.removeItem(
+    "catAIChats"
+  );
 
   loadHistory();
 
 }
 
 
+/* =========================
+   WELCOME
+========================= */
+
 function showWelcome() {
 
   addMessage(
-    "🐈 Cat.AI\n\nMEOW! New chat detected! What are we talking about?",
+    "MEOW! New chat detected! What are we talking about?",
     "cat",
     true
   );
@@ -583,11 +962,15 @@ function showWelcome() {
 }
 
 
-/* -------------------------
-   MESSAGES
-------------------------- */
+/* =========================
+   ADD MESSAGE
+========================= */
 
-function addMessage(text, type, save = true) {
+function addMessage(
+  text,
+  type,
+  save = true
+) {
 
   const div =
     document.createElement("div");
@@ -603,7 +986,8 @@ function addMessage(text, type, save = true) {
 
   } else {
 
-    div.textContent = text;
+    div.textContent =
+      text;
 
   }
 
@@ -627,7 +1011,11 @@ function addMessage(text, type, save = true) {
 
       currentChat.title =
         text.slice(0, 30) +
-        (text.length > 30 ? "..." : "");
+        (
+          text.length > 30
+          ? "..."
+          : ""
+        );
 
     }
 
@@ -638,19 +1026,21 @@ function addMessage(text, type, save = true) {
 }
 
 
-/* -------------------------
+/* =========================
    SEND MESSAGE
-------------------------- */
+========================= */
 
 async function sendMessage() {
 
   const text =
     input.value.trim();
 
-  if (!text) return;
+  if (!text) {
+    return;
+  }
 
   addMessage(
-    "You: " + text,
+    text,
     "user"
   );
 
@@ -664,7 +1054,9 @@ async function sendMessage() {
     "message cat";
 
   thinking.innerHTML = `
-    <div class="cat-label">🐈 Cat.AI</div>
+    <div class="cat-label">
+      🐈 Cat.AI
+    </div>
 
     <div class="thinking">
       <i></i>
@@ -673,7 +1065,9 @@ async function sendMessage() {
     </div>
   `;
 
-  messages.appendChild(thinking);
+  messages.appendChild(
+    thinking
+  );
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -682,19 +1076,22 @@ async function sendMessage() {
   try {
 
     const response =
-      await fetch("/chat", {
+      await fetch(
+        "/chat",
+        {
+          method: "POST",
 
-        method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          message: text
-        })
-
-      });
+          body:
+            JSON.stringify({
+              message: text
+            })
+        }
+      );
 
 
     const data =
@@ -702,7 +1099,9 @@ async function sendMessage() {
 
 
     thinking.innerHTML =
-      `<div class="cat-label">🐈 Cat.AI</div>` +
+      `<div class="cat-label">
+        🐈 Cat.AI
+       </div>` +
       escapeHTML(data.reply);
 
 
@@ -717,7 +1116,9 @@ async function sendMessage() {
   } catch (error) {
 
     thinking.innerHTML =
-      `<div class="cat-label">🐈 Cat.AI</div>
+      `<div class="cat-label">
+        🐈 Cat.AI
+       </div>
        MRRP! I can't reach my brain! 🧠💥`;
 
   }
@@ -729,27 +1130,150 @@ async function sendMessage() {
 }
 
 
-/* -------------------------
-   THEME
-------------------------- */
+/* =========================
+   THEME MENU
+========================= */
 
-function toggleTheme() {
+function toggleThemeMenu() {
 
-  document.body.classList.toggle("light");
-
-  localStorage.setItem(
-    "catAITheme",
-    document.body.classList.contains("light")
-      ? "light"
-      : "dark"
+  themeMenu.classList.toggle(
+    "open"
   );
 
 }
 
 
-/* -------------------------
-   SECURITY
-------------------------- */
+function setTheme(theme) {
+
+  document.body.classList.remove(
+    "theme-og",
+    "theme-purple",
+    "theme-yarn",
+    "theme-pillow"
+  );
+
+  document.body.classList.add(
+    "theme-" + theme
+  );
+
+  localStorage.setItem(
+    "catAITheme",
+    theme
+  );
+
+  themeMenu.classList.remove(
+    "open"
+  );
+
+}
+
+
+/* =========================
+   SECRET CAT
+========================= */
+
+function secretMeow() {
+
+  const cat =
+    document.querySelector(
+      ".secret-cat"
+    );
+
+  cat.classList.remove(
+    "meowing"
+  );
+
+  void cat.offsetWidth;
+
+  cat.classList.add(
+    "meowing"
+  );
+
+
+  /*
+    Make a tiny synthesized
+    meow sound using the browser.
+  */
+
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+  if (!AudioContext) {
+    return;
+  }
+
+  const audio =
+    new AudioContext();
+
+  const oscillator =
+    audio.createOscillator();
+
+  const gain =
+    audio.createGain();
+
+
+  oscillator.type =
+    "sine";
+
+
+  oscillator.frequency.setValueAtTime(
+    500,
+    audio.currentTime
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    850,
+    audio.currentTime + .12
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    350,
+    audio.currentTime + .45
+  );
+
+
+  gain.gain.setValueAtTime(
+    .001,
+    audio.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .25,
+    audio.currentTime + .04
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .001,
+    audio.currentTime + .45
+  );
+
+
+  oscillator.connect(gain);
+
+  gain.connect(
+    audio.destination
+  );
+
+
+  oscillator.start();
+
+  oscillator.stop(
+    audio.currentTime + .45
+  );
+
+
+  setTimeout(
+    () => audio.close(),
+    700
+  );
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
 
 function escapeHTML(text) {
 
@@ -764,34 +1288,45 @@ function escapeHTML(text) {
 }
 
 
-/* -------------------------
-   ENTER KEY
-------------------------- */
+/* =========================
+   ENTER TO SEND
+========================= */
 
 input.addEventListener(
   "keydown",
   event => {
 
-    if (event.key === "Enter") {
+    if (
+      event.key === "Enter"
+    ) {
+
       sendMessage();
+
     }
 
   }
 );
 
 
-/* -------------------------
-   STARTUP
-------------------------- */
+/* =========================
+   LOAD SAVED THEME
+========================= */
 
-if (
-  localStorage.getItem("catAITheme")
-  === "light"
-) {
+const savedTheme =
+  localStorage.getItem(
+    "catAITheme"
+  );
 
-  document.body.classList.add("light");
+if (savedTheme) {
+
+  setTheme(savedTheme);
 
 }
+
+
+/* =========================
+   START
+========================= */
 
 loadHistory();
 
