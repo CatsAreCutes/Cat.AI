@@ -1,7 +1,6 @@
-```javascript
 /* =====================================================
-   CAT.AI — COMPLETE ARCADE JAVASCRIPT
-===================================================== */
+   CAT.AI — COMPLETE ARCADE + CHAT SYSTEM
+   ===================================================== */
 
 /* =====================================================
    STATE
@@ -21,11 +20,11 @@ let selectedGame = "mouse";
 let gameState = {
   running: false,
   score: 0,
-  time: 0,
-  startedAt: 0,
+  time: 60,
+  goal: 20,
   timer: null,
   target: null,
-  goal: 0,
+  startedAt: 0,
   type: null
 };
 
@@ -34,12 +33,20 @@ let gameState = {
    ELEMENTS
 ===================================================== */
 
-const input = document.getElementById("input");
-const messages = document.getElementById("messages");
-const historyBox = document.getElementById("history");
+const input =
+  document.getElementById("input");
 
-const arcade = document.getElementById("arcade");
-const arcadeView = document.getElementById("arcadeView");
+const messages =
+  document.getElementById("messages");
+
+const historyBox =
+  document.getElementById("history");
+
+const arcade =
+  document.getElementById("arcade");
+
+const arcadeView =
+  document.getElementById("arcadeView");
 
 const nameOverlay =
   document.getElementById("nameOverlay");
@@ -49,21 +56,90 @@ const playerNameInput =
 
 
 /* =====================================================
+   GAME DEFINITIONS
+===================================================== */
+
+const GAMES = {
+
+  mouse: {
+    icon: "🐭",
+    title: "Catch the Mouse!",
+    description: "Catch 20 mice in 1 minute!",
+    time: 60,
+    goal: 20,
+    scoreName: "Mice"
+  },
+
+  yarn: {
+    icon: "🧶",
+    title: "Yarn Frenzy",
+    description: "Catch as much yarn as possible!",
+    time: 30,
+    goal: 999,
+    scoreName: "Yarn"
+  },
+
+  fish: {
+    icon: "🐟",
+    title: "Fish Frenzy",
+    description: "Catch as many fish as possible!",
+    time: 30,
+    goal: 999,
+    scoreName: "Fish"
+  },
+
+  shoe: {
+    icon: "👟",
+    title: "Shoe Destroyer",
+    description: "DESTROY THE SUSPICIOUS FOOTWEAR!",
+    time: 30,
+    goal: 999,
+    scoreName: "Shoes"
+  },
+
+  feather: {
+    icon: "🪶",
+    title: "Feather Chase",
+    description: "Catch the feather before it escapes!",
+    time: 30,
+    goal: 999,
+    scoreName: "Feathers"
+  },
+
+  box: {
+    icon: "📦",
+    title: "Box Attack",
+    description: "Find the toys hiding in the boxes!",
+    time: 30,
+    goal: 999,
+    scoreName: "Boxes"
+  }
+
+};
+
+
+/* =====================================================
    CHAT
 ===================================================== */
 
 function addMessage(text, type, save = true) {
 
-  const div = document.createElement("div");
+  const div =
+    document.createElement("div");
 
-  div.className = "message " + type;
+  div.className =
+    "message " + type;
 
   if (type === "cat") {
 
-    const label = document.createElement("div");
+    const label =
+      document.createElement("div");
 
-    label.className = "cat-label";
-    label.textContent = "🐈 Cat.AI";
+    label.className =
+      "cat-label";
+
+    label.textContent =
+      "🐈 Cat.AI";
 
     div.appendChild(label);
 
@@ -101,16 +177,22 @@ function addMessage(text, type, save = true) {
     }
 
     saveChat();
+
   }
+
 }
 
 
 function showWelcome() {
 
-  addMessage(
-    "MEOW! New chat detected! What are we talking about?",
-    "cat"
-  );
+  if (!messages.children.length) {
+
+    addMessage(
+      "MEOW! New chat detected! What are we talking about?",
+      "cat"
+    );
+
+  }
 
 }
 
@@ -132,22 +214,10 @@ async function sendMessage() {
   thinking.className =
     "message cat";
 
-  const label =
-    document.createElement("div");
-
-  label.className =
-    "cat-label";
-
-  label.textContent =
-    "🐈 Cat.AI";
-
-  thinking.appendChild(label);
-
-  thinking.appendChild(
-    document.createTextNode(
-      "Cat.AI is thinking... 🧠"
-    )
-  );
+  thinking.innerHTML = `
+    <div class="cat-label">🐈 Cat.AI</div>
+    Cat.AI is thinking... 🧠
+  `;
 
   messages.appendChild(thinking);
 
@@ -158,20 +228,18 @@ async function sendMessage() {
 
     const response =
       await fetch("/chat", {
+
         method: "POST",
 
         headers: {
-          "Content-Type":
-            "application/json"
+          "Content-Type": "application/json"
         },
 
         body: JSON.stringify({
           message: text
         })
-      });
 
-    if (!response.ok)
-      throw new Error("Chat request failed");
+      });
 
     const data =
       await response.json();
@@ -180,18 +248,9 @@ async function sendMessage() {
       data.reply ||
       "MRRP! My brain exploded! 🐈";
 
-    thinking.innerHTML = "";
-
-    const newLabel =
-      document.createElement("div");
-
-    newLabel.className =
-      "cat-label";
-
-    newLabel.textContent =
-      "🐈 Cat.AI";
-
-    thinking.appendChild(newLabel);
+    thinking.innerHTML = `
+      <div class="cat-label">🐈 Cat.AI</div>
+    `;
 
     thinking.appendChild(
       document.createTextNode(reply)
@@ -207,26 +266,29 @@ async function sendMessage() {
   } catch (error) {
 
     thinking.innerHTML = `
-      <div class="cat-label">
-        🐈 Cat.AI
-      </div>
+      <div class="cat-label">🐈 Cat.AI</div>
       MRRP! I can't reach my brain! 🧠💥
     `;
 
-    console.error(error);
   }
+
 }
 
 
-input.addEventListener(
-  "keydown",
-  function (event) {
+if (input) {
 
-    if (event.key === "Enter")
-      sendMessage();
+  input.addEventListener(
+    "keydown",
+    event => {
 
-  }
-);
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+
+    }
+  );
+
+}
 
 
 /* =====================================================
@@ -248,10 +310,11 @@ function saveChat() {
       chat => chat.id === currentChat.id
     );
 
-  if (index >= 0)
+  if (index >= 0) {
     chats[index] = currentChat;
-  else
+  } else {
     chats.unshift(currentChat);
+  }
 
   localStorage.setItem(
     "catAIChats",
@@ -259,10 +322,14 @@ function saveChat() {
   );
 
   loadHistory();
+
 }
 
 
 function loadHistory() {
+
+  if (!historyBox)
+    return;
 
   const chats =
     JSON.parse(
@@ -289,6 +356,7 @@ function loadHistory() {
     historyBox.appendChild(item);
 
   });
+
 }
 
 
@@ -300,9 +368,7 @@ function loadChat(id) {
     );
 
   const chat =
-    chats.find(
-      c => c.id === id
-    );
+    chats.find(c => c.id === id);
 
   if (!chat)
     return;
@@ -311,17 +377,16 @@ function loadChat(id) {
 
   messages.innerHTML = "";
 
-  currentChat.messages.forEach(
-    message => {
+  currentChat.messages.forEach(message => {
 
-      addMessage(
-        message.text,
-        message.type,
-        false
-      );
+    addMessage(
+      message.text,
+      message.type,
+      false
+    );
 
-    }
-  );
+  });
+
 }
 
 
@@ -338,6 +403,7 @@ function newChat() {
   messages.innerHTML = "";
 
   showWelcome();
+
 }
 
 
@@ -347,14 +413,14 @@ function clearHistory() {
     !confirm(
       "Delete all saved Cat.AI chats?"
     )
-  )
+  ) {
     return;
+  }
 
-  localStorage.removeItem(
-    "catAIChats"
-  );
+  localStorage.removeItem("catAIChats");
 
   loadHistory();
+
 }
 
 
@@ -364,9 +430,12 @@ function clearHistory() {
 
 function toggleThemeMenu() {
 
-  document
-    .getElementById("themeMenu")
-    .classList.toggle("open");
+  const menu =
+    document.getElementById("themeMenu");
+
+  if (menu) {
+    menu.classList.toggle("open");
+  }
 
 }
 
@@ -388,14 +457,16 @@ function setTheme(theme) {
     "catAITheme",
     theme
   );
+
 }
 
 
 const savedTheme =
   localStorage.getItem("catAITheme");
 
-if (savedTheme)
+if (savedTheme) {
   setTheme(savedTheme);
+}
 
 
 /* =====================================================
@@ -409,6 +480,7 @@ function ensurePlayerName(callback) {
     callback();
 
     return;
+
   }
 
   nameOverlay.classList.add("open");
@@ -419,6 +491,7 @@ function ensurePlayerName(callback) {
 
   window.pendingGame =
     callback;
+
 }
 
 
@@ -431,18 +504,14 @@ function savePlayerName() {
     return;
 
   playerName =
-    name
-      .replace(/[<>]/g, "")
-      .slice(0, 20);
+    name.slice(0, 20);
 
   localStorage.setItem(
     "catAIPlayerName",
     playerName
   );
 
-  nameOverlay.classList.remove(
-    "open"
-  );
+  nameOverlay.classList.remove("open");
 
   if (window.pendingGame) {
 
@@ -455,27 +524,19 @@ function savePlayerName() {
     callback();
 
   }
+
 }
 
 
-playerNameInput.addEventListener(
-  "keydown",
-  event => {
-
-    if (event.key === "Enter")
-      savePlayerName();
-
-  }
-);
-
-
 /* =====================================================
-   ARCADE
+   ARCADE OPEN/CLOSE
 ===================================================== */
 
 function openArcade() {
 
   arcade.classList.add("open");
+
+  selectedGame = "mouse";
 
   showArcadeTab("games");
 
@@ -486,153 +547,121 @@ function closeArcade() {
 
   stopGame();
 
-  arcade.classList.remove(
-    "open"
-  );
+  arcade.classList.remove("open");
 
 }
 
 
 function showArcadeTab(tab) {
 
-  document
-    .getElementById("gamesTab")
-    .classList.toggle(
+  const gamesTab =
+    document.getElementById("gamesTab");
+
+  const leaderboardTab =
+    document.getElementById("leaderboardTab");
+
+  if (gamesTab) {
+
+    gamesTab.classList.toggle(
       "active",
       tab === "games"
     );
 
-  document
-    .getElementById("leaderboardTab")
-    .classList.toggle(
+  }
+
+  if (leaderboardTab) {
+
+    leaderboardTab.classList.toggle(
       "active",
       tab === "leaderboard"
     );
 
-  if (tab === "games")
+  }
+
+  if (tab === "games") {
+
+    stopGame();
+
     renderGameList();
-  else
+
+  } else {
+
+    stopGame();
+
     loadLeaderboard();
+
+  }
+
 }
 
 
 /* =====================================================
-   SIX GAMES
-===================================================== */
-
-const GAMES = {
-
-  mouse: {
-    icon: "🐭",
-    title: "Catch the Mouse!",
-    description:
-      "Catch 20 mice in 1 minute!",
-    time: 60,
-    goal: 20
-  },
-
-  yarn: {
-    icon: "🧶",
-    title: "Yarn Frenzy",
-    description:
-      "Catch 50 balls of yarn!",
-    time: 45,
-    goal: 50
-  },
-
-  fish: {
-    icon: "🐟",
-    title: "Fish Frenzy",
-    description:
-      "Catch 30 fish!",
-    time: 45,
-    goal: 30
-  },
-
-  shoe: {
-    icon: "👟",
-    title: "Shoe Destroyer",
-    description:
-      "Destroy 40 suspicious shoes!",
-    time: 45,
-    goal: 40
-  },
-
-  feather: {
-    icon: "🪶",
-    title: "Feather Chase",
-    description:
-      "Catch 25 feathers!",
-    time: 40,
-    goal: 25
-  },
-
-  box: {
-    icon: "📦",
-    title: "Box Attack",
-    description:
-      "Find 20 toys hidden in boxes!",
-    time: 45,
-    goal: 20
-  }
-
-};
-
-
-/* =====================================================
-   GAME LIST
+   SIX GAME MENU
 ===================================================== */
 
 function renderGameList() {
 
   arcadeView.innerHTML = `
 
-    <h2>🎮 Cat.AI Arcade</h2>
-
-    <p style="color:var(--muted)">
-      Pick a game and show the other cats
-      who's best!
-    </p>
-
     <div class="game-list">
 
-      ${Object.entries(GAMES).map(
-        ([id, game]) => `
+      ${createGameCard("mouse")}
 
-        <div class="game-card">
+      ${createGameCard("yarn")}
 
-          <div class="game-card-icon">
-            ${game.icon}
-          </div>
+      ${createGameCard("fish")}
 
-          <h3>
-            ${game.title}
-          </h3>
+      ${createGameCard("shoe")}
 
-          <p>
-            ${game.description}
-          </p>
+      ${createGameCard("feather")}
 
-          <button
-            class="play-button"
-            onclick="startGame('${id}')">
-
-            PLAY
-
-          </button>
-
-        </div>
-
-      `
-      ).join("")}
+      ${createGameCard("box")}
 
     </div>
+
   `;
+
+}
+
+
+function createGameCard(type) {
+
+  const game =
+    GAMES[type];
+
+  return `
+
+    <div class="game-card">
+
+      <div class="game-card-icon">
+        ${game.icon}
+      </div>
+
+      <h3>
+        ${game.title}
+      </h3>
+
+      <p>
+        ${game.description}
+      </p>
+
+      <button
+        class="play-button"
+        onclick="startGame('${type}')">
+
+        PLAY
+
+      </button>
+
+    </div>
+
+  `;
+
 }
 
 
 /* =====================================================
-   START GAME
+   START ANY GAME
 ===================================================== */
 
 function startGame(type) {
@@ -641,63 +670,62 @@ function startGame(type) {
 
     selectedGame = type;
 
-    const config =
-      GAMES[type];
-
-    gameState = {
-
-      running: true,
-
-      score: 0,
-
-      time: config.time,
-
-      startedAt:
-        performance.now(),
-
-      timer: null,
-
-      target: null,
-
-      goal: config.goal,
-
-      type
-
-    };
-
-    renderGameScreen();
-
-    spawnTarget(
-      config.icon
-    );
-
-    gameState.timer =
-      setInterval(
-        () => {
-
-          if (!gameState.running)
-            return;
-
-          gameState.time--;
-
-          updateGameStats();
-
-          if (
-            gameState.time <= 0
-          ) {
-
-            finishGame(
-              gameState.score >=
-              gameState.goal
-            );
-
-          }
-
-        },
-        1000
-      );
+    startActualGame(type);
 
   });
+
+}
+
+
+function startActualGame(type) {
+
+  stopGame();
+
+  const game =
+    GAMES[type];
+
+  gameState = {
+
+    running: true,
+
+    score: 0,
+
+    time: game.time,
+
+    goal: game.goal,
+
+    timer: null,
+
+    target: null,
+
+    startedAt: performance.now(),
+
+    type
+
+  };
+
+  renderGameScreen();
+
+  spawnTarget();
+
+  gameState.timer =
+    setInterval(() => {
+
+      if (!gameState.running)
+        return;
+
+      gameState.time--;
+
+      updateGameStats();
+
+      if (gameState.time <= 0) {
+
+        finishGame(false);
+
+      }
+
+    }, 1000);
+
 }
 
 
@@ -707,8 +735,13 @@ function startGame(type) {
 
 function renderGameScreen() {
 
-  const config =
+  const game =
     GAMES[selectedGame];
+
+  const goalText =
+    selectedGame === "mouse"
+      ? "Catch 20 mice in 1 minute!"
+      : game.description;
 
   arcadeView.innerHTML = `
 
@@ -720,49 +753,47 @@ function renderGameScreen() {
       ">
 
         <h2>
-          ${config.icon}
-          ${config.title}
+          ${game.icon}
+          ${game.title}
         </h2>
 
         <div style="
           color:var(--muted);
           font-size:13px;
         ">
-
-          ${config.description}
-
+          ${goalText}
         </div>
 
       </div>
 
-
       <div class="game-stats">
 
         <div>
-          Score:
+          ${game.scoreName}:
           <span id="gameScore">
             0
           </span>
-          /
-          ${config.goal}
+          ${
+            selectedGame === "mouse"
+              ? " / 20"
+              : ""
+          }
         </div>
 
         <div>
           Time:
           <span id="gameTime">
-            ${config.time}
+            ${gameState.time}
           </span>
           s
         </div>
 
       </div>
 
-
       <div
         id="gameBoard"
         class="game-board">
       </div>
-
 
       <div
         id="gameMessage"
@@ -773,63 +804,73 @@ function renderGameScreen() {
 
       </div>
 
-
       <button
         class="start-game"
-        onclick="
-          stopGame();
-          renderGameList();
-        ">
+        onclick="stopGame(); renderGameList()">
 
         ← EXIT GAME
 
       </button>
 
     </div>
+
   `;
+
 }
 
 
 function gameStartMessage() {
 
-  if (selectedGame === "shoe")
-    return "HISS! DESTROY THE FOOTWEAR!";
+  const messages = {
 
-  if (selectedGame === "yarn")
-    return "PURR! GET THE YARN!";
+    mouse:
+      `Ready to hunt some mice, ${playerName}?`,
 
-  if (selectedGame === "fish")
-    return "MEOW! FISH TIME!";
+    yarn:
+      `GET THAT YARN, ${playerName.toUpperCase()}! 🧶`,
 
-  if (selectedGame === "feather")
-    return "FLUFFY FEATHER DETECTED!";
+    fish:
+      `FISH DETECTED! GO GO GO! 🐟`,
 
-  if (selectedGame === "box")
-    return "OPEN THE BOXES!";
+    shoe:
+      `HISS! DESTROY THE SHOES! 👟`,
 
-  return `GO ${playerName.toUpperCase()}! GET IT!`;
+    feather:
+      `DON'T LET THE FEATHER ESCAPE! 🪶`,
+
+    box:
+      `ATTACK THE BOXES! 📦`
+
+  };
+
+  return messages[selectedGame];
+
 }
 
 
 /* =====================================================
-   TARGET
+   SPAWN TARGET
 ===================================================== */
 
-function spawnTarget(icon) {
+function spawnTarget() {
 
   if (!gameState.running)
     return;
 
   const board =
-    document.getElementById(
-      "gameBoard"
-    );
+    document.getElementById("gameBoard");
 
   if (!board)
     return;
 
-  if (gameState.target)
+  if (gameState.target) {
+
     gameState.target.remove();
+
+  }
+
+  const game =
+    GAMES[selectedGame];
 
   const target =
     document.createElement("button");
@@ -837,8 +878,11 @@ function spawnTarget(icon) {
   target.className =
     "target";
 
+  target.type =
+    "button";
+
   target.textContent =
-    icon;
+    game.icon;
 
   const maxX =
     Math.max(
@@ -853,27 +897,19 @@ function spawnTarget(icon) {
     );
 
   target.style.left =
-    Math.random() *
-    maxX +
-    "px";
+    Math.random() * maxX + "px";
 
   target.style.top =
-    Math.random() *
-    maxY +
-    "px";
-
-  target.style.transform =
-    `rotate(${Math.random() * 30 - 15}deg)`;
+    Math.random() * maxY + "px";
 
   target.onclick =
     hitTarget;
 
-  board.appendChild(
-    target
-  );
+  board.appendChild(target);
 
   gameState.target =
     target;
+
 }
 
 
@@ -892,11 +928,17 @@ function hitTarget() {
 
   playMeow();
 
-  const goal =
-    gameState.goal;
+  /*
+     Mouse Game:
+     20 catches = instant win.
+
+     Other games:
+     Keep going until the timer runs out.
+  */
 
   if (
-    gameState.score >= goal
+    selectedGame === "mouse" &&
+    gameState.score >= 20
   ) {
 
     finishGame(true);
@@ -907,35 +949,36 @@ function hitTarget() {
 
   updateEncouragement();
 
-  spawnTarget(
-    GAMES[selectedGame].icon
-  );
+  spawnTarget();
+
 }
 
 
 /* =====================================================
-   GAME STATS
+   UPDATE STATS
 ===================================================== */
 
 function updateGameStats() {
 
   const score =
-    document.getElementById(
-      "gameScore"
-    );
+    document.getElementById("gameScore");
 
   const time =
-    document.getElementById(
-      "gameTime"
-    );
+    document.getElementById("gameTime");
 
-  if (score)
+  if (score) {
+
     score.textContent =
       gameState.score;
 
-  if (time)
+  }
+
+  if (time) {
+
     time.textContent =
       gameState.time;
+
+  }
 
 }
 
@@ -944,50 +987,7 @@ function updateGameStats() {
    CAT.AI ENCOURAGEMENT
 ===================================================== */
 
-let lastEncouragementScore = -1;
-
-
 async function updateEncouragement() {
-
-  const score =
-    gameState.score;
-
-  const milestones = {
-
-    mouse:
-      [1, 5, 10, 15, 18, 19],
-
-    yarn:
-      [5, 10, 20, 30, 40],
-
-    fish:
-      [5, 10, 20, 25],
-
-    shoe:
-      [5, 10, 20, 30, 35],
-
-    feather:
-      [5, 10, 15, 20],
-
-    box:
-      [5, 10, 15]
-
-  };
-
-  if (
-    !milestones[selectedGame]
-      .includes(score)
-  )
-    return;
-
-  if (
-    score ===
-    lastEncouragementScore
-  )
-    return;
-
-  lastEncouragementScore =
-    score;
 
   const message =
     document.getElementById(
@@ -997,8 +997,25 @@ async function updateEncouragement() {
   if (!message)
     return;
 
+  /*
+     Don't ask Groq on every single click.
+     Only encourage at certain scores.
+  */
+
+  const score =
+    gameState.score;
+
+  const shouldSpeak =
+    selectedGame === "mouse"
+      ? [1, 5, 10, 15, 18, 19].includes(score)
+      : score === 1 ||
+        score % 10 === 0;
+
+  if (!shouldSpeak)
+    return;
+
   message.textContent =
-    "🐈 Cat.AI: MEOW MEOW MEOW!";
+    "🐈 Cat.AI: MEOW! KEEP GOING!";
 
   try {
 
@@ -1015,22 +1032,17 @@ async function updateEncouragement() {
         body: JSON.stringify({
 
           message:
-            `You are Cat.AI cheering for ${playerName} during the ${GAMES[selectedGame].title} minigame. They have ${gameState.score} points and ${gameState.time} seconds left. Give ONE extremely short excited cat-like encouragement. Maximum 12 words.`
+            `You are Cat.AI cheering for ${playerName} during the ${GAMES[selectedGame].title} minigame. They have ${score} points and ${gameState.time} seconds left. Give ONE extremely short excited cat-like encouragement. Maximum 12 words.`
 
         })
 
       });
 
     if (!response.ok)
-      throw new Error(
-        "Encouragement failed"
-      );
+      throw new Error("Chat failed");
 
     const data =
       await response.json();
-
-    if (!gameState.running)
-      return;
 
     message.textContent =
       "🐈 Cat.AI: " +
@@ -1041,42 +1053,46 @@ async function updateEncouragement() {
 
   } catch {
 
-    if (gameState.running) {
-
-      message.textContent =
-        "🐈 Cat.AI: " +
-        fallbackEncouragement();
-
-    }
+    message.textContent =
+      "🐈 Cat.AI: " +
+      fallbackEncouragement();
 
   }
+
 }
 
 
 function fallbackEncouragement() {
 
+  if (selectedGame === "mouse") {
+
+    if (gameState.score >= 18)
+      return "ALMOST 20! CATCH THAT MOUSE!";
+
+    if (gameState.score >= 10)
+      return "HALFWAY THERE! MEOW!";
+
+    return "GET THE MOUSE! 🐭";
+
+  }
+
   if (selectedGame === "shoe")
     return "HISS! DESTROY MORE SHOES!";
 
   if (selectedGame === "yarn")
-    return "PURRRR! MORE YARN!";
+    return "MORE YARN! MORE YARN! 🧶";
 
   if (selectedGame === "fish")
-    return "MEOW! CATCH THAT FISH!";
+    return "CATCH THAT FISH! 🐟";
 
   if (selectedGame === "feather")
-    return "GET THE FEATHER! FLUFF FLUFF!";
+    return "DON'T LET IT ESCAPE! 🪶";
 
   if (selectedGame === "box")
-    return "OPEN THAT BOX!";
+    return "ATTACK THE BOX! 📦";
 
-  if (gameState.score >= 18)
-    return "MRRP! ALMOST THERE!";
+  return "MEOW! KEEP GOING!";
 
-  if (gameState.score >= 10)
-    return "MEOW! KEEP GOING!";
-
-  return "PURR! NICE CATCH!";
 }
 
 
@@ -1108,39 +1124,38 @@ async function finishGame(won) {
 
   }
 
-  const completionTime =
-    Math.max(
-      1,
-      Math.round(
-        (
-          performance.now() -
-          gameState.startedAt
-        ) / 1000
-      )
-    );
-
   const message =
     document.getElementById(
       "gameMessage"
     );
 
-  if (won) {
+  const score =
+    gameState.score;
 
-    message.textContent =
-      `🐈 Cat.AI: MEOW!!! ${playerName.toUpperCase()} DID IT! 🎉`;
+  const game =
+    GAMES[selectedGame];
 
-    playWinSound();
+  if (message) {
 
-  } else {
+    if (won) {
 
-    message.textContent =
-      `🐈 Cat.AI: TIME'S UP! ${playerName.toUpperCase()} GOT ${gameState.score}!`;
+      message.textContent =
+        `🐈 Cat.AI: MEOW!!! ${playerName.toUpperCase()} DID IT! 🎉`;
+
+      playWinSound();
+
+    } else {
+
+      message.textContent =
+        `🐈 Cat.AI: TIME'S UP! ${playerName.toUpperCase()} GOT ${score} ${game.scoreName.toLowerCase()}!`;
+
+    }
 
   }
 
   await submitScore(
-    gameState.score,
-    completionTime,
+    score,
+    gameState.time,
     won
   );
 
@@ -1155,16 +1170,15 @@ async function finishGame(won) {
       "🏆 VIEW LEADERBOARD";
 
     button.onclick =
-      () => showArcadeTab(
-        "leaderboard"
-      );
+      () => showArcadeTab("leaderboard");
 
   }
+
 }
 
 
 /* =====================================================
-   SUBMIT SCORE
+   SUBMIT SCORE TO SERVER
 ===================================================== */
 
 async function submitScore(
@@ -1204,10 +1218,13 @@ async function submitScore(
         }
       );
 
-    if (!response.ok)
-      throw new Error(
-        "Score submission failed"
+    if (!response.ok) {
+
+      console.error(
+        "Server rejected score."
       );
+
+    }
 
   } catch (error) {
 
@@ -1217,6 +1234,7 @@ async function submitScore(
     );
 
   }
+
 }
 
 
@@ -1226,18 +1244,24 @@ async function submitScore(
 
 async function loadLeaderboard() {
 
-  const game =
-    selectedGame || "mouse";
-
   arcadeView.innerHTML = `
 
-    <h2>
-      🏆 ${gameTitle(game)}
-    </h2>
+    <h2>🏆 Leaderboard</h2>
 
     <p style="color:var(--muted)">
       Loading the world's cats...
     </p>
+
+    <div style="
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:15px 0;
+    ">
+
+      ${leaderboardGameButtons()}
+
+    </div>
 
   `;
 
@@ -1246,13 +1270,13 @@ async function loadLeaderboard() {
     const response =
       await fetch(
         "/api/leaderboard?game=" +
-        encodeURIComponent(game)
+        encodeURIComponent(
+          selectedGame
+        )
       );
 
     if (!response.ok)
-      throw new Error(
-        "Leaderboard failed"
-      );
+      throw new Error("Leaderboard failed");
 
     const data =
       await response.json();
@@ -1262,48 +1286,87 @@ async function loadLeaderboard() {
         ? data.scores
         : [];
 
-    arcadeView.innerHTML = `
+    renderLeaderboardRows(rows);
+
+  } catch (error) {
+
+    arcadeView.innerHTML += `
+
+      <p>
+        MRRP! The leaderboard server
+        isn't responding yet. 🐈
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+function leaderboardGameButtons() {
+
+  return Object.keys(GAMES)
+    .map(type => {
+
+      const game =
+        GAMES[type];
+
+      return `
+
+        <button
+          class="arcade-tab ${
+            selectedGame === type
+              ? "active"
+              : ""
+          }"
+          onclick="selectLeaderboardGame('${type}')">
+
+          ${game.icon}
+          ${game.title}
+
+        </button>
+
+      `;
+
+    })
+    .join("");
+
+}
+
+
+function selectLeaderboardGame(type) {
+
+  selectedGame = type;
+
+  loadLeaderboard();
+
+}
+
+
+function renderLeaderboardRows(rows) {
+
+  const game =
+    GAMES[selectedGame];
+
+  const existing =
+    arcadeView.querySelector(
+      ".leaderboard-results"
+    );
+
+  const html = `
+
+    <div class="leaderboard-results">
 
       <h2>
-        🏆 ${gameTitle(game)}
+        ${game.icon}
+        ${game.title}
+        — 🏆
       </h2>
 
       <p style="color:var(--muted)">
         Global Cat.AI Arcade leaderboard
       </p>
-
-      <div style="
-        display:flex;
-        gap:8px;
-        flex-wrap:wrap;
-        margin-bottom:15px;
-      ">
-
-        ${Object.entries(GAMES)
-          .map(
-            ([id, info]) => `
-
-              <button
-                class="arcade-tab ${
-                  id === game
-                    ? "active"
-                    : ""
-                }"
-                onclick="
-                  selectedGame='${id}';
-                  loadLeaderboard();
-                ">
-
-                ${info.icon}
-                ${info.title}
-
-              </button>
-
-            `
-          )
-          .join("")}
-
-      </div>
 
       <table class="leaderboard-table">
 
@@ -1325,121 +1388,96 @@ async function loadLeaderboard() {
           ${
             rows.length
 
-              ? rows.map(
-                  (row, index) => `
+              ? rows
+                  .map(
+                    (row, index) => `
 
-                    <tr>
+                      <tr>
 
-                      <td>
-                        ${
-                          index === 0
-                            ? "👑"
-                            : index + 1
-                        }
-                      </td>
+                        <td>
+                          ${
+                            index === 0
+                              ? "👑"
+                              : index + 1
+                          }
+                        </td>
 
-                      <td>
-                        ${escapeHtml(
-                          String(
-                            row.name ||
-                            "Anonymous Cat"
-                          )
-                        )}
-                      </td>
+                        <td>
+                          ${escapeHtml(
+                            String(
+                              row.name ||
+                              "Anonymous Cat"
+                            )
+                          )}
+                        </td>
 
-                      <td>
-                        ${Number(
-                          row.score || 0
-                        )}
-                      </td>
+                        <td>
+                          ${Number(
+                            row.score || 0
+                          )}
+                        </td>
 
-                      <td>
-                        ${Number(
-                          row.time || 0
-                        )}s
-                      </td>
+                        <td>
+                          ${Number(
+                            row.time || 0
+                          )}s
+                        </td>
 
-                    </tr>
+                      </tr>
 
-                  `
-                ).join("")
+                    `
+                  )
+                  .join("")
 
               : `
 
-                <tr>
+                  <tr>
 
-                  <td colspan="4">
-                    No scores yet.
-                    Be the first cat! 🐈
-                  </td>
+                    <td colspan="4">
 
-                </tr>
+                      No scores yet.
+                      Be the first cat! 🐈
 
-              `
+                    </td>
+
+                  </tr>
+
+                `
           }
 
         </tbody>
 
       </table>
 
-    `;
+    </div>
 
-  } catch (error) {
+  `;
 
-    console.error(error);
+  if (existing) {
 
-    arcadeView.innerHTML = `
+    existing.outerHTML =
+      html;
 
-      <h2>
-        🏆 ${gameTitle(game)}
-      </h2>
+  } else {
 
-      <p>
-        MRRP! The leaderboard server
-        isn't responding yet. 🐈
-      </p>
-
-      <p style="
-        color:var(--muted);
-        font-size:13px;
-      ">
-
-        Make sure your Node.js server
-        is running and has the
-        <code>/api/leaderboard</code>
-        endpoint.
-
-      </p>
-
-    `;
+    arcadeView.insertAdjacentHTML(
+      "beforeend",
+      html
+    );
 
   }
-}
-
-
-/* =====================================================
-   GAME TITLES
-===================================================== */
-
-function gameTitle(game) {
-
-  return GAMES[game]
-    ? GAMES[game].title
-    : "Cat.AI Arcade";
 
 }
 
 
 /* =====================================================
-   HTML ESCAPING
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHtml(text) {
 
   const div =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   div.textContent =
     text;
@@ -1450,7 +1488,7 @@ function escapeHtml(text) {
 
 
 /* =====================================================
-   GAME CONTROL
+   STOP GAME
 ===================================================== */
 
 function stopGame() {
@@ -1458,9 +1496,13 @@ function stopGame() {
   gameState.running =
     false;
 
-  clearInterval(
-    gameState.timer
-  );
+  if (gameState.timer) {
+
+    clearInterval(
+      gameState.timer
+    );
+
+  }
 
   gameState.timer =
     null;
@@ -1533,6 +1575,7 @@ function playMeow() {
   );
 
   osc.connect(gain);
+
   gain.connect(
     audio.destination
   );
@@ -1562,55 +1605,57 @@ function playWinSound() {
   const audio =
     new AudioContext();
 
-  [523, 659, 784, 1046]
-    .forEach(
-      (frequency, index) => {
+  const notes =
+    [523, 659, 784];
 
-        const osc =
-          audio.createOscillator();
+  notes.forEach(
+    (frequency, index) => {
 
-        const gain =
-          audio.createGain();
+      const osc =
+        audio.createOscillator();
 
-        const start =
-          audio.currentTime +
-          index * 0.11;
+      const gain =
+        audio.createGain();
 
-        osc.type =
-          "sine";
+      const start =
+        audio.currentTime +
+        index * 0.12;
 
-        osc.frequency.value =
-          frequency;
+      osc.type =
+        "sine";
 
-        gain.gain.setValueAtTime(
-          0.001,
-          start
-        );
+      osc.frequency.value =
+        frequency;
 
-        gain.gain.exponentialRampToValueAtTime(
-          0.2,
-          start + 0.02
-        );
+      gain.gain.setValueAtTime(
+        0.001,
+        start
+      );
 
-        gain.gain.exponentialRampToValueAtTime(
-          0.001,
-          start + 0.2
-        );
+      gain.gain.exponentialRampToValueAtTime(
+        0.2,
+        start + 0.02
+      );
 
-        osc.connect(gain);
+      gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        start + 0.18
+      );
 
-        gain.connect(
-          audio.destination
-        );
+      osc.connect(gain);
 
-        osc.start(start);
+      gain.connect(
+        audio.destination
+      );
 
-        osc.stop(
-          start + 0.2
-        );
+      osc.start(start);
 
-      }
-    );
+      osc.stop(
+        start + 0.18
+      );
+
+    }
+  );
 
 }
 
@@ -1626,35 +1671,33 @@ function secretMeow() {
       ".secret-cat"
     );
 
-  if (!cat)
-    return;
+  if (cat) {
 
-  cat.classList.remove(
-    "meowing"
-  );
+    cat.classList.remove(
+      "meowing"
+    );
 
-  void cat.offsetWidth;
+    void cat.offsetWidth;
 
-  cat.classList.add(
-    "meowing"
-  );
+    cat.classList.add(
+      "meowing"
+    );
+
+  }
 
   playMeow();
 
   const bubble =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   bubble.textContent =
-    "MEOW!";
+    "MEOW! 🐈";
 
   bubble.style.cssText = `
 
     position:fixed;
 
     right:70px;
-
     bottom:70px;
 
     padding:10px 15px;
@@ -1692,4 +1735,17 @@ function secretMeow() {
 loadHistory();
 
 showWelcome();
-```
+
+
+/* =====================================================
+   DEBUG
+===================================================== */
+
+console.log(
+  "🐈 Cat.AI Arcade loaded!"
+);
+
+console.log(
+  "Games loaded:",
+  Object.keys(GAMES)
+);
