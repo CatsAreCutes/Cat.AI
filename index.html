@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Cat.AI 🐈</title>
 
 <style>
+
 * {
-  box-sizing: border-box;
+  box-sizing:border-box;
 }
 
 :root {
@@ -26,9 +28,13 @@ body {
   margin:0;
   min-height:100vh;
   overflow:hidden;
+
   font-family:Arial,sans-serif;
+
   color:var(--text);
+
   background:#080611;
+
   transition:.4s;
 }
 
@@ -40,6 +46,7 @@ input {
 button {
   cursor:pointer;
 }
+
 
 /* =====================================================
    THEMES
@@ -55,25 +62,26 @@ body.theme-og {
   --accent2:#555;
   --user1:#444;
   --user2:#303030;
+
   background:#111;
 }
 
-body.theme-purple {
-  --text:#f8f3ff;
-  --muted:#aaa0bd;
-  --panel:rgba(25,18,42,.88);
-  --panel2:rgba(255,255,255,.07);
-  --border:rgba(255,255,255,.14);
-  --accent:#9b62ff;
-  --accent2:#5d7cff;
-  --user1:#7550c9;
-  --user2:#536dd5;
 
+body.theme-purple {
   background:
-    radial-gradient(circle at 10% 20%,rgba(155,98,255,.3),transparent 30%),
-    radial-gradient(circle at 90% 80%,rgba(70,110,255,.25),transparent 30%),
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(155,98,255,.3),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(70,110,255,.25),
+      transparent 30%
+    ),
     #080611;
 }
+
 
 body.theme-yarn {
   --text:#fff8f2;
@@ -106,11 +114,15 @@ body.theme-yarn {
     );
 }
 
+
 body.theme-yarn::after {
   content:"";
+
   position:fixed;
   inset:0;
+
   pointer-events:none;
+
   z-index:-1;
 
   background-image:
@@ -121,8 +133,10 @@ body.theme-yarn::after {
     );
 
   background-size:13px 13px;
+
   opacity:.35;
 }
+
 
 body.theme-pillow {
   --text:#44364c;
@@ -138,8 +152,9 @@ body.theme-pillow {
   background:#cfc3d3;
 }
 
+
 /* =====================================================
-   REAL PILLOW WALL
+   PILLOW WALL
 ===================================================== */
 
 .pillow-wall {
@@ -154,7 +169,9 @@ body.theme-pillow {
 
   padding:25px;
 
-  transform:rotate(-1deg) scale(1.04);
+  transform:
+    rotate(-1deg)
+    scale(1.04);
 
   pointer-events:none;
 
@@ -173,15 +190,17 @@ body.theme-pillow {
     );
 }
 
+
 body.theme-pillow .pillow-wall {
   display:grid;
 }
 
-.pillow {
-  position:relative;
 
+.pillow {
   min-width:130px;
   min-height:105px;
+
+  position:relative;
 
   border-radius:28px;
 
@@ -208,13 +227,16 @@ body.theme-pillow .pillow-wall {
   box-shadow:
     inset 8px 8px 14px
       rgba(255,255,255,.65),
+
     inset -9px -10px 16px
       rgba(90,60,100,.16),
+
     0 12px 16px
       rgba(65,45,75,.28);
 
   transform:rotate(var(--rotation));
 }
+
 
 .pillow::before {
   content:"";
@@ -229,6 +251,7 @@ body.theme-pillow .pillow-wall {
     rgba(125,90,130,.28);
 }
 
+
 .pillow:nth-child(3n) {
   background:
     linear-gradient(
@@ -237,6 +260,7 @@ body.theme-pillow .pillow-wall {
       #c8b5e0
     );
 }
+
 
 .pillow:nth-child(4n) {
   background:
@@ -247,6 +271,7 @@ body.theme-pillow .pillow-wall {
     );
 }
 
+
 .pillow:nth-child(5n) {
   background:
     linear-gradient(
@@ -255,6 +280,7 @@ body.theme-pillow .pillow-wall {
       #ddbaca
     );
 }
+
 
 /* =====================================================
    APP
@@ -270,6 +296,7 @@ body.theme-pillow .pillow-wall {
 
   z-index:2;
 }
+
 
 /* =====================================================
    SIDEBAR
@@ -288,12 +315,14 @@ body.theme-pillow .pillow-wall {
   backdrop-filter:blur(20px);
 
   display:flex;
+
   flex-direction:column;
 
   gap:14px;
 
   z-index:5;
 }
+
 
 .logo {
   display:flex;
@@ -306,6 +335,7 @@ body.theme-pillow .pillow-wall {
 
   font-weight:bold;
 }
+
 
 .logo-cat,
 .avatar {
@@ -321,6 +351,7 @@ body.theme-pillow .pillow-wall {
     );
 }
 
+
 .logo-cat {
   width:44px;
   height:44px;
@@ -329,6 +360,7 @@ body.theme-pillow .pillow-wall {
 
   font-size:26px;
 }
+
 
 .new-chat,
 .arcade-button {
@@ -350,6 +382,7 @@ body.theme-pillow .pillow-wall {
   font-weight:bold;
 }
 
+
 .arcade-button {
   background:
     linear-gradient(
@@ -358,6 +391,7 @@ body.theme-pillow .pillow-wall {
       #e74d91
     );
 }
+
 
 .history-title {
   color:var(--muted);
@@ -369,11 +403,13 @@ body.theme-pillow .pillow-wall {
   letter-spacing:1px;
 }
 
+
 .history {
   flex:1;
 
   overflow-y:auto;
 }
+
 
 .history-item {
   padding:11px;
@@ -395,17 +431,20 @@ body.theme-pillow .pillow-wall {
   text-overflow:ellipsis;
 }
 
+
 .history-item:hover {
   background:var(--panel2);
 
   color:var(--text);
 }
 
+
 .sidebar-buttons {
   display:flex;
 
   gap:8px;
 }
+
 
 .small-button {
   flex:1;
@@ -421,6 +460,7 @@ body.theme-pillow .pillow-wall {
 
   background:var(--panel2);
 }
+
 
 /* =====================================================
    THEME MENU
@@ -450,15 +490,18 @@ body.theme-pillow .pillow-wall {
   z-index:20;
 }
 
+
 .theme-menu.open {
   display:block;
 }
+
 
 .theme-menu h3 {
   margin:4px 5px 10px;
 
   font-size:13px;
 }
+
 
 .theme-option {
   width:100%;
@@ -478,9 +521,6 @@ body.theme-pillow .pillow-wall {
   background:var(--panel2);
 }
 
-.theme-option:hover {
-  filter:brightness(1.15);
-}
 
 /* =====================================================
    MAIN CHAT
@@ -495,6 +535,7 @@ body.theme-pillow .pillow-wall {
 
   flex-direction:column;
 }
+
 
 header {
   height:76px;
@@ -515,6 +556,7 @@ header {
   backdrop-filter:blur(20px);
 }
 
+
 .avatar {
   width:48px;
   height:48px;
@@ -524,11 +566,13 @@ header {
   font-size:28px;
 }
 
+
 .header-text h1 {
   margin:0;
 
   font-size:19px;
 }
+
 
 .header-text span {
   color:#55dc8a;
@@ -537,6 +581,7 @@ header {
 
   font-weight:bold;
 }
+
 
 .shoe-meter {
   margin-left:auto;
@@ -556,6 +601,7 @@ header {
   font-size:11px;
 }
 
+
 #messages {
   flex:1;
 
@@ -563,6 +609,7 @@ header {
 
   padding:28px;
 }
+
 
 .message {
   max-width:78%;
@@ -580,6 +627,7 @@ header {
   overflow-wrap:anywhere;
 }
 
+
 .user {
   margin-left:auto;
 
@@ -595,6 +643,7 @@ header {
   border-bottom-right-radius:6px;
 }
 
+
 .cat {
   background:var(--panel2);
 
@@ -604,11 +653,13 @@ header {
   border-bottom-left-radius:6px;
 }
 
+
 .cat-label {
   font-weight:bold;
 
   margin-bottom:6px;
 }
+
 
 .bottom {
   padding:15px 22px 20px;
@@ -621,11 +672,13 @@ header {
   backdrop-filter:blur(20px);
 }
 
+
 .input-row {
   display:flex;
 
   gap:10px;
 }
+
 
 #input {
   flex:1;
@@ -646,9 +699,6 @@ header {
   background:var(--panel2);
 }
 
-#input::placeholder {
-  color:var(--muted);
-}
 
 .send {
   width:90px;
@@ -669,6 +719,7 @@ header {
   font-weight:bold;
 }
 
+
 .hint {
   text-align:center;
 
@@ -678,6 +729,7 @@ header {
 
   margin-top:8px;
 }
+
 
 /* =====================================================
    ARCADE
@@ -704,9 +756,11 @@ header {
   padding:20px;
 }
 
+
 .arcade.open {
   display:flex;
 }
+
 
 .arcade-card {
   width:min(950px,100%);
@@ -730,6 +784,7 @@ header {
     0 30px 80px rgba(0,0,0,.5);
 }
 
+
 .arcade-header {
   display:flex;
 
@@ -743,9 +798,11 @@ header {
     1px solid var(--border);
 }
 
+
 .arcade-header h2 {
   margin:0;
 }
+
 
 .close-game {
   margin-left:auto;
@@ -762,6 +819,7 @@ header {
   background:var(--panel2);
 }
 
+
 .arcade-tabs {
   display:flex;
 
@@ -771,9 +829,8 @@ header {
 
   border-bottom:
     1px solid var(--border);
-
-  overflow-x:auto;
 }
+
 
 .arcade-tab {
   padding:9px 14px;
@@ -786,9 +843,8 @@ header {
   color:var(--text);
 
   background:var(--panel2);
-
-  white-space:nowrap;
 }
+
 
 .arcade-tab.active {
   background:
@@ -801,6 +857,7 @@ header {
   color:white;
 }
 
+
 .arcade-view {
   flex:1;
 
@@ -809,136 +866,15 @@ header {
   padding:20px;
 }
 
-.game-list {
-  display:grid;
-
-  grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-
-  gap:14px;
-}
-
-.game-card {
-  padding:18px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:18px;
-
-  background:var(--panel2);
-}
-
-.game-card:hover {
-  transform:translateY(-2px);
-
-  transition:.15s;
-}
-
-.game-card-icon {
-  font-size:38px;
-}
-
-.game-card h3 {
-  margin:10px 0 5px;
-}
-
-.game-card p {
-  margin:0 0 15px;
-
-  color:var(--muted);
-
-  font-size:13px;
-}
-
-.play-button {
-  width:100%;
-
-  padding:11px;
-
-  border:0;
-
-  border-radius:12px;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-}
 
 /* =====================================================
-   LEADERBOARD
+   GAME
 ===================================================== */
 
-.leaderboard-controls {
-  display:flex;
+.game-card {
+  max-width:600px;
 
-  gap:8px;
-
-  flex-wrap:wrap;
-
-  margin-bottom:18px;
-}
-
-.leaderboard-game {
-  padding:9px 12px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:11px;
-
-  color:var(--text);
-
-  background:var(--panel2);
-}
-
-.leaderboard-game.active {
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--accent),
-      var(--accent2)
-    );
-}
-
-.leaderboard-table {
-  width:100%;
-
-  border-collapse:collapse;
-}
-
-.leaderboard-table th,
-.leaderboard-table td {
-  padding:12px 9px;
-
-  border-bottom:
-    1px solid var(--border);
-
-  text-align:left;
-}
-
-.leaderboard-table th {
-  color:var(--muted);
-
-  font-size:11px;
-}
-
-.leaderboard-table tr.current-player {
-  background:
-    rgba(155,98,255,.12);
-}
-
-.player-name-box {
-  max-width:500px;
-
-  margin:auto;
+  margin:0 auto;
 
   padding:30px;
 
@@ -947,27 +883,49 @@ header {
   border:
     1px solid var(--border);
 
-  border-radius:20px;
+  border-radius:22px;
 
   background:var(--panel2);
 }
 
-.player-name-box input {
+
+.game-card-icon {
+  font-size:70px;
+}
+
+
+.game-card h2 {
+  margin:10px 0;
+}
+
+
+.game-card p {
+  color:var(--muted);
+}
+
+
+.play-button,
+.start-game {
   width:100%;
 
   padding:13px;
 
-  margin:15px 0;
+  border:0;
 
-  border-radius:12px;
+  border-radius:13px;
 
-  border:
-    1px solid var(--border);
+  color:white;
 
-  background:var(--panel);
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
 
-  color:var(--text);
+  font-weight:bold;
 }
+
 
 .game-screen {
   height:100%;
@@ -977,21 +935,24 @@ header {
   flex-direction:column;
 }
 
+
 .game-stats {
   display:flex;
 
   justify-content:center;
 
-  gap:30px;
+  gap:35px;
 
-  padding:12px;
+  padding:15px;
 
   font-weight:bold;
 }
 
+
 .game-stats span {
   color:var(--accent);
 }
+
 
 .game-board {
   flex:1;
@@ -1000,9 +961,9 @@ header {
 
   overflow:hidden;
 
-  margin:12px;
+  min-height:300px;
 
-  min-height:280px;
+  margin:12px;
 
   border-radius:20px;
 
@@ -1023,6 +984,7 @@ header {
     var(--panel2);
 }
 
+
 .target {
   position:absolute;
 
@@ -1039,9 +1001,11 @@ header {
   transition:transform .08s;
 }
 
+
 .target:hover {
   transform:scale(1.2);
 }
+
 
 .game-message {
   min-height:55px;
@@ -1060,28 +1024,35 @@ header {
   text-align:center;
 }
 
-.start-game {
-  align-self:center;
 
-  margin:0 0 18px;
+/* =====================================================
+   LEADERBOARD
+===================================================== */
 
-  padding:13px 25px;
+.leaderboard-table {
+  width:100%;
 
-  border:0;
-
-  border-radius:14px;
-
-  color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ff8a3d,
-      #e74d91
-    );
-
-  font-weight:bold;
+  border-collapse:collapse;
 }
+
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding:13px 9px;
+
+  border-bottom:
+    1px solid var(--border);
+
+  text-align:left;
+}
+
+
+.leaderboard-table th {
+  color:var(--muted);
+
+  font-size:11px;
+}
+
 
 /* =====================================================
    NAME PROMPT
@@ -1108,9 +1079,11 @@ header {
   padding:20px;
 }
 
+
 .name-overlay.open {
   display:flex;
 }
+
 
 .name-box {
   width:min(450px,100%);
@@ -1126,6 +1099,7 @@ header {
 
   text-align:center;
 }
+
 
 .name-box input {
   width:100%;
@@ -1144,6 +1118,7 @@ header {
   color:var(--text);
 }
 
+
 .name-box button {
   padding:12px 20px;
 
@@ -1161,6 +1136,7 @@ header {
     );
 }
 
+
 /* =====================================================
    SECRET CAT
 ===================================================== */
@@ -1169,11 +1145,9 @@ header {
   position:fixed;
 
   right:18px;
-
   bottom:18px;
 
   width:45px;
-
   height:45px;
 
   border:
@@ -1194,6 +1168,7 @@ header {
   z-index:999;
 }
 
+
 .secret-cat:hover {
   opacity:1;
 
@@ -1202,10 +1177,12 @@ header {
     rotate(-6deg);
 }
 
+
 .secret-cat.meowing {
   animation:
     catMeow .5s ease;
 }
+
 
 @keyframes catMeow {
 
@@ -1230,6 +1207,7 @@ header {
   }
 
 }
+
 
 /* =====================================================
    MOBILE
@@ -1261,15 +1239,14 @@ header {
     height:92vh;
   }
 
-  .game-board {
-    min-height:230px;
-  }
-
 }
+
 </style>
 </head>
 
+
 <body class="theme-purple">
+
 
 <!-- =====================================================
      PILLOW WALL
@@ -1307,7 +1284,9 @@ header {
 
 <div class="app">
 
+
   <aside class="sidebar">
+
 
     <div class="logo">
 
@@ -1417,6 +1396,7 @@ header {
 
     </div>
 
+
   </aside>
 
 
@@ -1425,6 +1405,7 @@ header {
   ==================================================== -->
 
   <main class="main">
+
 
     <header>
 
@@ -1479,14 +1460,14 @@ header {
 
 
       <div class="hint">
-
         Enter to send • Cat.AI is watching the shoes
-
       </div>
 
     </div>
 
+
   </main>
+
 
 </div>
 
@@ -1512,7 +1493,9 @@ header {
   id="arcade"
   class="arcade">
 
+
   <div class="arcade-card">
+
 
     <div class="arcade-header">
 
@@ -1527,14 +1510,11 @@ header {
           Cat.AI Arcade
         </h2>
 
-        <div
-          style="
-            font-size:11px;
-            color:var(--muted)
-          ">
-
-          Games • Scores • Achievements
-
+        <div style="
+          font-size:11px;
+          color:var(--muted);
+        ">
+          Catch the Mouse!
         </div>
 
       </div>
@@ -1558,7 +1538,7 @@ header {
         class="arcade-tab active"
         onclick="showArcadeTab('games')">
 
-        🎮 Games
+        🎮 Game
 
       </button>
 
@@ -1580,7 +1560,9 @@ header {
       class="arcade-view">
     </div>
 
+
   </div>
+
 
 </div>
 
@@ -1593,14 +1575,16 @@ header {
   id="nameOverlay"
   class="name-overlay">
 
+
   <div class="name-box">
 
     <h2>
       🐈 Who are you?
     </h2>
 
+
     <p>
-      Enter a display name for the Cat.AI Arcade.
+      Enter a name for the Cat.AI Arcade leaderboard.
     </p>
 
 
@@ -1614,13 +1598,15 @@ header {
     <br>
 
 
-    <button onclick="savePlayerName()">
+    <button
+      onclick="savePlayerName()">
 
       MEOW, LET'S PLAY!
 
     </button>
 
   </div>
+
 
 </div>
 
@@ -1637,22 +1623,20 @@ let currentChat = {
   messages:[]
 };
 
+
 let playerName =
   localStorage.getItem(
     "catAIPlayerName"
   ) || "";
 
-let selectedGame = "mouse";
 
 let gameState = {
   running:false,
   score:0,
   time:60,
-  startedAt:0,
   timer:null,
   target:null,
-  goal:20,
-  type:"mouse"
+  startedAt:0
 };
 
 
@@ -1712,21 +1696,18 @@ function addMessage(
 
     div.appendChild(label);
 
-
     div.appendChild(
       document.createTextNode(text)
     );
 
   } else {
 
-    div.textContent =
-      text;
+    div.textContent = text;
 
   }
 
 
   messages.appendChild(div);
-
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -1787,7 +1768,6 @@ async function sendMessage() {
     "user"
   );
 
-
   input.value = "";
 
 
@@ -1797,7 +1777,6 @@ async function sendMessage() {
   thinking.className =
     "message cat";
 
-
   thinking.innerHTML = `
     <div class="cat-label">
       🐈 Cat.AI
@@ -1806,10 +1785,7 @@ async function sendMessage() {
   `;
 
 
-  messages.appendChild(
-    thinking
-  );
-
+  messages.appendChild(thinking);
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -1839,11 +1815,6 @@ async function sendMessage() {
       await response.json();
 
 
-    const reply =
-      data.reply ||
-      "MRRP! My brain exploded! 🐈";
-
-
     thinking.innerHTML = `
       <div class="cat-label">
         🐈 Cat.AI
@@ -1852,18 +1823,22 @@ async function sendMessage() {
 
 
     thinking.appendChild(
-      document.createTextNode(reply)
+      document.createTextNode(
+        data.reply ||
+        "MEOW!"
+      )
     );
 
 
     currentChat.messages.push({
-      text:reply,
+      text:
+        data.reply ||
+        "MEOW!",
       type:"cat"
     });
 
 
     saveChat();
-
 
   } catch(error) {
 
@@ -1884,9 +1859,7 @@ input.addEventListener(
   event => {
 
     if(event.key === "Enter") {
-
       sendMessage();
-
     }
 
   }
@@ -1894,7 +1867,7 @@ input.addEventListener(
 
 
 /* =====================================================
-   CHAT HISTORY
+   HISTORY
 ===================================================== */
 
 function saveChat() {
@@ -1921,11 +1894,8 @@ function saveChat() {
   if(index >= 0)
     chats[index] =
       currentChat;
-
   else
-    chats.unshift(
-      currentChat
-    );
+    chats.unshift(currentChat);
 
 
   localStorage.setItem(
@@ -1959,10 +1929,8 @@ function loadHistory() {
     const item =
       document.createElement("div");
 
-
     item.className =
       "history-item";
-
 
     item.textContent =
       "🐾 " +
@@ -1973,13 +1941,10 @@ function loadHistory() {
 
 
     item.onclick =
-      () =>
-        loadChat(chat.id);
+      () => loadChat(chat.id);
 
 
-    historyBox.appendChild(
-      item
-    );
+    historyBox.appendChild(item);
 
   });
 
@@ -2010,8 +1975,7 @@ function loadChat(id) {
     chat;
 
 
-  messages.innerHTML =
-    "";
+  messages.innerHTML = "";
 
 
   currentChat.messages.forEach(
@@ -2041,8 +2005,7 @@ function newChat() {
   };
 
 
-  messages.innerHTML =
-    "";
+  messages.innerHTML = "";
 
 
   showWelcome();
@@ -2078,9 +2041,7 @@ function toggleThemeMenu() {
 
   document
     .getElementById("themeMenu")
-    .classList.toggle(
-      "open"
-    );
+    .classList.toggle("open");
 
 }
 
@@ -2105,6 +2066,11 @@ function setTheme(theme) {
     theme
   );
 
+
+  document
+    .getElementById("themeMenu")
+    .classList.remove("open");
+
 }
 
 
@@ -2114,17 +2080,18 @@ const savedTheme =
   );
 
 
-if(savedTheme)
+if(savedTheme) {
+
   setTheme(savedTheme);
+
+}
 
 
 /* =====================================================
    PLAYER NAME
 ===================================================== */
 
-function ensurePlayerName(
-  callback
-) {
+function ensurePlayerName(callback) {
 
   if(playerName) {
 
@@ -2152,8 +2119,7 @@ function ensurePlayerName(
 function savePlayerName() {
 
   const name =
-    playerNameInput.value
-      .trim();
+    playerNameInput.value.trim();
 
 
   if(!name)
@@ -2161,16 +2127,7 @@ function savePlayerName() {
 
 
   playerName =
-    name
-      .replace(
-        /[^a-zA-Z0-9 _-]/g,
-        ""
-      )
-      .slice(0,20);
-
-
-  if(!playerName)
-    return;
+    name.slice(0,20);
 
 
   localStorage.setItem(
@@ -2203,8 +2160,9 @@ playerNameInput.addEventListener(
   "keydown",
   event => {
 
-    if(event.key === "Enter")
+    if(event.key === "Enter") {
       savePlayerName();
+    }
 
   }
 );
@@ -2216,13 +2174,9 @@ playerNameInput.addEventListener(
 
 function openArcade() {
 
-  arcade.classList.add(
-    "open"
-  );
+  arcade.classList.add("open");
 
-  showArcadeTab(
-    "games"
-  );
+  showArcadeTab("games");
 
 }
 
@@ -2256,177 +2210,48 @@ function showArcadeTab(tab) {
     );
 
 
-  if(tab === "games") {
+  if(tab === "games")
+    renderGame();
 
-    renderGameList();
-
-  } else {
-
+  else
     loadLeaderboard();
-
-  }
 
 }
 
 
 /* =====================================================
-   GAME LIST
+   GAME MENU
 ===================================================== */
 
-function renderGameList() {
+function renderGame() {
 
   arcadeView.innerHTML = `
 
-    <div class="game-list">
+    <div class="game-card">
 
-      <div class="game-card">
-
-        <div class="game-card-icon">
-          🐭
-        </div>
-
-        <h3>
-          Catch the Mouse!
-        </h3>
-
-        <p>
-          Catch 20 mice in 1 minute.
-        </p>
-
-        <button
-          class="play-button"
-          onclick="startGame('mouse')">
-
-          PLAY
-
-        </button>
-
+      <div class="game-card-icon">
+        🐭
       </div>
 
+      <h2>
+        Catch the Mouse!
+      </h2>
 
-      <div class="game-card">
+      <p>
+        Catch 20 mice in 1 minute!
+      </p>
 
-        <div class="game-card-icon">
-          🧶
-        </div>
+      <p>
+        Cat.AI will cheer you on.
+      </p>
 
-        <h3>
-          Yarn Frenzy
-        </h3>
+      <button
+        class="play-button"
+        onclick="startGame()">
 
-        <p>
-          Catch as much yarn as possible.
-        </p>
+        🐾 PLAY
 
-        <button
-          class="play-button"
-          onclick="startGame('yarn')">
-
-          PLAY
-
-        </button>
-
-      </div>
-
-
-      <div class="game-card">
-
-        <div class="game-card-icon">
-          🐟
-        </div>
-
-        <h3>
-          Fish Frenzy
-        </h3>
-
-        <p>
-          Catch as many fish as possible.
-        </p>
-
-        <button
-          class="play-button"
-          onclick="startGame('fish')">
-
-          PLAY
-
-        </button>
-
-      </div>
-
-
-      <div class="game-card">
-
-        <div class="game-card-icon">
-          👟
-        </div>
-
-        <h3>
-          Shoe Destroyer
-        </h3>
-
-        <p>
-          Destroy suspicious footwear.
-        </p>
-
-        <button
-          class="play-button"
-          onclick="startGame('shoe')">
-
-          PLAY
-
-        </button>
-
-      </div>
-
-
-      <div class="game-card">
-
-        <div class="game-card-icon">
-          🪶
-        </div>
-
-        <h3>
-          Feather Chase
-        </h3>
-
-        <p>
-          Chase the feather before it escapes.
-        </p>
-
-        <button
-          class="play-button"
-          onclick="startGame('feather')">
-
-          PLAY
-
-        </button>
-
-      </div>
-
-
-      <div class="game-card">
-
-        <div class="game-card-icon">
-          📦
-        </div>
-
-        <h3>
-          Box Attack
-        </h3>
-
-        <p>
-          Find toys hidden inside boxes.
-        </p>
-
-        <button
-          class="play-button"
-          onclick="startGame('box')">
-
-          PLAY
-
-        </button>
-
-      </div>
+      </button>
 
     </div>
 
@@ -2439,35 +2264,17 @@ function renderGameList() {
    START GAME
 ===================================================== */
 
-function startGame(type) {
+function startGame() {
 
   ensurePlayerName(
-    () => {
-
-      selectedGame =
-        type;
-
-
-      if(type === "mouse") {
-
-        startMouseGame();
-
-      } else {
-
-        startGenericGame(
-          type
-        );
-
-      }
-
-    }
+    startMouseGame
   );
 
 }
 
 
 /* =====================================================
-   MOUSE GAME
+   CATCH THE MOUSE
 ===================================================== */
 
 function startMouseGame() {
@@ -2480,216 +2287,32 @@ function startMouseGame() {
 
     time:60,
 
-    startedAt:
-      performance.now(),
-
     timer:null,
 
     target:null,
 
-    goal:20,
-
-    type:"mouse"
-
-  };
-
-
-  renderGameScreen(
-    "🐭 Catch the Mouse!",
-    "Catch 20 mice in 1 minute!"
-  );
-
-
-  spawnTarget("🐭");
-
-
-  gameState.timer =
-    setInterval(
-      () => {
-
-        if(!gameState.running)
-          return;
-
-
-        gameState.time--;
-
-
-        updateGameStats();
-
-
-        if(
-          gameState.time <= 0
-        ) {
-
-          finishGame(
-            false
-          );
-
-        }
-
-      },
-      1000
-    );
-
-}
-
-
-/* =====================================================
-   GENERIC GAMES
-===================================================== */
-
-function startGenericGame(
-  type
-) {
-
-  const configs = {
-
-    yarn:{
-      icon:"🧶",
-      title:"Yarn Frenzy",
-      description:
-        "Catch as much yarn as possible!",
-      time:30,
-      goal:50
-    },
-
-    fish:{
-      icon:"🐟",
-      title:"Fish Frenzy",
-      description:
-        "Catch as many fish as possible!",
-      time:30,
-      goal:30
-    },
-
-    shoe:{
-      icon:"👟",
-      title:"Shoe Destroyer",
-      description:
-        "DESTROY THE SUSPICIOUS FOOTWEAR!",
-      time:30,
-      goal:50
-    },
-
-    feather:{
-      icon:"🪶",
-      title:"Feather Chase",
-      description:
-        "Catch the feather!",
-      time:30,
-      goal:25
-    },
-
-    box:{
-      icon:"📦",
-      title:"Box Attack",
-      description:
-        "Find the toys!",
-      time:30,
-      goal:20
-    }
-
-  };
-
-
-  const config =
-    configs[type];
-
-
-  gameState = {
-
-    running:true,
-
-    score:0,
-
-    time:config.time,
-
     startedAt:
-      performance.now(),
-
-    timer:null,
-
-    target:null,
-
-    goal:config.goal,
-
-    type
+      performance.now()
 
   };
 
-
-  renderGameScreen(
-    `${config.icon} ${config.title}`,
-    config.description
-  );
-
-
-  spawnTarget(
-    config.icon
-  );
-
-
-  gameState.timer =
-    setInterval(
-      () => {
-
-        if(!gameState.running)
-          return;
-
-
-        gameState.time--;
-
-
-        updateGameStats();
-
-
-        if(
-          gameState.time <= 0
-        ) {
-
-          finishGame(
-            false
-          );
-
-        }
-
-      },
-      1000
-    );
-
-}
-
-
-/* =====================================================
-   GAME SCREEN
-===================================================== */
-
-function renderGameScreen(
-  title,
-  description
-) {
 
   arcadeView.innerHTML = `
 
     <div class="game-screen">
 
-      <div
-        style="
-          text-align:center;
-          margin-bottom:5px;
-        ">
+      <div style="text-align:center">
 
         <h2>
-          ${title}
+          🐭 Catch the Mouse!
         </h2>
 
-        <div
-          style="
-            color:var(--muted);
-            font-size:13px;
-          ">
+        <div style="
+          color:var(--muted);
+          font-size:13px;
+        ">
 
-          ${description}
+          Catch 20 mice in 1 minute!
 
         </div>
 
@@ -2699,26 +2322,20 @@ function renderGameScreen(
       <div class="game-stats">
 
         <div>
-
-          Score:
-
+          Mice:
           <span id="gameScore">
             0
           </span>
-
+          / 20
         </div>
 
 
         <div>
-
           Time:
-
           <span id="gameTime">
-            ${gameState.time}
+            60
           </span>
-
           s
-
         </div>
 
       </div>
@@ -2735,7 +2352,9 @@ function renderGameScreen(
         class="game-message">
 
         🐈 Cat.AI:
-        ${gameStartMessage()}
+        GO ${escapeHtml(
+          playerName.toUpperCase()
+        )}! CATCH THAT MOUSE!
 
       </div>
 
@@ -2744,7 +2363,7 @@ function renderGameScreen(
         class="start-game"
         onclick="
           stopGame();
-          renderGameList();
+          renderGame();
         ">
 
         ← EXIT GAME
@@ -2755,34 +2374,43 @@ function renderGameScreen(
 
   `;
 
-}
+
+  spawnMouse();
 
 
-function gameStartMessage() {
+  gameState.timer =
+    setInterval(
+      () => {
 
-  if(
-    selectedGame === "shoe"
-  ) {
-
-    return `
-      HISS! DESTROY THE FOOTWEAR!
-    `;
-
-  }
+        if(!gameState.running)
+          return;
 
 
-  return `
-    GO ${playerName.toUpperCase()}! GET IT!
-  `;
+        gameState.time--;
+
+        updateGameStats();
+
+
+        if(
+          gameState.time <= 0
+        ) {
+
+          finishGame(false);
+
+        }
+
+      },
+      1000
+    );
 
 }
 
 
 /* =====================================================
-   TARGET
+   MOUSE
 ===================================================== */
 
-function spawnTarget(icon) {
+function spawnMouse() {
 
   if(!gameState.running)
     return;
@@ -2798,25 +2426,22 @@ function spawnTarget(icon) {
     return;
 
 
-  if(gameState.target) {
-
+  if(gameState.target)
     gameState.target.remove();
 
-  }
 
-
-  const target =
+  const mouse =
     document.createElement(
       "button"
     );
 
 
-  target.className =
+  mouse.className =
     "target";
 
 
-  target.textContent =
-    icon;
+  mouse.textContent =
+    "🐭";
 
 
   const maxX =
@@ -2833,34 +2458,36 @@ function spawnTarget(icon) {
     );
 
 
-  target.style.left =
+  mouse.style.left =
     Math.random() *
       maxX +
     "px";
 
 
-  target.style.top =
+  mouse.style.top =
     Math.random() *
       maxY +
     "px";
 
 
-  target.onclick =
-    hitTarget;
+  mouse.onclick =
+    catchMouse;
 
 
-  board.appendChild(
-    target
-  );
+  board.appendChild(mouse);
 
 
   gameState.target =
-    target;
+    mouse;
 
 }
 
 
-function hitTarget() {
+/* =====================================================
+   CATCH MOUSE
+===================================================== */
+
+function catchMouse() {
 
   if(!gameState.running)
     return;
@@ -2871,56 +2498,29 @@ function hitTarget() {
 
   updateGameStats();
 
-
   playMeow();
 
 
-  const goal =
-    gameState.goal;
-
-
   if(
-    gameState.score >= goal
+    gameState.score >= 20
   ) {
 
-    finishGame(
-      true
-    );
+    finishGame(true);
 
     return;
 
   }
 
 
-  updateEncouragement();
+  encouragePlayer();
 
-
-  const icons = {
-
-    yarn:"🧶",
-
-    fish:"🐟",
-
-    shoe:"👟",
-
-    feather:"🪶",
-
-    box:"📦",
-
-    mouse:"🐭"
-
-  };
-
-
-  spawnTarget(
-    icons[selectedGame]
-  );
+  spawnMouse();
 
 }
 
 
 /* =====================================================
-   GAME STATS
+   STATS
 ===================================================== */
 
 function updateGameStats() {
@@ -2937,20 +2537,14 @@ function updateGameStats() {
     );
 
 
-  if(score) {
-
+  if(score)
     score.textContent =
       gameState.score;
 
-  }
 
-
-  if(time) {
-
+  if(time)
     time.textContent =
       gameState.time;
-
-  }
 
 }
 
@@ -2959,31 +2553,14 @@ function updateGameStats() {
    CAT.AI ENCOURAGEMENT
 ===================================================== */
 
-async function updateEncouragement() {
+async function encouragePlayer() {
 
-  const milestones =
-    selectedGame === "mouse"
-
-      ? [
-          1,
-          5,
-          10,
-          15,
-          18,
-          19
-        ]
-
-      : [
-          5,
-          10,
-          20,
-          30,
-          40
-        ];
+  const importantScores =
+    [1,5,10,15,18,19];
 
 
   if(
-    !milestones.includes(
+    !importantScores.includes(
       gameState.score
     )
   )
@@ -3001,7 +2578,7 @@ async function updateEncouragement() {
 
 
   message.textContent =
-    "🐈 Cat.AI is thinking... 🧠";
+    "🐈 Cat.AI: MEOW! KEEP GOING!";
 
 
   try {
@@ -3020,10 +2597,14 @@ async function updateEncouragement() {
           body:JSON.stringify({
 
             message:
-              `You are Cat.AI encouraging ${playerName} during a minigame. They have ${gameState.score} points and ${gameState.time} seconds left. Give ONE very short excited cat-like encouragement. Maximum 15 words. No question.`
+              `You are Cat.AI.
+Encourage ${playerName} during Catch the Mouse.
+They caught ${gameState.score} mice.
+They have ${gameState.time} seconds left.
+Give ONE short excited cat-like encouragement.
+Maximum 12 words.`
 
           })
-
         }
       );
 
@@ -3032,63 +2613,20 @@ async function updateEncouragement() {
       await response.json();
 
 
-    message.textContent =
-      "🐈 Cat.AI: " +
-      (
-        data.reply ||
-        fallbackEncouragement()
-      );
+    if(data.reply) {
 
+      message.textContent =
+        "🐈 Cat.AI: " +
+        data.reply;
+
+    }
 
   } catch {
 
-    message.textContent =
-      "🐈 Cat.AI: " +
-      fallbackEncouragement();
+    // The game still works
+    // if Groq is unavailable.
 
   }
-
-}
-
-
-function fallbackEncouragement() {
-
-  if(
-    selectedGame === "shoe"
-  ) {
-
-    return `
-      HISS! DESTROY MORE SHOES!
-    `;
-
-  }
-
-
-  if(
-    gameState.score >= 18
-  ) {
-
-    return `
-      MRRP! ALMOST THERE!
-    `;
-
-  }
-
-
-  if(
-    gameState.score >= 10
-  ) {
-
-    return `
-      MEOW! KEEP GOING!
-    `;
-
-  }
-
-
-  return `
-    PURR! NICE CATCH!
-  `;
 
 }
 
@@ -3097,9 +2635,7 @@ function fallbackEncouragement() {
    FINISH GAME
 ===================================================== */
 
-async function finishGame(
-  won
-) {
+async function finishGame(won) {
 
   if(!gameState.running)
     return;
@@ -3124,7 +2660,7 @@ async function finishGame(
   }
 
 
-  const completionTime =
+  const elapsed =
     Math.round(
       (
         performance.now() -
@@ -3142,10 +2678,7 @@ async function finishGame(
   if(won) {
 
     message.textContent =
-      `
-      🐈 Cat.AI:
-      MEOW!!! ${playerName.toUpperCase()} DID IT! 🎉
-      `;
+      `🐈 Cat.AI: MEOW!!! ${playerName.toUpperCase()} CAUGHT ALL 20 MICE! 🎉`;
 
 
     playWinSound();
@@ -3153,17 +2686,14 @@ async function finishGame(
   } else {
 
     message.textContent =
-      `
-      🐈 Cat.AI:
-      Time's up! ${gameState.score} points!
-      `;
+      `🐈 Cat.AI: Time's up! ${playerName.toUpperCase()} caught ${gameState.score} mice!`;
 
   }
 
 
   await submitScore(
     gameState.score,
-    completionTime,
+    elapsed,
     won
   );
 
@@ -3181,13 +2711,9 @@ async function finishGame(
 
 
     button.onclick =
-      () => {
-
-        showArcadeTab(
-          "leaderboard"
-        );
-
-      };
+      () => showArcadeTab(
+        "leaderboard"
+      );
 
   }
 
@@ -3195,7 +2721,7 @@ async function finishGame(
 
 
 /* =====================================================
-   PERMANENT SCORE SUBMISSION
+   SUBMIT SCORE
 ===================================================== */
 
 async function submitScore(
@@ -3206,43 +2732,31 @@ async function submitScore(
 
   try {
 
-    const response =
-      await fetch(
-        "/api/scores",
-        {
+    await fetch(
+      "/api/scores",
+      {
+        method:"POST",
 
-          method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
 
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
+        body:JSON.stringify({
 
-          body:JSON.stringify({
+          name:playerName,
 
-            name:playerName,
+          game:"mouse",
 
-            game:selectedGame,
+          score,
 
-            score:score,
+          time,
 
-            time:time,
+          won
 
-            won:won
-
-          })
-
-        }
-      );
-
-
-    if(!response.ok) {
-
-      console.error(
-        "Server rejected score."
-      );
-
-    }
+        })
+      }
+    );
 
   } catch(error) {
 
@@ -3265,11 +2779,15 @@ async function loadLeaderboard() {
   arcadeView.innerHTML = `
 
     <h2>
-      🏆 Global Cat Leaderboard
+      🏆 Catch the Mouse Leaderboard
     </h2>
 
-    <p style="color:var(--muted)">
+    <p style="
+      color:var(--muted)
+    ">
+
       Loading the world's cats...
+
     </p>
 
   `;
@@ -3279,15 +2797,7 @@ async function loadLeaderboard() {
 
     const response =
       await fetch(
-        `/api/leaderboard?game=${encodeURIComponent(
-          selectedGame
-        )}`
-      );
-
-
-    if(!response.ok)
-      throw new Error(
-        "Leaderboard request failed"
+        "/api/leaderboard?game=mouse"
       );
 
 
@@ -3299,72 +2809,24 @@ async function loadLeaderboard() {
       data.scores || [];
 
 
-    const games = {
-
-      mouse:"🐭 Mouse",
-
-      yarn:"🧶 Yarn",
-
-      fish:"🐟 Fish",
-
-      shoe:"👟 Shoes",
-
-      feather:"🪶 Feather",
-
-      box:"📦 Box"
-
-    };
-
-
     arcadeView.innerHTML = `
 
       <h2>
-        🏆 Global Cat Leaderboard
+        🏆 Catch the Mouse
       </h2>
 
+      <p style="
+        color:var(--muted)
+      ">
 
-      <div
-        class="leaderboard-controls">
-
-        ${
-          Object.keys(games)
-            .map(
-              game => `
-
-                <button
-                  class="
-                    leaderboard-game
-                    ${
-                      game === selectedGame
-                        ? "active"
-                        : ""
-                    }
-                  "
-                  onclick="
-                    selectedGame='${game}';
-                    loadLeaderboard();
-                  ">
-
-                  ${games[game]}
-
-                </button>
-
-              `
-            )
-            .join("")
-        }
-
-      </div>
-
-
-      <p style="color:var(--muted)">
-
-        Global scores • Top 50 players
+        Global Cat.AI Arcade
+        leaderboard
 
       </p>
 
 
-      <table class="leaderboard-table">
+      <table
+        class="leaderboard-table">
 
         <thead>
 
@@ -3379,7 +2841,7 @@ async function loadLeaderboard() {
             </th>
 
             <th>
-              SCORE
+              MICE
             </th>
 
             <th>
@@ -3396,97 +2858,53 @@ async function loadLeaderboard() {
           ${
             rows.length
 
-              ? rows
-                  .map(
-                    (row,index) => {
+            ? rows.map(
+                (row,index) => `
 
-                      const isMe =
-                        row.name ===
-                        playerName;
+                  <tr>
 
-                      return `
+                    <td>
+                      ${
+                        index === 0
+                          ? "👑"
+                          : index + 1
+                      }
+                    </td>
 
-                        <tr
-                          class="
-                            ${
-                              isMe
-                                ? "current-player"
-                                : ""
-                            }
-                          ">
+                    <td>
+                      ${escapeHtml(
+                        row.name
+                      )}
+                    </td>
 
-                          <td>
+                    <td>
+                      ${row.score}
+                    </td>
 
-                            ${
-                              index === 0
-                                ? "👑"
-                                : index + 1
-                            }
+                    <td>
+                      ${row.time}s
+                    </td>
 
-                          </td>
+                  </tr>
 
+                `
+              ).join("")
 
-                          <td>
+            : `
 
-                            ${
-                              escapeHtml(
-                                row.name
-                              )
-                            }
+              <tr>
 
-                            ${
-                              isMe
-                                ? " ⭐"
-                                : ""
-                            }
+                <td
+                  colspan="4">
 
-                          </td>
+                  No scores yet.
+                  Be the first cat!
 
+                </td>
 
-                          <td>
+              </tr>
 
-                            ${Number(
-                              row.score
-                            )}
-
-                          </td>
-
-
-                          <td>
-
-                            ${Number(
-                              row.time
-                            )}s
-
-                          </td>
-
-                        </tr>
-
-                      `;
-
-                    }
-                  )
-                  .join("")
-
-              : `
-
-                <tr>
-
-                  <td
-                    colspan="4"
-                    style="
-                      text-align:center;
-                      padding:30px;
-                    ">
-
-                    🐾 No scores yet!
-                    Be the first cat!
-
-                  </td>
-
-                </tr>
-
-              `
+            `
           }
 
         </tbody>
@@ -3495,65 +2913,25 @@ async function loadLeaderboard() {
 
     `;
 
-
   } catch(error) {
 
-    console.error(
-      error
-    );
+    console.error(error);
 
 
     arcadeView.innerHTML = `
 
       <h2>
-        🏆 Global Cat Leaderboard
+        🏆 Leaderboard
       </h2>
 
-
       <p>
-
-        MRRP! I can't reach the
-        leaderboard server! 🐈💥
-
-      </p>
-
-
-      <p
-        style="
-          color:var(--muted);
-          font-size:12px;
-        ">
-
-        Make sure index.js is running.
-
+        MRRP! The leaderboard
+        server isn't responding.
       </p>
 
     `;
 
   }
-
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(
-  text
-) {
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-
-  div.textContent =
-    text;
-
-
-  return div.innerHTML;
 
 }
 
@@ -3590,7 +2968,28 @@ function stopGame() {
 
 
 /* =====================================================
-   MEOW SOUND
+   SAFE HTML
+===================================================== */
+
+function escapeHtml(text) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.textContent =
+    String(text);
+
+
+  return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   SOUND
 ===================================================== */
 
 function playMeow() {
@@ -3665,6 +3064,7 @@ function playMeow() {
 
   osc.start();
 
+
   osc.stop(
     audio.currentTime + .22
   );
@@ -3694,12 +3094,10 @@ function playWinSound() {
   [
     523,
     659,
-    784
+    784,
+    1046
   ].forEach(
-    (
-      frequency,
-      index
-    ) => {
+    (frequency,index) => {
 
       const osc =
         audio.createOscillator();
@@ -3809,7 +3207,8 @@ function secretMeow() {
 
     color:var(--text);
 
-    border:1px solid var(--border);
+    border:
+      1px solid var(--border);
 
     z-index:1000;
 
