@@ -33,7 +33,7 @@ body {
 }
 
 /* =====================================================
-   OG
+   OG THEME
 ===================================================== */
 
 body.theme-og {
@@ -51,7 +51,7 @@ body.theme-og {
 }
 
 /* =====================================================
-   PURPLE SHADE
+   PURPLE THEME
 ===================================================== */
 
 body.theme-purple {
@@ -80,7 +80,7 @@ body.theme-purple {
 }
 
 /* =====================================================
-   YARN TEXTURE
+   YARN THEME
 ===================================================== */
 
 body.theme-yarn {
@@ -123,9 +123,6 @@ body.theme-yarn {
     18px 18px,
     18px 18px,
     7px 7px;
-
-  box-shadow:
-    inset 0 0 100px rgba(0,0,0,.28);
 }
 
 body.theme-yarn::before {
@@ -166,7 +163,7 @@ body.theme-yarn::after {
 }
 
 /* =====================================================
-   REAL PILLOW WALL
+   PILLOW WALL THEME
 ===================================================== */
 
 body.theme-pillow {
@@ -183,13 +180,14 @@ body.theme-pillow {
   background: #cfc3d3;
 }
 
-/* The actual wall container */
-
 .pillow-wall {
   display: none;
+
   position: fixed;
   inset: -40px;
+
   z-index: -5;
+
   overflow: hidden;
 
   background:
@@ -201,16 +199,23 @@ body.theme-pillow {
 
   padding: 25px;
 
-  transform: rotate(-1deg) scale(1.04);
+  transform:
+    rotate(-1deg)
+    scale(1.04);
 
   pointer-events: none;
+
+  grid-template-columns:
+    repeat(6, minmax(130px, 1fr));
+
+  grid-auto-rows: 105px;
+
+  gap: 8px;
 }
 
 body.theme-pillow .pillow-wall {
   display: grid;
 }
-
-/* Every pillow is an actual CSS pillow */
 
 .pillow {
   position: relative;
@@ -237,7 +242,8 @@ body.theme-pillow .pillow-wall {
       #d9bfd4
     );
 
-  border: 4px solid rgba(170,130,170,.35);
+  border:
+    4px solid rgba(170,130,170,.35);
 
   box-shadow:
     inset 8px 8px 14px rgba(255,255,255,.65),
@@ -246,12 +252,7 @@ body.theme-pillow .pillow-wall {
 
   transform:
     rotate(var(--rotation));
-
-  /* Makes the pillows look stuffed */
-  filter: saturate(.95);
 }
-
-/* Pillow seam */
 
 .pillow::before {
   content: "";
@@ -267,8 +268,6 @@ body.theme-pillow .pillow-wall {
   box-shadow:
     inset 0 0 10px rgba(100,70,110,.12);
 }
-
-/* Pillow wrinkles */
 
 .pillow::after {
   content: "";
@@ -286,13 +285,12 @@ body.theme-pillow .pillow-wall {
   border-top:
     3px solid rgba(120,90,125,.18);
 
-  transform: rotate(-20deg);
+  transform:
+    rotate(-20deg);
 
   box-shadow:
     -12px 12px 0 -1px rgba(120,90,125,.12);
 }
-
-/* Different pillow colors */
 
 .pillow:nth-child(3n) {
   background:
@@ -336,8 +334,6 @@ body.theme-pillow .pillow-wall {
     );
 }
 
-/* Little stitched cat faces */
-
 .pillow.cat-pillow .cat-face {
   position: absolute;
 
@@ -348,12 +344,6 @@ body.theme-pillow .pillow-wall {
     translate(-50%, -50%);
 
   font-size: 39px;
-
-  filter:
-    grayscale(.15)
-    drop-shadow(
-      0 2px 1px rgba(70,40,70,.2)
-    );
 
   z-index: 3;
 }
@@ -426,6 +416,7 @@ body.theme-pillow .pillow-wall {
 
 .new-chat {
   border: 0;
+
   border-radius: 14px;
 
   padding: 13px;
@@ -442,18 +433,13 @@ body.theme-pillow .pillow-wall {
   font-weight: bold;
 
   cursor: pointer;
-
-  transition: .2s;
-}
-
-.new-chat:hover {
-  transform: translateY(-2px);
 }
 
 .history-title {
   color: var(--muted);
 
   font-size: 11px;
+
   font-weight: bold;
 
   letter-spacing: 1px;
@@ -461,6 +447,7 @@ body.theme-pillow .pillow-wall {
 
 .history {
   flex: 1;
+
   overflow-y: auto;
 }
 
@@ -478,19 +465,21 @@ body.theme-pillow .pillow-wall {
   font-size: 13px;
 
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
-  transition: .15s;
+  overflow: hidden;
+
+  text-overflow: ellipsis;
 }
 
 .history-item:hover {
   background: var(--panel2);
+
   color: var(--text);
 }
 
 .sidebar-buttons {
   display: flex;
+
   gap: 8px;
 }
 
@@ -545,6 +534,7 @@ body.theme-pillow .pillow-wall {
 
 .theme-menu h3 {
   margin: 4px 5px 10px;
+
   font-size: 13px;
 }
 
@@ -574,20 +564,18 @@ body.theme-pillow .pillow-wall {
 }
 
 /* =====================================================
-   MAIN
+   HEADER
 ===================================================== */
 
 .main {
   flex: 1;
+
   min-width: 0;
 
   display: flex;
+
   flex-direction: column;
 }
-
-/* =====================================================
-   HEADER
-===================================================== */
 
 header {
   height: 76px;
@@ -595,6 +583,7 @@ header {
   padding: 14px 22px;
 
   display: flex;
+
   align-items: center;
 
   gap: 14px;
@@ -612,6 +601,7 @@ header {
   height: 48px;
 
   display: grid;
+
   place-items: center;
 
   border-radius: 15px;
@@ -628,12 +618,15 @@ header {
 
 .header-text h1 {
   margin: 0;
+
   font-size: 19px;
 }
 
 .header-text span {
   color: #55dc8a;
+
   font-size: 10px;
+
   font-weight: bold;
 }
 
@@ -656,7 +649,7 @@ header {
 }
 
 /* =====================================================
-   CHAT
+   MESSAGES
 ===================================================== */
 
 #messages {
@@ -681,20 +674,6 @@ header {
   white-space: pre-wrap;
 
   overflow-wrap: anywhere;
-
-  animation: pop .2s ease;
-}
-
-@keyframes pop {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 .user {
@@ -723,6 +702,7 @@ header {
 
 .cat-label {
   font-weight: bold;
+
   margin-bottom: 6px;
 }
 
@@ -732,6 +712,7 @@ header {
 
 .thinking {
   display: flex;
+
   gap: 5px;
 }
 
@@ -743,7 +724,8 @@ header {
 
   background: var(--accent);
 
-  animation: bounce 1s infinite;
+  animation:
+    bounce 1s infinite;
 }
 
 .thinking i:nth-child(2) {
@@ -757,6 +739,7 @@ header {
 @keyframes bounce {
   50% {
     transform: translateY(-6px);
+
     opacity: .5;
   }
 }
@@ -778,11 +761,13 @@ header {
 
 .input-row {
   display: flex;
+
   gap: 10px;
 }
 
 #input {
   flex: 1;
+
   min-width: 0;
 
   padding: 15px 17px;
@@ -826,10 +811,6 @@ header {
   cursor: pointer;
 }
 
-.send:hover {
-  transform: scale(1.03);
-}
-
 .hint {
   text-align: center;
 
@@ -840,11 +821,10 @@ header {
   margin-top: 8px;
 }
 
-<!-- =====================================================
-     SECRET CAT
-===================================================== -->
+/* =====================================================
+   SECRET CAT
+===================================================== */
 
-<style>
 .secret-cat {
   position: fixed;
 
@@ -854,7 +834,8 @@ header {
   width: 45px;
   height: 45px;
 
-  border: 1px solid var(--border);
+  border:
+    1px solid var(--border);
 
   border-radius: 50%;
 
@@ -875,11 +856,15 @@ header {
 
 .secret-cat:hover {
   opacity: 1;
-  transform: scale(1.15) rotate(-6deg);
+
+  transform:
+    scale(1.15)
+    rotate(-6deg);
 }
 
 .secret-cat.meowing {
-  animation: catMeow .5s ease;
+  animation:
+    catMeow .5s ease;
 }
 
 @keyframes catMeow {
@@ -888,11 +873,15 @@ header {
   }
 
   30% {
-    transform: scale(1.35) rotate(-8deg);
+    transform:
+      scale(1.35)
+      rotate(-8deg);
   }
 
   60% {
-    transform: scale(.9) rotate(8deg);
+    transform:
+      scale(.9)
+      rotate(8deg);
   }
 
   100% {
@@ -911,9 +900,11 @@ header {
   border-radius: 15px;
 
   background: var(--panel);
+
   color: var(--text);
 
-  border: 1px solid var(--border);
+  border:
+    1px solid var(--border);
 
   backdrop-filter: blur(12px);
 
@@ -924,152 +915,33 @@ header {
   box-shadow:
     0 5px 20px rgba(0,0,0,.25);
 
-  animation: meowBubble .2s ease;
+  animation:
+    meowBubble .2s ease;
 }
 
 @keyframes meowBubble {
   from {
     opacity: 0;
-    transform: scale(.7) translateY(10px);
+
+    transform:
+      scale(.7)
+      translateY(10px);
   }
 
   to {
     opacity: 1;
-    transform: scale(1) translateY(0);
+
+    transform:
+      scale(1)
+      translateY(0);
   }
 }
-</style>
 
-<button
-  class="secret-cat"
-  onclick="secretMeow()"
-  aria-label="Secret cat">
-
-  🐈
-
-</button>
-
-<script>
-function secretMeow() {
-
-  const cat =
-    document.querySelector(".secret-cat");
-
-
-  /* Make the tiny cat bounce */
-
-  cat.classList.remove("meowing");
-
-  void cat.offsetWidth;
-
-  cat.classList.add("meowing");
-
-
-  /* Make the cat say MEOW */
-
-  const bubble =
-    document.createElement("div");
-
-  bubble.className =
-    "secret-meow-bubble";
-
-  bubble.textContent =
-    "MEOW! 🐈";
-
-  document.body.appendChild(bubble);
-
-
-  setTimeout(() => {
-    bubble.remove();
-  }, 1200);
-
-
-  /* Create a silly little meow sound */
-
-  const AudioContext =
-    window.AudioContext ||
-    window.webkitAudioContext;
-
-  if (!AudioContext) return;
-
-  const audio =
-    new AudioContext();
-
-  const oscillator =
-    audio.createOscillator();
-
-  const gain =
-    audio.createGain();
-
-
-  oscillator.type = "sine";
-
-
-  /* Start low */
-
-  oscillator.frequency.setValueAtTime(
-    500,
-    audio.currentTime
-  );
-
-
-  /* Go UP like a meow */
-
-  oscillator.frequency.exponentialRampToValueAtTime(
-    850,
-    audio.currentTime + 0.12
-  );
-
-
-  /* Then drop back down */
-
-  oscillator.frequency.exponentialRampToValueAtTime(
-    350,
-    audio.currentTime + 0.5
-  );
-
-
-  /* Volume */
-
-  gain.gain.setValueAtTime(
-    0.001,
-    audio.currentTime
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.3,
-    audio.currentTime + 0.04
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    0.001,
-    audio.currentTime + 0.5
-  );
-
-
-  oscillator.connect(gain);
-
-  gain.connect(audio.destination);
-
-
-  oscillator.start();
-
-  oscillator.stop(
-    audio.currentTime + 0.5
-  );
-
-
-  setTimeout(() => {
-    audio.close();
-  }, 800);
-
-}
-</script>
 /* =====================================================
    MOBILE
 ===================================================== */
 
-@media(max-width:700px) {
+@media (max-width: 700px) {
 
   .sidebar {
     display: none;
@@ -1090,6 +962,7 @@ function secretMeow() {
   .secret-cat {
     bottom: 80px;
   }
+
 }
 </style>
 </head>
@@ -1097,101 +970,79 @@ function secretMeow() {
 <body class="theme-purple">
 
 <!-- =====================================================
-     ACTUAL PILLOW WALL
+     PILLOW WALL
 ===================================================== -->
 
 <div class="pillow-wall">
 
-  <div class="pillow"
-       style="--rotation:-2deg"></div>
+  <div class="pillow" style="--rotation:-2deg"></div>
 
-  <div class="pillow cat-pillow"
-       style="--rotation:2deg">
+  <div class="pillow cat-pillow" style="--rotation:2deg">
     <div class="cat-face">🐱</div>
   </div>
 
-  <div class="pillow"
-       style="--rotation:-1deg"></div>
+  <div class="pillow" style="--rotation:-1deg"></div>
 
-  <div class="pillow"
-       style="--rotation:3deg"></div>
+  <div class="pillow" style="--rotation:3deg"></div>
 
-  <div class="pillow"
-       style="--rotation:-3deg"></div>
+  <div class="pillow" style="--rotation:-3deg"></div>
 
-  <div class="pillow cat-pillow"
-       style="--rotation:1deg">
+  <div class="pillow cat-pillow" style="--rotation:1deg">
     <div class="cat-face">🐱</div>
   </div>
 
-  <div class="pillow"
-       style="--rotation:-2deg"></div>
+  <div class="pillow" style="--rotation:-2deg"></div>
 
-  <div class="pillow"
-       style="--rotation:2deg"></div>
+  <div class="pillow" style="--rotation:2deg"></div>
 
-  <div class="pillow cat-pillow"
-       style="--rotation:-1deg">
+  <div class="pillow cat-pillow" style="--rotation:-1deg">
     <div class="cat-face">🐱</div>
   </div>
 
-  <div class="pillow"
-       style="--rotation:3deg"></div>
+  <div class="pillow" style="--rotation:3deg"></div>
 
-  <div class="pillow"
-       style="--rotation:-2deg"></div>
+  <div class="pillow" style="--rotation:-2deg"></div>
 
-  <div class="pillow"
-       style="--rotation:1deg"></div>
+  <div class="pillow" style="--rotation:1deg"></div>
 
-  <div class="pillow cat-pillow"
-       style="--rotation:-3deg">
+  <div class="pillow cat-pillow" style="--rotation:-3deg">
     <div class="cat-face">🐱</div>
   </div>
 
-  <div class="pillow"
-       style="--rotation:2deg"></div>
+  <div class="pillow" style="--rotation:2deg"></div>
 
-  <div class="pillow"
-       style="--rotation:-1deg"></div>
+  <div class="pillow" style="--rotation:-1deg"></div>
 
-  <div class="pillow"
-       style="--rotation:3deg"></div>
+  <div class="pillow" style="--rotation:3deg"></div>
 
-  <div class="pillow cat-pillow"
-       style="--rotation:-2deg">
+  <div class="pillow cat-pillow" style="--rotation:-2deg">
     <div class="cat-face">🐱</div>
   </div>
 
-  <div class="pillow"
-       style="--rotation:1deg"></div>
+  <div class="pillow" style="--rotation:1deg"></div>
 
-  <div class="pillow"
-       style="--rotation:-3deg"></div>
+  <div class="pillow" style="--rotation:-3deg"></div>
 
-  <div class="pillow"
-       style="--rotation:2deg"></div>
+  <div class="pillow" style="--rotation:2deg"></div>
 
-  <div class="pillow"
-       style="--rotation:-1deg"></div>
+  <div class="pillow" style="--rotation:-1deg"></div>
 
-  <div class="pillow cat-pillow"
-       style="--rotation:3deg">
+  <div class="pillow cat-pillow" style="--rotation:3deg">
     <div class="cat-face">🐱</div>
   </div>
 
-  <div class="pillow"
-       style="--rotation:-2deg"></div>
+  <div class="pillow" style="--rotation:-2deg"></div>
 
-  <div class="pillow"
-       style="--rotation:1deg"></div>
+  <div class="pillow" style="--rotation:1deg"></div>
 
 </div>
 
 
-<div class="app">
+<!-- =====================================================
+     APP
+===================================================== -->
 
-  <!-- SIDEBAR -->
+<div class="app">
 
   <aside class="sidebar">
 
@@ -1287,8 +1138,6 @@ function secretMeow() {
   </aside>
 
 
-  <!-- MAIN -->
-
   <main class="main">
 
     <header>
@@ -1349,7 +1198,9 @@ function secretMeow() {
 </div>
 
 
-<!-- SECRET CAT -->
+<!-- =====================================================
+     SECRET CAT
+===================================================== -->
 
 <button
   class="secret-cat"
@@ -1362,6 +1213,17 @@ function secretMeow() {
 
 
 <script>
+
+/* =====================================================
+   CHAT STATE
+===================================================== */
+
+let currentChat = {
+  id: Date.now(),
+  title: "New Chat",
+  messages: []
+};
+
 
 /* =====================================================
    ELEMENTS
@@ -1381,17 +1243,6 @@ const themeMenu =
 
 
 /* =====================================================
-   CURRENT CHAT
-===================================================== */
-
-let currentChat = {
-  id: Date.now(),
-  title: "New Chat",
-  messages: []
-};
-
-
-/* =====================================================
    SAVE CHAT
 ===================================================== */
 
@@ -1399,7 +1250,9 @@ function saveChat() {
 
   if (
     currentChat.messages.length === 0
-  ) return;
+  ) {
+    return;
+  }
 
   const chats =
     JSON.parse(
@@ -1430,7 +1283,7 @@ function saveChat() {
 
 
 /* =====================================================
-   HISTORY
+   LOAD HISTORY
 ===================================================== */
 
 function loadHistory() {
@@ -1482,7 +1335,9 @@ function loadChat(id) {
       c => c.id === id
     );
 
-  if (!chat) return;
+  if (!chat) {
+    return;
+  }
 
   currentChat = chat;
 
@@ -1530,9 +1385,13 @@ function clearHistory() {
     !confirm(
       "Delete all saved Cat.AI chats?"
     )
-  ) return;
+  ) {
+    return;
+  }
 
-  localStorage.removeItem("catAIChats");
+  localStorage.removeItem(
+    "catAIChats"
+  );
 
   loadHistory();
 }
@@ -1570,11 +1429,20 @@ function addMessage(
 
   if (type === "cat") {
 
-    div.innerHTML =
-      `<div class="cat-label">
-        🐈 Cat.AI
-       </div>` +
-      escapeHTML(text);
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "cat-label";
+
+    label.textContent =
+      "🐈 Cat.AI";
+
+    div.appendChild(label);
+
+    div.appendChild(
+      document.createTextNode(text)
+    );
 
   } else {
 
@@ -1625,7 +1493,9 @@ async function sendMessage() {
   const text =
     input.value.trim();
 
-  if (!text) return;
+  if (!text) {
+    return;
+  }
 
   addMessage(
     text,
@@ -1679,44 +1549,64 @@ async function sendMessage() {
         }
       );
 
+
     const data =
       await response.json();
 
 
-    thinking.innerHTML =
-      `<div class="cat-label">
-        🐈 Cat.AI
-       </div>` +
-      escapeHTML(data.reply);
+    thinking.innerHTML = "";
+
+    const label =
+      document.createElement("div");
+
+    label.className =
+      "cat-label";
+
+    label.textContent =
+      "🐈 Cat.AI";
+
+    thinking.appendChild(label);
+
+    thinking.appendChild(
+      document.createTextNode(
+        data.reply ||
+        "MRRP! I have nothing to say!"
+      )
+    );
 
 
     currentChat.messages.push({
-      text: data.reply,
+      text:
+        data.reply ||
+        "MRRP! I have nothing to say!",
       type: "cat"
     });
 
     saveChat();
 
 
-  } catch {
+  } catch (error) {
 
-    thinking.innerHTML =
-      `<div class="cat-label">
+    thinking.innerHTML = `
+      <div class="cat-label">
         🐈 Cat.AI
-       </div>
-       MRRP! I can't reach my brain! 🧠💥`;
+      </div>
+      MRRP! I can't reach my brain! 🧠💥
+    `;
 
   }
 }
 
 
 /* =====================================================
-   THEMES
+   THEME MENU
 ===================================================== */
 
 function toggleThemeMenu() {
 
-  themeMenu.classList.toggle("open");
+  themeMenu.classList.toggle(
+    "open"
+  );
 
 }
 
@@ -1739,7 +1629,9 @@ function setTheme(theme) {
     theme
   );
 
-  themeMenu.classList.remove("open");
+  themeMenu.classList.remove(
+    "open"
+  );
 
 }
 
@@ -1751,20 +1643,58 @@ function setTheme(theme) {
 function secretMeow() {
 
   const cat =
-    document.querySelector(".secret-cat");
+    document.querySelector(
+      ".secret-cat"
+    );
 
-  cat.classList.remove("meowing");
+
+  /* Bounce */
+
+  cat.classList.remove(
+    "meowing"
+  );
 
   void cat.offsetWidth;
 
-  cat.classList.add("meowing");
+  cat.classList.add(
+    "meowing"
+  );
 
+
+  /* Speech bubble */
+
+  const bubble =
+    document.createElement(
+      "div"
+    );
+
+  bubble.className =
+    "secret-meow-bubble";
+
+  bubble.textContent =
+    "MEOW! 🐈";
+
+  document.body.appendChild(
+    bubble
+  );
+
+
+  setTimeout(() => {
+
+    bubble.remove();
+
+  }, 1200);
+
+
+  /* Sound */
 
   const AudioContext =
     window.AudioContext ||
     window.webkitAudioContext;
 
-  if (!AudioContext) return;
+  if (!AudioContext) {
+    return;
+  }
 
   const audio =
     new AudioContext();
@@ -1776,7 +1706,8 @@ function secretMeow() {
     audio.createGain();
 
 
-  oscillator.type = "sine";
+  oscillator.type =
+    "sine";
 
 
   oscillator.frequency.setValueAtTime(
@@ -1791,7 +1722,7 @@ function secretMeow() {
 
   oscillator.frequency.exponentialRampToValueAtTime(
     350,
-    audio.currentTime + .45
+    audio.currentTime + .5
   );
 
 
@@ -1801,44 +1732,35 @@ function secretMeow() {
   );
 
   gain.gain.exponentialRampToValueAtTime(
-    .25,
+    .3,
     audio.currentTime + .04
   );
 
   gain.gain.exponentialRampToValueAtTime(
     .001,
-    audio.currentTime + .45
+    audio.currentTime + .5
   );
 
 
   oscillator.connect(gain);
-  gain.connect(audio.destination);
+
+  gain.connect(
+    audio.destination
+  );
+
 
   oscillator.start();
 
   oscillator.stop(
-    audio.currentTime + .45
+    audio.currentTime + .5
   );
 
-  setTimeout(
-    () => audio.close(),
-    700
-  );
-}
 
+  setTimeout(() => {
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+    audio.close();
 
-function escapeHTML(text) {
-
-  const div =
-    document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
+  }, 800);
 
 }
 
@@ -1851,7 +1773,9 @@ input.addEventListener(
   "keydown",
   event => {
 
-    if (event.key === "Enter") {
+    if (
+      event.key === "Enter"
+    ) {
       sendMessage();
     }
 
@@ -1864,10 +1788,16 @@ input.addEventListener(
 ===================================================== */
 
 const savedTheme =
-  localStorage.getItem("catAITheme");
+  localStorage.getItem(
+    "catAITheme"
+  );
 
 if (savedTheme) {
-  setTheme(savedTheme);
+
+  setTheme(
+    savedTheme
+  );
+
 }
 
 
