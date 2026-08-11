@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Cat.AI 🐈</title>
 
 <style>
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
 * {
   box-sizing: border-box;
 }
@@ -25,30 +31,37 @@
 body {
   margin: 0;
   min-height: 100vh;
+
   overflow: hidden;
+
   font-family: Arial, sans-serif;
+
   color: var(--text);
+
   background: #080611;
+
   transition: .4s;
 }
+
 
 /* =====================================================
    OG THEME
 ===================================================== */
 
 body.theme-og {
-  --text: #eee;
-  --muted: #999;
+  --text: #eeeeee;
+  --muted: #999999;
   --panel: #191919;
   --panel2: #252525;
   --border: #3a3a3a;
-  --accent: #888;
-  --accent2: #555;
-  --user1: #444;
+  --accent: #888888;
+  --accent2: #555555;
+  --user1: #444444;
   --user2: #303030;
 
-  background: #111;
+  background: #111111;
 }
+
 
 /* =====================================================
    PURPLE THEME
@@ -78,6 +91,7 @@ body.theme-purple {
     ),
     #080611;
 }
+
 
 /* =====================================================
    YARN THEME
@@ -127,9 +141,13 @@ body.theme-yarn {
 
 body.theme-yarn::before {
   content: "";
+
   position: fixed;
+
   inset: 0;
+
   pointer-events: none;
+
   z-index: -1;
 
   background:
@@ -146,9 +164,13 @@ body.theme-yarn::before {
 
 body.theme-yarn::after {
   content: "";
+
   position: fixed;
+
   inset: 0;
+
   pointer-events: none;
+
   z-index: -1;
 
   background-image:
@@ -159,11 +181,13 @@ body.theme-yarn::after {
     );
 
   background-size: 13px 13px;
+
   opacity: .35;
 }
 
+
 /* =====================================================
-   PILLOW WALL THEME
+   PILLOW WALL
 ===================================================== */
 
 body.theme-pillow {
@@ -184,6 +208,7 @@ body.theme-pillow {
   display: none;
 
   position: fixed;
+
   inset: -40px;
 
   z-index: -5;
@@ -258,6 +283,7 @@ body.theme-pillow .pillow-wall {
   content: "";
 
   position: absolute;
+
   inset: 9px;
 
   border-radius: 21px;
@@ -269,36 +295,8 @@ body.theme-pillow .pillow-wall {
     inset 0 0 10px rgba(100,70,110,.12);
 }
 
-.pillow::after {
-  content: "";
-
-  position: absolute;
-
-  width: 35px;
-  height: 10px;
-
-  right: 20px;
-  top: 22px;
-
-  border-radius: 50%;
-
-  border-top:
-    3px solid rgba(120,90,125,.18);
-
-  transform:
-    rotate(-20deg);
-
-  box-shadow:
-    -12px 12px 0 -1px rgba(120,90,125,.12);
-}
-
 .pillow:nth-child(3n) {
   background:
-    radial-gradient(
-      ellipse at 30% 20%,
-      rgba(255,255,255,.9),
-      transparent 32%
-    ),
     linear-gradient(
       145deg,
       #e9d9ff,
@@ -308,11 +306,6 @@ body.theme-pillow .pillow-wall {
 
 .pillow:nth-child(4n) {
   background:
-    radial-gradient(
-      ellipse at 30% 20%,
-      rgba(255,255,255,.9),
-      transparent 32%
-    ),
     linear-gradient(
       145deg,
       #dcecff,
@@ -322,11 +315,6 @@ body.theme-pillow .pillow-wall {
 
 .pillow:nth-child(5n) {
   background:
-    radial-gradient(
-      ellipse at 30% 20%,
-      rgba(255,255,255,.9),
-      transparent 32%
-    ),
     linear-gradient(
       145deg,
       #ffe2ee,
@@ -334,19 +322,6 @@ body.theme-pillow .pillow-wall {
     );
 }
 
-.pillow.cat-pillow .cat-face {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  transform:
-    translate(-50%, -50%);
-
-  font-size: 39px;
-
-  z-index: 3;
-}
 
 /* =====================================================
    APP
@@ -359,8 +334,10 @@ body.theme-pillow .pillow-wall {
   display: flex;
 
   position: relative;
+
   z-index: 2;
 }
+
 
 /* =====================================================
    SIDEBAR
@@ -379,6 +356,7 @@ body.theme-pillow .pillow-wall {
   backdrop-filter: blur(20px);
 
   display: flex;
+
   flex-direction: column;
 
   gap: 14px;
@@ -388,10 +366,13 @@ body.theme-pillow .pillow-wall {
 
 .logo {
   display: flex;
+
   align-items: center;
+
   gap: 12px;
 
   font-size: 21px;
+
   font-weight: bold;
 }
 
@@ -400,6 +381,7 @@ body.theme-pillow .pillow-wall {
   height: 44px;
 
   display: grid;
+
   place-items: center;
 
   border-radius: 15px;
@@ -414,7 +396,8 @@ body.theme-pillow .pillow-wall {
   font-size: 26px;
 }
 
-.new-chat {
+.new-chat,
+.arcade-button {
   border: 0;
 
   border-radius: 14px;
@@ -433,6 +416,15 @@ body.theme-pillow .pillow-wall {
   font-weight: bold;
 
   cursor: pointer;
+}
+
+.arcade-button {
+  background:
+    linear-gradient(
+      135deg,
+      #ff8a3d,
+      #e74d91
+    );
 }
 
 .history-title {
@@ -500,6 +492,7 @@ body.theme-pillow .pillow-wall {
   cursor: pointer;
 }
 
+
 /* =====================================================
    THEME MENU
 ===================================================== */
@@ -508,6 +501,7 @@ body.theme-pillow .pillow-wall {
   position: absolute;
 
   left: 18px;
+
   bottom: 70px;
 
   width: 234px;
@@ -563,8 +557,9 @@ body.theme-pillow .pillow-wall {
     1px solid var(--accent);
 }
 
+
 /* =====================================================
-   HEADER
+   MAIN
 ===================================================== */
 
 .main {
@@ -648,6 +643,7 @@ header {
   font-size: 11px;
 }
 
+
 /* =====================================================
    MESSAGES
 ===================================================== */
@@ -706,43 +702,6 @@ header {
   margin-bottom: 6px;
 }
 
-/* =====================================================
-   THINKING
-===================================================== */
-
-.thinking {
-  display: flex;
-
-  gap: 5px;
-}
-
-.thinking i {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  animation:
-    bounce 1s infinite;
-}
-
-.thinking i:nth-child(2) {
-  animation-delay: .15s;
-}
-
-.thinking i:nth-child(3) {
-  animation-delay: .3s;
-}
-
-@keyframes bounce {
-  50% {
-    transform: translateY(-6px);
-
-    opacity: .5;
-  }
-}
 
 /* =====================================================
    INPUT
@@ -821,6 +780,211 @@ header {
   margin-top: 8px;
 }
 
+
+/* =====================================================
+   ARCADE
+===================================================== */
+
+.arcade {
+  display: none;
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 30;
+
+  background:
+    rgba(5,3,12,.82);
+
+  backdrop-filter: blur(15px);
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.arcade.open {
+  display: flex;
+}
+
+.game-card {
+  width: min(850px, 100%);
+
+  height: min(650px, 90vh);
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border-radius: 25px;
+
+  border:
+    1px solid var(--border);
+
+  background: var(--panel);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.5);
+}
+
+.game-header {
+  padding: 18px 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border-bottom:
+    1px solid var(--border);
+}
+
+.game-header h2 {
+  margin: 0;
+
+  font-size: 20px;
+}
+
+.close-game {
+  margin-left: auto;
+
+  width: 38px;
+  height: 38px;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  color: var(--text);
+
+  background: var(--panel2);
+
+  cursor: pointer;
+
+  font-size: 18px;
+}
+
+.game-info {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 25px;
+
+  padding: 15px;
+
+  font-weight: bold;
+
+  border-bottom:
+    1px solid var(--border);
+}
+
+.game-info span {
+  color: var(--accent);
+}
+
+.game-board {
+  flex: 1;
+
+  position: relative;
+
+  margin: 18px;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  border:
+    2px solid var(--border);
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(155,98,255,.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(93,124,255,.18),
+      transparent 30%
+    ),
+    var(--panel2);
+}
+
+.mouse {
+  position: absolute;
+
+  width: 54px;
+  height: 54px;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 40px;
+
+  user-select: none;
+
+  transition: transform .08s;
+}
+
+.mouse:hover {
+  transform: scale(1.2);
+}
+
+.game-message {
+  min-height: 55px;
+
+  margin: 0 20px 18px;
+
+  padding: 13px 16px;
+
+  border-radius: 15px;
+
+  background: var(--panel2);
+
+  border:
+    1px solid var(--border);
+
+  text-align: center;
+
+  color: var(--text);
+}
+
+.start-game {
+  align-self: center;
+
+  margin: 0 0 20px;
+
+  padding: 13px 25px;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff8a3d,
+      #e74d91
+    );
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
 /* =====================================================
    SECRET CAT
 ===================================================== */
@@ -868,6 +1032,7 @@ header {
 }
 
 @keyframes catMeow {
+
   0% {
     transform: scale(1);
   }
@@ -887,6 +1052,7 @@ header {
   100% {
     transform: scale(1);
   }
+
 }
 
 .secret-meow-bubble {
@@ -920,6 +1086,7 @@ header {
 }
 
 @keyframes meowBubble {
+
   from {
     opacity: 0;
 
@@ -935,7 +1102,9 @@ header {
       scale(1)
       translateY(0);
   }
+
 }
+
 
 /* =====================================================
    MOBILE
@@ -963,11 +1132,24 @@ header {
     bottom: 80px;
   }
 
+  .game-card {
+    height: 90vh;
+  }
+
+  .game-info {
+    gap: 12px;
+
+    font-size: 13px;
+  }
+
 }
+
 </style>
 </head>
 
+
 <body class="theme-purple">
+
 
 <!-- =====================================================
      PILLOW WALL
@@ -976,64 +1158,32 @@ header {
 <div class="pillow-wall">
 
   <div class="pillow" style="--rotation:-2deg"></div>
-
-  <div class="pillow cat-pillow" style="--rotation:2deg">
-    <div class="cat-face">🐱</div>
-  </div>
-
-  <div class="pillow" style="--rotation:-1deg"></div>
-
-  <div class="pillow" style="--rotation:3deg"></div>
-
-  <div class="pillow" style="--rotation:-3deg"></div>
-
-  <div class="pillow cat-pillow" style="--rotation:1deg">
-    <div class="cat-face">🐱</div>
-  </div>
-
-  <div class="pillow" style="--rotation:-2deg"></div>
-
   <div class="pillow" style="--rotation:2deg"></div>
-
-  <div class="pillow cat-pillow" style="--rotation:-1deg">
-    <div class="cat-face">🐱</div>
-  </div>
-
+  <div class="pillow" style="--rotation:-1deg"></div>
   <div class="pillow" style="--rotation:3deg"></div>
-
-  <div class="pillow" style="--rotation:-2deg"></div>
-
+  <div class="pillow" style="--rotation:-3deg"></div>
   <div class="pillow" style="--rotation:1deg"></div>
 
-  <div class="pillow cat-pillow" style="--rotation:-3deg">
-    <div class="cat-face">🐱</div>
-  </div>
-
+  <div class="pillow" style="--rotation:-2deg"></div>
   <div class="pillow" style="--rotation:2deg"></div>
-
   <div class="pillow" style="--rotation:-1deg"></div>
-
   <div class="pillow" style="--rotation:3deg"></div>
-
-  <div class="pillow cat-pillow" style="--rotation:-2deg">
-    <div class="cat-face">🐱</div>
-  </div>
-
+  <div class="pillow" style="--rotation:-2deg"></div>
   <div class="pillow" style="--rotation:1deg"></div>
 
   <div class="pillow" style="--rotation:-3deg"></div>
+  <div class="pillow" style="--rotation:2deg"></div>
+  <div class="pillow" style="--rotation:-1deg"></div>
+  <div class="pillow" style="--rotation:3deg"></div>
+  <div class="pillow" style="--rotation:-2deg"></div>
+  <div class="pillow" style="--rotation:1deg"></div>
 
   <div class="pillow" style="--rotation:2deg"></div>
-
   <div class="pillow" style="--rotation:-1deg"></div>
-
-  <div class="pillow cat-pillow" style="--rotation:3deg">
-    <div class="cat-face">🐱</div>
-  </div>
-
+  <div class="pillow" style="--rotation:3deg"></div>
   <div class="pillow" style="--rotation:-2deg"></div>
-
   <div class="pillow" style="--rotation:1deg"></div>
+  <div class="pillow" style="--rotation:-3deg"></div>
 
 </div>
 
@@ -1043,6 +1193,9 @@ header {
 ===================================================== -->
 
 <div class="app">
+
+
+  <!-- SIDEBAR -->
 
   <aside class="sidebar">
 
@@ -1056,6 +1209,7 @@ header {
 
     </div>
 
+
     <button
       class="new-chat"
       onclick="newChat()">
@@ -1064,14 +1218,26 @@ header {
 
     </button>
 
+
+    <button
+      class="arcade-button"
+      onclick="openArcade()">
+
+      🎮 Cat Arcade
+
+    </button>
+
+
     <div class="history-title">
       CHAT HISTORY
     </div>
+
 
     <div
       id="history"
       class="history">
     </div>
+
 
     <div class="sidebar-buttons">
 
@@ -1083,6 +1249,7 @@ header {
 
       </button>
 
+
       <button
         class="small-button"
         onclick="clearHistory()">
@@ -1092,6 +1259,7 @@ header {
       </button>
 
     </div>
+
 
     <div
       id="themeMenu"
@@ -1138,7 +1306,10 @@ header {
   </aside>
 
 
+  <!-- MAIN CHAT -->
+
   <main class="main">
+
 
     <header>
 
@@ -1158,6 +1329,7 @@ header {
 
       </div>
 
+
       <div class="shoe-meter">
         👟 SHOES: SUSPICIOUS
       </div>
@@ -1175,7 +1347,8 @@ header {
         <input
           id="input"
           placeholder="Talk to Cat.AI..."
-          autocomplete="off">
+          autocomplete="off"
+        >
 
         <button
           class="send"
@@ -1186,6 +1359,7 @@ header {
         </button>
 
       </div>
+
 
       <div class="hint">
         Enter to send • Cat.AI is watching the shoes
@@ -1212,10 +1386,111 @@ header {
 </button>
 
 
+<!-- =====================================================
+     ARCADE WINDOW
+===================================================== -->
+
+<div
+  id="arcade"
+  class="arcade">
+
+
+  <div class="game-card">
+
+
+    <div class="game-header">
+
+      <div style="font-size:30px">
+        🐭
+      </div>
+
+      <div>
+
+        <h2>
+          Catch the Mouse!
+        </h2>
+
+        <div
+          style="
+            font-size:11px;
+            color:var(--muted);
+          ">
+
+          Catch 20 mice in 1 minute!
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="close-game"
+        onclick="closeArcade()">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <div class="game-info">
+
+      <div>
+        Mice:
+        <span id="score">
+          0
+        </span>
+        / 20
+      </div>
+
+      <div>
+        Time:
+        <span id="timer">
+          60
+        </span>
+        s
+      </div>
+
+    </div>
+
+
+    <div
+      id="gameBoard"
+      class="game-board">
+
+    </div>
+
+
+    <div
+      id="gameMessage"
+      class="game-message">
+
+      🐈 Cat.AI:
+      Ready to hunt some mice?
+
+    </div>
+
+
+    <button
+      id="startGameButton"
+      class="start-game"
+      onclick="startMouseGame()">
+
+      🐭 START GAME
+
+    </button>
+
+
+  </div>
+
+</div>
+
+
 <script>
 
 /* =====================================================
-   CHAT STATE
+   STATE
 ===================================================== */
 
 let currentChat = {
@@ -1241,9 +1516,27 @@ const historyBox =
 const themeMenu =
   document.getElementById("themeMenu");
 
+const arcade =
+  document.getElementById("arcade");
+
+const gameBoard =
+  document.getElementById("gameBoard");
+
+const scoreElement =
+  document.getElementById("score");
+
+const timerElement =
+  document.getElementById("timer");
+
+const gameMessage =
+  document.getElementById("gameMessage");
+
+const startGameButton =
+  document.getElementById("startGameButton");
+
 
 /* =====================================================
-   SAVE CHAT
+   CHAT HISTORY
 ===================================================== */
 
 function saveChat() {
@@ -1254,10 +1547,14 @@ function saveChat() {
     return;
   }
 
+
   const chats =
     JSON.parse(
-      localStorage.getItem("catAIChats") || "[]"
+      localStorage.getItem(
+        "catAIChats"
+      ) || "[]"
     );
+
 
   const index =
     chats.findIndex(
@@ -1265,11 +1562,20 @@ function saveChat() {
         chat.id === currentChat.id
     );
 
+
   if (index >= 0) {
-    chats[index] = currentChat;
+
+    chats[index] =
+      currentChat;
+
   } else {
-    chats.unshift(currentChat);
+
+    chats.unshift(
+      currentChat
+    );
+
   }
+
 
   localStorage.setItem(
     "catAIChats",
@@ -1278,30 +1584,36 @@ function saveChat() {
     )
   );
 
+
   loadHistory();
+
 }
 
-
-/* =====================================================
-   LOAD HISTORY
-===================================================== */
 
 function loadHistory() {
 
   const chats =
     JSON.parse(
-      localStorage.getItem("catAIChats") || "[]"
+      localStorage.getItem(
+        "catAIChats"
+      ) || "[]"
     );
 
+
   historyBox.innerHTML = "";
+
 
   chats.forEach(chat => {
 
     const item =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     item.className =
       "history-item";
+
 
     item.textContent =
       "🐾 " +
@@ -1310,58 +1622,67 @@ function loadHistory() {
         "Untitled Chat"
       );
 
+
     item.onclick =
       () => loadChat(chat.id);
 
-    historyBox.appendChild(item);
+
+    historyBox.appendChild(
+      item
+    );
 
   });
+
 }
 
-
-/* =====================================================
-   LOAD CHAT
-===================================================== */
 
 function loadChat(id) {
 
   const chats =
     JSON.parse(
-      localStorage.getItem("catAIChats") || "[]"
+      localStorage.getItem(
+        "catAIChats"
+      ) || "[]"
     );
+
 
   const chat =
     chats.find(
       c => c.id === id
     );
 
+
   if (!chat) {
     return;
   }
 
-  currentChat = chat;
+
+  currentChat =
+    chat;
+
 
   messages.innerHTML = "";
 
-  currentChat.messages.forEach(message => {
 
-    addMessage(
-      message.text,
-      message.type,
-      false
-    );
+  currentChat.messages.forEach(
+    message => {
 
-  });
+      addMessage(
+        message.text,
+        message.type,
+        false
+      );
+
+    }
+  );
+
 }
 
-
-/* =====================================================
-   NEW CHAT
-===================================================== */
 
 function newChat() {
 
   saveChat();
+
 
   currentChat = {
     id: Date.now(),
@@ -1369,15 +1690,14 @@ function newChat() {
     messages: []
   };
 
+
   messages.innerHTML = "";
 
+
   showWelcome();
+
 }
 
-
-/* =====================================================
-   CLEAR HISTORY
-===================================================== */
 
 function clearHistory() {
 
@@ -1389,16 +1709,19 @@ function clearHistory() {
     return;
   }
 
+
   localStorage.removeItem(
     "catAIChats"
   );
 
+
   loadHistory();
+
 }
 
 
 /* =====================================================
-   WELCOME
+   CHAT UI
 ===================================================== */
 
 function showWelcome() {
@@ -1408,12 +1731,9 @@ function showWelcome() {
     "cat",
     true
   );
+
 }
 
-
-/* =====================================================
-   ADD MESSAGE
-===================================================== */
 
 function addMessage(
   text,
@@ -1422,35 +1742,54 @@ function addMessage(
 ) {
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   div.className =
     "message " + type;
 
+
   if (type === "cat") {
 
     const label =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     label.className =
       "cat-label";
 
+
     label.textContent =
       "🐈 Cat.AI";
 
-    div.appendChild(label);
 
     div.appendChild(
-      document.createTextNode(text)
+      label
+    );
+
+
+    div.appendChild(
+      document.createTextNode(
+        text
+      )
     );
 
   } else {
 
-    div.textContent = text;
+    div.textContent =
+      text;
 
   }
 
-  messages.appendChild(div);
+
+  messages.appendChild(
+    div
+  );
+
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -1462,6 +1801,7 @@ function addMessage(
       text,
       type
     });
+
 
     if (
       type === "user" &&
@@ -1478,14 +1818,16 @@ function addMessage(
 
     }
 
+
     saveChat();
 
   }
+
 }
 
 
 /* =====================================================
-   SEND MESSAGE
+   SEND CHAT MESSAGE
 ===================================================== */
 
 async function sendMessage() {
@@ -1493,23 +1835,30 @@ async function sendMessage() {
   const text =
     input.value.trim();
 
+
   if (!text) {
     return;
   }
+
 
   addMessage(
     text,
     "user"
   );
 
+
   input.value = "";
 
 
   const thinking =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   thinking.className =
     "message cat";
+
 
   thinking.innerHTML = `
     <div class="cat-label">
@@ -1523,7 +1872,11 @@ async function sendMessage() {
     </div>
   `;
 
-  messages.appendChild(thinking);
+
+  messages.appendChild(
+    thinking
+  );
+
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -1554,33 +1907,45 @@ async function sendMessage() {
       await response.json();
 
 
+    const reply =
+      data.reply ||
+      "MRRP! My brain went on vacation!";
+
+
     thinking.innerHTML = "";
 
+
     const label =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
+
 
     label.className =
       "cat-label";
 
+
     label.textContent =
       "🐈 Cat.AI";
 
-    thinking.appendChild(label);
+
+    thinking.appendChild(
+      label
+    );
+
 
     thinking.appendChild(
       document.createTextNode(
-        data.reply ||
-        "MRRP! I have nothing to say!"
+        reply
       )
     );
 
 
     currentChat.messages.push({
-      text:
-        data.reply ||
-        "MRRP! I have nothing to say!",
+      text: reply,
       type: "cat"
     });
+
 
     saveChat();
 
@@ -1591,15 +1956,37 @@ async function sendMessage() {
       <div class="cat-label">
         🐈 Cat.AI
       </div>
+
       MRRP! I can't reach my brain! 🧠💥
     `;
 
   }
+
 }
 
 
 /* =====================================================
-   THEME MENU
+   ENTER TO SEND
+===================================================== */
+
+input.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key === "Enter"
+    ) {
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   THEMES
 ===================================================== */
 
 function toggleThemeMenu() {
@@ -1620,17 +2007,654 @@ function setTheme(theme) {
     "theme-pillow"
   );
 
+
   document.body.classList.add(
     "theme-" + theme
   );
+
 
   localStorage.setItem(
     "catAITheme",
     theme
   );
 
+
   themeMenu.classList.remove(
     "open"
+  );
+
+}
+
+
+const savedTheme =
+  localStorage.getItem(
+    "catAITheme"
+  );
+
+
+if (savedTheme) {
+
+  setTheme(
+    savedTheme
+  );
+
+}
+
+
+/* =====================================================
+   CAT ARCADE
+===================================================== */
+
+function openArcade() {
+
+  arcade.classList.add(
+    "open"
+  );
+
+}
+
+
+function closeArcade() {
+
+  arcade.classList.remove(
+    "open"
+  );
+
+}
+
+
+/* =====================================================
+   MOUSE GAME VARIABLES
+===================================================== */
+
+let mouseScore = 0;
+
+let mouseTime = 60;
+
+let mouseTimer = null;
+
+let mouseRunning = false;
+
+let mouseElement = null;
+
+
+/* =====================================================
+   START MOUSE GAME
+===================================================== */
+
+function startMouseGame() {
+
+  clearInterval(
+    mouseTimer
+  );
+
+
+  mouseScore = 0;
+
+  mouseTime = 60;
+
+  mouseRunning = true;
+
+
+  scoreElement.textContent =
+    mouseScore;
+
+
+  timerElement.textContent =
+    mouseTime;
+
+
+  gameBoard.innerHTML =
+    "";
+
+
+  startGameButton.disabled =
+    true;
+
+
+  startGameButton.textContent =
+    "🐭 CATCH THEM!";
+
+
+  gameMessage.textContent =
+    "🐈 Cat.AI: GO GO GO! CATCH THOSE MICE!";
+
+
+  spawnMouse();
+
+
+  mouseTimer =
+    setInterval(
+      () => {
+
+        mouseTime--;
+
+        timerElement.textContent =
+          mouseTime;
+
+
+        if (
+          mouseTime <= 0
+        ) {
+
+          endMouseGame(
+            false
+          );
+
+        }
+
+      },
+      1000
+    );
+
+}
+
+
+/* =====================================================
+   SPAWN MOUSE
+===================================================== */
+
+function spawnMouse() {
+
+  if (
+    !mouseRunning
+  ) {
+    return;
+  }
+
+
+  if (
+    mouseElement
+  ) {
+
+    mouseElement.remove();
+
+  }
+
+
+  const mouse =
+    document.createElement(
+      "button"
+    );
+
+
+  mouse.className =
+    "mouse";
+
+
+  mouse.textContent =
+    "🐭";
+
+
+  mouse.setAttribute(
+    "aria-label",
+    "Catch mouse"
+  );
+
+
+  const maxX =
+    Math.max(
+      0,
+      gameBoard.clientWidth - 65
+    );
+
+
+  const maxY =
+    Math.max(
+      0,
+      gameBoard.clientHeight - 65
+    );
+
+
+  mouse.style.left =
+    Math.random() *
+    maxX +
+    "px";
+
+
+  mouse.style.top =
+    Math.random() *
+    maxY +
+    "px";
+
+
+  mouse.onclick =
+    catchMouse;
+
+
+  gameBoard.appendChild(
+    mouse
+  );
+
+
+  mouseElement =
+    mouse;
+
+}
+
+
+/* =====================================================
+   CATCH MOUSE
+===================================================== */
+
+function catchMouse() {
+
+  if (
+    !mouseRunning
+  ) {
+    return;
+  }
+
+
+  mouseScore++;
+
+
+  scoreElement.textContent =
+    mouseScore;
+
+
+  playTinyMeow();
+
+
+  if (
+    mouseScore >= 20
+  ) {
+
+    endMouseGame(
+      true
+    );
+
+    return;
+
+  }
+
+
+  updateCatEncouragement();
+
+
+  spawnMouse();
+
+}
+
+
+/* =====================================================
+   CAT.AI ENCOURAGEMENT
+===================================================== */
+
+async function updateCatEncouragement() {
+
+  /*
+    We only ask Groq at milestones,
+    so the game doesn't spam the API.
+  */
+
+  const milestones =
+    [1, 5, 10, 15, 18, 19];
+
+
+  if (
+    !milestones.includes(
+      mouseScore
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  gameMessage.textContent =
+    "🐈 Cat.AI is thinking... 🧠";
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/chat",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+
+              message:
+                `You are Cat.AI encouraging a player in a minigame called Catch the Mouse. The player has caught ${mouseScore} out of 20 mice and has ${mouseTime} seconds left. Give ONE very short excited cat-like encouragement. Maximum 15 words. Do not ask a question. Do not mention being an AI.`
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (
+      data.reply
+    ) {
+
+      gameMessage.textContent =
+        "🐈 Cat.AI: " +
+        data.reply;
+
+    }
+
+  } catch (error) {
+
+    /*
+      If Groq isn't available,
+      the game still works.
+    */
+
+    const fallback =
+      getFallbackEncouragement();
+
+
+    gameMessage.textContent =
+      "🐈 Cat.AI: " +
+      fallback;
+
+  }
+
+}
+
+
+/* =====================================================
+   FALLBACK ENCOURAGEMENT
+===================================================== */
+
+function getFallbackEncouragement() {
+
+  if (
+    mouseScore >= 18
+  ) {
+
+    return "MRRP! ALMOST THERE! DON'T LET THOSE MICE ESCAPE!";
+
+  }
+
+
+  if (
+    mouseScore >= 15
+  ) {
+
+    return "PURR! FIFTEEN! YOU'RE A MOUSE-CATCHING MACHINE!";
+
+  }
+
+
+  if (
+    mouseScore >= 10
+  ) {
+
+    return "MEOW! HALFWAY THERE! KEEP GOING!";
+
+  }
+
+
+  if (
+    mouseScore >= 5
+  ) {
+
+    return "MRRP! FIVE MICE! YOU'RE GETTING FAST!";
+
+  }
+
+
+  return "MEOW! GET THAT MOUSE!";
+
+}
+
+
+/* =====================================================
+   END GAME
+===================================================== */
+
+function endMouseGame(won) {
+
+  mouseRunning =
+    false;
+
+
+  clearInterval(
+    mouseTimer
+  );
+
+
+  mouseTimer =
+    null;
+
+
+  if (
+    mouseElement
+  ) {
+
+    mouseElement.remove();
+
+    mouseElement =
+      null;
+
+  }
+
+
+  startGameButton.disabled =
+    false;
+
+
+  startGameButton.textContent =
+    "🐭 PLAY AGAIN";
+
+
+  if (won) {
+
+    gameMessage.textContent =
+      "🐈 Cat.AI: MEOW!!! YOU CAUGHT ALL 20 MICE! 🎉";
+
+    playWinSound();
+
+  } else {
+
+    gameMessage.textContent =
+      `🐈 Cat.AI: Time's up! You caught ${mouseScore}/20 mice!`;
+
+  }
+
+}
+
+
+/* =====================================================
+   TINY MEOW SOUND
+===================================================== */
+
+function playTinyMeow() {
+
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+
+  if (!AudioContext) {
+    return;
+  }
+
+
+  const audio =
+    new AudioContext();
+
+
+  const oscillator =
+    audio.createOscillator();
+
+
+  const gain =
+    audio.createGain();
+
+
+  oscillator.type =
+    "sine";
+
+
+  oscillator.frequency.setValueAtTime(
+    650,
+    audio.currentTime
+  );
+
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    900,
+    audio.currentTime + .08
+  );
+
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    420,
+    audio.currentTime + .22
+  );
+
+
+  gain.gain.setValueAtTime(
+    .001,
+    audio.currentTime
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    .18,
+    audio.currentTime + .02
+  );
+
+
+  gain.gain.exponentialRampToValueAtTime(
+    .001,
+    audio.currentTime + .22
+  );
+
+
+  oscillator.connect(
+    gain
+  );
+
+
+  gain.connect(
+    audio.destination
+  );
+
+
+  oscillator.start();
+
+
+  oscillator.stop(
+    audio.currentTime + .22
+  );
+
+
+  setTimeout(
+    () => audio.close(),
+    400
+  );
+
+}
+
+
+/* =====================================================
+   WIN SOUND
+===================================================== */
+
+function playWinSound() {
+
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+
+  if (!AudioContext) {
+    return;
+  }
+
+
+  const audio =
+    new AudioContext();
+
+
+  const notes =
+    [523, 659, 784];
+
+
+  notes.forEach(
+    (frequency, index) => {
+
+      const oscillator =
+        audio.createOscillator();
+
+
+      const gain =
+        audio.createGain();
+
+
+      const start =
+        audio.currentTime +
+        index * .12;
+
+
+      oscillator.type =
+        "sine";
+
+
+      oscillator.frequency.value =
+        frequency;
+
+
+      gain.gain.setValueAtTime(
+        .001,
+        start
+      );
+
+
+      gain.gain.exponentialRampToValueAtTime(
+        .2,
+        start + .02
+      );
+
+
+      gain.gain.exponentialRampToValueAtTime(
+        .001,
+        start + .18
+      );
+
+
+      oscillator.connect(
+        gain
+      );
+
+
+      gain.connect(
+        audio.destination
+      );
+
+
+      oscillator.start(
+        start
+      );
+
+
+      oscillator.stop(
+        start + .18
+      );
+
+    }
+  );
+
+
+  setTimeout(
+    () => audio.close(),
+    700
   );
 
 }
@@ -1648,155 +2672,45 @@ function secretMeow() {
     );
 
 
-  /* Bounce */
-
   cat.classList.remove(
     "meowing"
   );
 
+
   void cat.offsetWidth;
+
 
   cat.classList.add(
     "meowing"
   );
 
 
-  /* Speech bubble */
-
   const bubble =
     document.createElement(
       "div"
     );
 
+
   bubble.className =
     "secret-meow-bubble";
 
+
   bubble.textContent =
     "MEOW! 🐈";
+
 
   document.body.appendChild(
     bubble
   );
 
 
-  setTimeout(() => {
-
-    bubble.remove();
-
-  }, 1200);
-
-
-  /* Sound */
-
-  const AudioContext =
-    window.AudioContext ||
-    window.webkitAudioContext;
-
-  if (!AudioContext) {
-    return;
-  }
-
-  const audio =
-    new AudioContext();
-
-  const oscillator =
-    audio.createOscillator();
-
-  const gain =
-    audio.createGain();
-
-
-  oscillator.type =
-    "sine";
-
-
-  oscillator.frequency.setValueAtTime(
-    500,
-    audio.currentTime
-  );
-
-  oscillator.frequency.exponentialRampToValueAtTime(
-    850,
-    audio.currentTime + .12
-  );
-
-  oscillator.frequency.exponentialRampToValueAtTime(
-    350,
-    audio.currentTime + .5
+  setTimeout(
+    () => bubble.remove(),
+    1200
   );
 
 
-  gain.gain.setValueAtTime(
-    .001,
-    audio.currentTime
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    .3,
-    audio.currentTime + .04
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    .001,
-    audio.currentTime + .5
-  );
-
-
-  oscillator.connect(gain);
-
-  gain.connect(
-    audio.destination
-  );
-
-
-  oscillator.start();
-
-  oscillator.stop(
-    audio.currentTime + .5
-  );
-
-
-  setTimeout(() => {
-
-    audio.close();
-
-  }, 800);
-
-}
-
-
-/* =====================================================
-   ENTER TO SEND
-===================================================== */
-
-input.addEventListener(
-  "keydown",
-  event => {
-
-    if (
-      event.key === "Enter"
-    ) {
-      sendMessage();
-    }
-
-  }
-);
-
-
-/* =====================================================
-   LOAD SAVED THEME
-===================================================== */
-
-const savedTheme =
-  localStorage.getItem(
-    "catAITheme"
-  );
-
-if (savedTheme) {
-
-  setTheme(
-    savedTheme
-  );
+  playTinyMeow();
 
 }
 
