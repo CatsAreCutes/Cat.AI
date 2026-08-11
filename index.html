@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +6,9 @@
 <title>Cat.AI 🐈</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+*{box-sizing:border-box}
 
-:root {
+:root{
   --text:#f8f3ff;
   --muted:#aaa0bd;
   --panel:rgba(25,18,42,.88);
@@ -23,29 +20,27 @@
   --user2:#536dd5;
 }
 
-body {
+html,body{
   margin:0;
-  min-height:100vh;
+  width:100%;
+  height:100%;
+}
+
+body{
   overflow:hidden;
   font-family:Arial,sans-serif;
   color:var(--text);
   background:#080611;
 }
 
-button,
-input {
-  font:inherit;
-}
+button,input{font:inherit}
+button{cursor:pointer}
 
-button {
-  cursor:pointer;
-}
-
-/* =====================================================
+/* =========================
    THEMES
-===================================================== */
+========================= */
 
-body.theme-og {
+body.theme-og{
   --text:#eee;
   --muted:#999;
   --panel:#191919;
@@ -58,17 +53,17 @@ body.theme-og {
   background:#111;
 }
 
-body.theme-purple {
+body.theme-purple{
   background:
     radial-gradient(circle at 10% 20%,rgba(155,98,255,.3),transparent 30%),
     radial-gradient(circle at 90% 80%,rgba(70,110,255,.25),transparent 30%),
     #080611;
 }
 
-body.theme-yarn {
+body.theme-yarn{
   --text:#fff8f2;
   --muted:#d8c2b2;
-  --panel:rgba(76,45,35,.9);
+  --panel:rgba(76,45,35,.92);
   --panel2:rgba(255,230,210,.1);
   --border:rgba(255,225,205,.22);
   --accent:#ff9b68;
@@ -96,7 +91,23 @@ body.theme-yarn {
     );
 }
 
-body.theme-pillow {
+body.theme-yarn::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.1) 0 1px,
+      transparent 2px
+    );
+  background-size:13px 13px;
+  opacity:.35;
+}
+
+body.theme-pillow{
   --text:#44364c;
   --muted:#786b7e;
   --panel:rgba(255,255,255,.88);
@@ -106,15 +117,14 @@ body.theme-pillow {
   --accent2:#7d9ee6;
   --user1:#a96fce;
   --user2:#718fd8;
-
   background:#cfc3d3;
 }
 
-/* =====================================================
-   PILLOW WALL
-===================================================== */
+/* =========================
+   REAL PILLOW WALL
+========================= */
 
-.pillow-wall {
+.pillow-wall{
   display:none;
   position:fixed;
   inset:-40px;
@@ -131,11 +141,11 @@ body.theme-pillow {
   background:linear-gradient(180deg,#b9adbe,#d8cbd9);
 }
 
-body.theme-pillow .pillow-wall {
+body.theme-pillow .pillow-wall{
   display:grid;
 }
 
-.pillow {
+.pillow{
   position:relative;
   min-width:130px;
   min-height:105px;
@@ -152,11 +162,7 @@ body.theme-pillow .pillow-wall {
       rgba(90,60,100,.18),
       transparent 45%
     ),
-    linear-gradient(
-      145deg,
-      #f9e9f4,
-      #d9bfd4
-    );
+    linear-gradient(145deg,#f9e9f4,#d9bfd4);
 
   border:4px solid rgba(170,130,170,.35);
 
@@ -168,7 +174,7 @@ body.theme-pillow .pillow-wall {
   transform:rotate(var(--rotation));
 }
 
-.pillow::before {
+.pillow::before{
   content:"";
   position:absolute;
   inset:9px;
@@ -176,23 +182,23 @@ body.theme-pillow .pillow-wall {
   border:2px dashed rgba(125,90,130,.28);
 }
 
-.pillow:nth-child(3n) {
+.pillow:nth-child(3n){
   background:linear-gradient(145deg,#e9d9ff,#c8b5e0);
 }
 
-.pillow:nth-child(4n) {
+.pillow:nth-child(4n){
   background:linear-gradient(145deg,#dcecff,#b9cbe7);
 }
 
-.pillow:nth-child(5n) {
+.pillow:nth-child(5n){
   background:linear-gradient(145deg,#ffe2ee,#ddbaca);
 }
 
-/* =====================================================
+/* =========================
    APP
-===================================================== */
+========================= */
 
-.app {
+.app{
   width:100vw;
   height:100vh;
   display:flex;
@@ -200,11 +206,11 @@ body.theme-pillow .pillow-wall {
   z-index:2;
 }
 
-/* =====================================================
+/* =========================
    SIDEBAR
-===================================================== */
+========================= */
 
-.sidebar {
+.sidebar{
   width:270px;
   padding:18px;
   background:var(--panel);
@@ -216,7 +222,7 @@ body.theme-pillow .pillow-wall {
   z-index:5;
 }
 
-.logo {
+.logo{
   display:flex;
   align-items:center;
   gap:12px;
@@ -225,17 +231,13 @@ body.theme-pillow .pillow-wall {
 }
 
 .logo-cat,
-.avatar {
+.avatar{
   display:grid;
   place-items:center;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
 }
 
-.logo-cat {
+.logo-cat{
   width:44px;
   height:44px;
   border-radius:15px;
@@ -243,40 +245,36 @@ body.theme-pillow .pillow-wall {
 }
 
 .new-chat,
-.arcade-button {
+.arcade-button,
+.send,
+.name-box button,
+.play-button,
+.start-game{
   border:0;
   border-radius:14px;
   padding:13px;
   color:white;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   font-weight:bold;
 }
 
-.arcade-button {
-  background:linear-gradient(
-    135deg,
-    #ff8a3d,
-    #e74d91
-  );
+.arcade-button{
+  background:linear-gradient(135deg,#ff8a3d,#e74d91);
 }
 
-.history-title {
+.history-title{
   color:var(--muted);
   font-size:11px;
   font-weight:bold;
   letter-spacing:1px;
 }
 
-.history {
+.history{
   flex:1;
   overflow-y:auto;
 }
 
-.history-item {
+.history-item{
   padding:11px;
   margin-bottom:7px;
   border-radius:12px;
@@ -288,17 +286,17 @@ body.theme-pillow .pillow-wall {
   text-overflow:ellipsis;
 }
 
-.history-item:hover {
+.history-item:hover{
   background:var(--panel2);
   color:var(--text);
 }
 
-.sidebar-buttons {
+.sidebar-buttons{
   display:flex;
   gap:8px;
 }
 
-.small-button {
+.small-button{
   flex:1;
   padding:10px 5px;
   border:1px solid var(--border);
@@ -307,11 +305,11 @@ body.theme-pillow .pillow-wall {
   background:var(--panel2);
 }
 
-/* =====================================================
+/* =========================
    THEME MENU
-===================================================== */
+========================= */
 
-.theme-menu {
+.theme-menu{
   position:absolute;
   left:18px;
   bottom:70px;
@@ -325,16 +323,16 @@ body.theme-pillow .pillow-wall {
   z-index:20;
 }
 
-.theme-menu.open {
+.theme-menu.open{
   display:block;
 }
 
-.theme-menu h3 {
+.theme-menu h3{
   margin:4px 5px 10px;
   font-size:13px;
 }
 
-.theme-option {
+.theme-option{
   width:100%;
   border:0;
   padding:11px;
@@ -345,18 +343,18 @@ body.theme-pillow .pillow-wall {
   background:var(--panel2);
 }
 
-/* =====================================================
-   MAIN CHAT
-===================================================== */
+/* =========================
+   CHAT
+========================= */
 
-.main {
+.main{
   flex:1;
   min-width:0;
   display:flex;
   flex-direction:column;
 }
 
-header {
+header{
   height:76px;
   padding:14px 22px;
   display:flex;
@@ -367,25 +365,25 @@ header {
   backdrop-filter:blur(20px);
 }
 
-.avatar {
+.avatar{
   width:48px;
   height:48px;
   border-radius:15px;
   font-size:28px;
 }
 
-.header-text h1 {
+.header-text h1{
   margin:0;
   font-size:19px;
 }
 
-.header-text span {
+.header-text span{
   color:#55dc8a;
   font-size:10px;
   font-weight:bold;
 }
 
-.shoe-meter {
+.shoe-meter{
   margin-left:auto;
   padding:8px 12px;
   border-radius:999px;
@@ -395,13 +393,13 @@ header {
   font-size:11px;
 }
 
-#messages {
+#messages{
   flex:1;
   overflow-y:auto;
   padding:28px;
 }
 
-.message {
+.message{
   max-width:78%;
   margin:13px 0;
   padding:14px 17px;
@@ -411,41 +409,37 @@ header {
   overflow-wrap:anywhere;
 }
 
-.user {
+.user{
   margin-left:auto;
-  background:linear-gradient(
-    135deg,
-    var(--user1),
-    var(--user2)
-  );
+  background:linear-gradient(135deg,var(--user1),var(--user2));
   color:white;
   border-bottom-right-radius:6px;
 }
 
-.cat {
+.cat{
   background:var(--panel2);
   border:1px solid var(--border);
   border-bottom-left-radius:6px;
 }
 
-.cat-label {
+.cat-label{
   font-weight:bold;
   margin-bottom:6px;
 }
 
-.bottom {
+.bottom{
   padding:15px 22px 20px;
   border-top:1px solid var(--border);
   background:var(--panel);
   backdrop-filter:blur(20px);
 }
 
-.input-row {
+.input-row{
   display:flex;
   gap:10px;
 }
 
-#input {
+#input{
   flex:1;
   min-width:0;
   padding:15px 17px;
@@ -456,31 +450,22 @@ header {
   background:var(--panel2);
 }
 
-.send {
+.send{
   width:90px;
-  border:0;
-  border-radius:15px;
-  color:white;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
-  font-weight:bold;
 }
 
-.hint {
+.hint{
   text-align:center;
   color:var(--muted);
   font-size:10px;
   margin-top:8px;
 }
 
-/* =====================================================
+/* =========================
    ARCADE
-===================================================== */
+========================= */
 
-.arcade {
+.arcade{
   display:none;
   position:absolute;
   inset:0;
@@ -492,12 +477,12 @@ header {
   padding:20px;
 }
 
-.arcade.open {
+.arcade.open{
   display:flex;
 }
 
-.arcade-card {
-  width:min(1000px,100%);
+.arcade-card{
+  width:min(950px,100%);
   height:min(720px,92vh);
   display:flex;
   flex-direction:column;
@@ -508,7 +493,7 @@ header {
   box-shadow:0 30px 80px rgba(0,0,0,.5);
 }
 
-.arcade-header {
+.arcade-header{
   display:flex;
   align-items:center;
   padding:18px 22px;
@@ -516,11 +501,11 @@ header {
   border-bottom:1px solid var(--border);
 }
 
-.arcade-header h2 {
+.arcade-header h2{
   margin:0;
 }
 
-.close-game {
+.close-game{
   margin-left:auto;
   width:38px;
   height:38px;
@@ -530,137 +515,114 @@ header {
   background:var(--panel2);
 }
 
-.arcade-tabs {
+.arcade-tabs{
   display:flex;
   gap:8px;
   padding:12px 18px;
   border-bottom:1px solid var(--border);
+  overflow-x:auto;
 }
 
-.arcade-tab {
+.arcade-tab{
   padding:9px 14px;
   border:1px solid var(--border);
   border-radius:12px;
   color:var(--text);
   background:var(--panel2);
+  white-space:nowrap;
 }
 
-.arcade-tab.active {
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
+.arcade-tab.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   color:white;
 }
 
-.arcade-view {
+.arcade-view{
   flex:1;
   overflow:auto;
   padding:20px;
 }
 
-.game-list {
+.game-list{
   display:grid;
-  grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:14px;
 }
 
-.game-card {
+.game-card{
   padding:18px;
   border:1px solid var(--border);
   border-radius:18px;
   background:var(--panel2);
 }
 
-.game-card-icon {
+.game-card-icon{
   font-size:38px;
 }
 
-.game-card h3 {
+.game-card h3{
   margin:10px 0 5px;
 }
 
-.game-card p {
+.game-card p{
   margin:0 0 15px;
   color:var(--muted);
   font-size:13px;
 }
 
-.play-button {
+.play-button{
   width:100%;
-  padding:11px;
-  border:0;
-  border-radius:12px;
-  color:white;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
 }
 
-.leaderboard-table {
+.leaderboard-table{
   width:100%;
   border-collapse:collapse;
 }
 
 .leaderboard-table th,
-.leaderboard-table td {
+.leaderboard-table td{
   padding:12px 9px;
   border-bottom:1px solid var(--border);
   text-align:left;
 }
 
-.leaderboard-table th {
+.leaderboard-table th{
   color:var(--muted);
   font-size:11px;
 }
 
-.game-screen {
+.game-screen{
   height:100%;
   display:flex;
   flex-direction:column;
 }
 
-.game-stats {
+.game-stats{
   display:flex;
   justify-content:center;
-  gap:35px;
+  gap:30px;
   padding:12px;
   font-weight:bold;
-  font-size:16px;
 }
 
-.game-stats span {
+.game-stats span{
   color:var(--accent);
 }
 
-.game-board {
+.game-board{
   flex:1;
   position:relative;
   overflow:hidden;
   margin:12px;
-  min-height:280px;
   border-radius:20px;
   border:2px solid var(--border);
-
   background:
-    radial-gradient(
-      circle at 20% 20%,
-      rgba(155,98,255,.18),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      rgba(93,124,255,.18),
-      transparent 30%
-    ),
+    radial-gradient(circle at 20% 20%,rgba(155,98,255,.18),transparent 30%),
+    radial-gradient(circle at 80% 70%,rgba(93,124,255,.18),transparent 30%),
     var(--panel2);
 }
 
-.target {
+.target{
   position:absolute;
   border:0;
   background:transparent;
@@ -670,11 +632,11 @@ header {
   transition:transform .08s;
 }
 
-.target:hover {
+.target:hover{
   transform:scale(1.2);
 }
 
-.game-message {
+.game-message{
   min-height:55px;
   margin:0 20px 12px;
   padding:13px;
@@ -684,35 +646,18 @@ header {
   text-align:center;
 }
 
-.start-game {
+.start-game{
   align-self:center;
   margin:0 0 18px;
   padding:13px 25px;
-  border:0;
-  border-radius:14px;
-  color:white;
-  background:linear-gradient(
-    135deg,
-    #ff8a3d,
-    #e74d91
-  );
-  font-weight:bold;
+  background:linear-gradient(135deg,#ff8a3d,#e74d91);
 }
 
-.back-button {
-  margin-bottom:15px;
-  padding:10px 15px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  color:var(--text);
-  background:var(--panel2);
-}
+/* =========================
+   NAME PROMPT
+========================= */
 
-/* =====================================================
-   NAME
-===================================================== */
-
-.name-overlay {
+.name-overlay{
   position:absolute;
   inset:0;
   z-index:50;
@@ -724,11 +669,11 @@ header {
   padding:20px;
 }
 
-.name-overlay.open {
+.name-overlay.open{
   display:flex;
 }
 
-.name-box {
+.name-box{
   width:min(450px,100%);
   padding:28px;
   border-radius:22px;
@@ -737,7 +682,7 @@ header {
   text-align:center;
 }
 
-.name-box input {
+.name-box input{
   width:100%;
   padding:14px;
   margin:14px 0;
@@ -745,25 +690,14 @@ header {
   border:1px solid var(--border);
   background:var(--panel2);
   color:var(--text);
+  outline:none;
 }
 
-.name-box button {
-  padding:12px 20px;
-  border:0;
-  border-radius:12px;
-  color:white;
-  background:linear-gradient(
-    135deg,
-    var(--accent),
-    var(--accent2)
-  );
-}
-
-/* =====================================================
+/* =========================
    SECRET CAT
-===================================================== */
+========================= */
 
-.secret-cat {
+.secret-cat{
   position:fixed;
   right:18px;
   bottom:18px;
@@ -779,84 +713,61 @@ header {
   z-index:999;
 }
 
-.secret-cat:hover {
+.secret-cat:hover{
   opacity:1;
   transform:scale(1.15) rotate(-6deg);
 }
 
-.secret-cat.meowing {
+.secret-cat.meowing{
   animation:catMeow .5s ease;
 }
 
-@keyframes catMeow {
-  0% {
-    transform:scale(1);
-  }
-
-  30% {
-    transform:scale(1.35) rotate(-8deg);
-  }
-
-  60% {
-    transform:scale(.9) rotate(8deg);
-  }
-
-  100% {
-    transform:scale(1);
-  }
+@keyframes catMeow{
+  0%{transform:scale(1)}
+  30%{transform:scale(1.35) rotate(-8deg)}
+  60%{transform:scale(.9) rotate(8deg)}
+  100%{transform:scale(1)}
 }
 
-/* =====================================================
+.meow-bubble{
+  position:fixed;
+  right:70px;
+  bottom:70px;
+  padding:10px 15px;
+  border-radius:15px;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
+  z-index:1000;
+  font-weight:bold;
+  animation:bubbleIn .15s ease;
+}
+
+@keyframes bubbleIn{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
-@media(max-width:700px) {
-
-  .sidebar {
-    display:none;
-  }
-
-  .shoe-meter {
-    display:none;
-  }
-
-  #messages {
-    padding:16px;
-  }
-
-  .message {
-    max-width:90%;
-  }
-
-  .secret-cat {
-    bottom:80px;
-  }
-
-  .arcade {
-    padding:5px;
-  }
-
-  .arcade-card {
-    width:100%;
-    height:96vh;
-    border-radius:18px;
-  }
-
-  .game-list {
-    grid-template-columns:1fr;
-  }
+@media(max-width:700px){
+  .sidebar{display:none}
+  .shoe-meter{display:none}
+  #messages{padding:16px}
+  .message{max-width:90%}
+  .secret-cat{bottom:80px}
+  .arcade-card{height:92vh}
+  .game-list{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body class="theme-purple">
 
-<!-- =====================================================
-     REAL PILLOW WALL
-===================================================== -->
-
+<!-- REAL PILLOW WALL -->
 <div class="pillow-wall">
-
   <div class="pillow" style="--rotation:-2deg"></div>
   <div class="pillow" style="--rotation:2deg"></div>
   <div class="pillow" style="--rotation:-1deg"></div>
@@ -878,350 +789,310 @@ header {
   <div class="pillow" style="--rotation:-2deg"></div>
   <div class="pillow" style="--rotation:1deg"></div>
 
+  <div class="pillow" style="--rotation:2deg"></div>
+  <div class="pillow" style="--rotation:-3deg"></div>
+  <div class="pillow" style="--rotation:1deg"></div>
+  <div class="pillow" style="--rotation:-2deg"></div>
+  <div class="pillow" style="--rotation:3deg"></div>
+  <div class="pillow" style="--rotation:-1deg"></div>
 </div>
-
-
-<!-- =====================================================
-     MAIN APP
-===================================================== -->
 
 <div class="app">
 
-  <aside class="sidebar">
+<aside class="sidebar">
 
-    <div class="logo">
-      <div class="logo-cat">🐈</div>
-      Cat.AI
-    </div>
+  <div class="logo">
+    <div class="logo-cat">🐈</div>
+    Cat.AI
+  </div>
 
-    <button class="new-chat" onclick="newChat()">
-      🐾 New Chat
+  <button class="new-chat" onclick="newChat()">
+    🐾 New Chat
+  </button>
+
+  <button class="arcade-button" onclick="openArcade()">
+    🎮 Cat Arcade
+  </button>
+
+  <div class="history-title">CHAT HISTORY</div>
+
+  <div id="history" class="history"></div>
+
+  <div class="sidebar-buttons">
+    <button class="small-button" onclick="toggleThemeMenu()">
+      🎨 Themes
     </button>
 
-    <button class="arcade-button" onclick="openArcade()">
-      🎮 Cat Arcade
+    <button class="small-button" onclick="clearHistory()">
+      🗑️ Clear
+    </button>
+  </div>
+
+  <div id="themeMenu" class="theme-menu">
+    <h3>🎨 Cat.AI Themes</h3>
+
+    <button class="theme-option" onclick="setTheme('og')">
+      🩶 OG
     </button>
 
-    <div class="history-title">
-      CHAT HISTORY
-    </div>
+    <button class="theme-option" onclick="setTheme('purple')">
+      💜 Purple Shade
+    </button>
 
-    <div id="history" class="history"></div>
+    <button class="theme-option" onclick="setTheme('yarn')">
+      🧶 Yarn Texture
+    </button>
 
-    <div class="sidebar-buttons">
+    <button class="theme-option" onclick="setTheme('pillow')">
+      🛏️ Pillow Wall
+    </button>
+  </div>
 
-      <button
-        class="small-button"
-        onclick="toggleThemeMenu()">
-        🎨 Themes
-      </button>
+</aside>
 
-      <button
-        class="small-button"
-        onclick="clearHistory()">
-        🗑️ Clear
-      </button>
+<main class="main">
 
-    </div>
+<header>
+  <div class="avatar">🐈</div>
 
-    <div id="themeMenu" class="theme-menu">
+  <div class="header-text">
+    <h1>Cat.AI</h1>
+    <span>● BRAIN ONLINE</span>
+  </div>
 
-      <h3>🎨 Cat.AI Themes</h3>
+  <div class="shoe-meter">
+    👟 SHOES: SUSPICIOUS
+  </div>
+</header>
 
-      <button
-        class="theme-option"
-        onclick="setTheme('og')">
-        🩶 OG
-      </button>
+<div id="messages"></div>
 
-      <button
-        class="theme-option"
-        onclick="setTheme('purple')">
-        💜 Purple Shade
-      </button>
+<div class="bottom">
+  <div class="input-row">
 
-      <button
-        class="theme-option"
-        onclick="setTheme('yarn')">
-        🧶 Yarn Texture
-      </button>
+    <input
+      id="input"
+      placeholder="Talk to Cat.AI..."
+      autocomplete="off"
+    >
 
-      <button
-        class="theme-option"
-        onclick="setTheme('pillow')">
-        🛏️ Pillow Wall
-      </button>
+    <button class="send" onclick="sendMessage()">
+      MEOW
+    </button>
 
-    </div>
+  </div>
 
-  </aside>
-
-
-  <main class="main">
-
-    <header>
-
-      <div class="avatar">
-        🐈
-      </div>
-
-      <div class="header-text">
-
-        <h1>Cat.AI</h1>
-
-        <span>
-          ● BRAIN ONLINE
-        </span>
-
-      </div>
-
-      <div class="shoe-meter">
-        👟 SHOES: SUSPICIOUS
-      </div>
-
-    </header>
-
-
-    <div id="messages"></div>
-
-
-    <div class="bottom">
-
-      <div class="input-row">
-
-        <input
-          id="input"
-          placeholder="Talk to Cat.AI..."
-          autocomplete="off"
-        >
-
-        <button
-          class="send"
-          onclick="sendMessage()">
-          MEOW
-        </button>
-
-      </div>
-
-      <div class="hint">
-        Enter to send • Cat.AI is watching the shoes
-      </div>
-
-    </div>
-
-  </main>
-
+  <div class="hint">
+    Enter to send • Cat.AI is watching the shoes
+  </div>
 </div>
 
+</main>
+</div>
 
-<!-- =====================================================
-     SECRET CAT
-===================================================== -->
-
-<button
-  class="secret-cat"
-  onclick="secretMeow()">
+<!-- SECRET CAT -->
+<button class="secret-cat" onclick="secretMeow()" aria-label="Secret cat">
   🐈
 </button>
 
-
-<!-- =====================================================
-     ARCADE
-===================================================== -->
-
+<!-- ARCADE -->
 <div id="arcade" class="arcade">
 
-  <div class="arcade-card">
+<div class="arcade-card">
 
-    <div class="arcade-header">
+  <div class="arcade-header">
 
-      <div style="font-size:32px">
-        🐈
+    <div style="font-size:32px">🐈</div>
+
+    <div>
+      <h2>Cat.AI Arcade</h2>
+      <div style="font-size:11px;color:var(--muted)">
+        Games • Scores • Achievements
       </div>
-
-      <div>
-
-        <h2>
-          Cat.AI Arcade
-        </h2>
-
-        <div style="
-          font-size:11px;
-          color:var(--muted)
-        ">
-          Games • Scores • Achievements
-        </div>
-
-      </div>
-
-      <button
-        class="close-game"
-        onclick="closeArcade()">
-        ✕
-      </button>
-
     </div>
 
-
-    <div class="arcade-tabs">
-
-      <button
-        id="gamesTab"
-        class="arcade-tab active"
-        onclick="showArcadeTab('games')">
-        🎮 Games
-      </button>
-
-      <button
-        id="leaderboardTab"
-        class="arcade-tab"
-        onclick="showArcadeTab('leaderboard')">
-        🏆 Leaderboard
-      </button>
-
-    </div>
-
-
-    <div
-      id="arcadeView"
-      class="arcade-view">
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =====================================================
-     NAME PROMPT
-===================================================== -->
-
-<div id="nameOverlay" class="name-overlay">
-
-  <div class="name-box">
-
-    <h2>
-      🐈 Who are you?
-    </h2>
-
-    <p>
-      Enter a display name for the Cat.AI Arcade.
-    </p>
-
-    <input
-      id="playerName"
-      maxlength="20"
-      placeholder="Cookie"
-    >
-
-    <br>
-
-    <button onclick="savePlayerName()">
-      MEOW, LET'S PLAY!
+    <button class="close-game" onclick="closeArcade()">
+      ✕
     </button>
 
   </div>
 
+  <div class="arcade-tabs">
+
+    <button
+      id="gamesTab"
+      class="arcade-tab active"
+      onclick="showArcadeTab('games')">
+      🎮 Games
+    </button>
+
+    <button
+      id="leaderboardTab"
+      class="arcade-tab"
+      onclick="showArcadeTab('leaderboard')">
+      🏆 Leaderboard
+    </button>
+
+  </div>
+
+  <div id="arcadeView" class="arcade-view"></div>
+
+</div>
 </div>
 
+<!-- NAME -->
+<div id="nameOverlay" class="name-overlay">
+
+<div class="name-box">
+
+  <h2>🐈 Who are you?</h2>
+
+  <p>
+    Pick a name for Cat.AI Arcade.
+  </p>
+
+  <input
+    id="playerName"
+    maxlength="20"
+    placeholder="Cookie"
+  >
+
+  <button onclick="savePlayerName()">
+    MEOW, LET'S PLAY!
+  </button>
+
+</div>
+</div>
 
 <script>
-
 /* =====================================================
    STATE
 ===================================================== */
 
-let currentChat = {
+let currentChat={
   id:Date.now(),
   title:"New Chat",
   messages:[]
 };
 
-let playerName =
+let playerName=
   localStorage.getItem("catAIPlayerName") || "";
 
-let selectedGame = "mouse";
+let selectedGame="mouse";
 
-let pendingGame = null;
-
-let gameState = {
+let gameState={
   running:false,
   score:0,
   time:60,
   goal:20,
   timer:null,
   target:null,
-  startedAt:0
+  startedAt:0,
+  type:"mouse"
 };
+
+let pendingGame=null;
 
 
 /* =====================================================
    ELEMENTS
 ===================================================== */
 
-const input =
-  document.getElementById("input");
+const input=document.getElementById("input");
+const messages=document.getElementById("messages");
+const historyBox=document.getElementById("history");
+const arcade=document.getElementById("arcade");
+const arcadeView=document.getElementById("arcadeView");
+const nameOverlay=document.getElementById("nameOverlay");
+const playerNameInput=document.getElementById("playerName");
 
-const messages =
-  document.getElementById("messages");
 
-const historyBox =
-  document.getElementById("history");
+/* =====================================================
+   CAT AI
+   Offline version for GitHub Pages
+===================================================== */
 
-const arcade =
-  document.getElementById("arcade");
+function catAI(message){
 
-const arcadeView =
-  document.getElementById("arcadeView");
+  const text=message.toLowerCase();
 
-const nameOverlay =
-  document.getElementById("nameOverlay");
+  if(text.includes("shoe") || text.includes("shoes")){
+    return "HISS. Shoes are suspicious. 👟";
+  }
 
-const playerNameInput =
-  document.getElementById("playerName");
+  if(text.includes("cat") || text.includes("cats")){
+    return "MEOW! Cats rule the universe. 🐈";
+  }
+
+  if(text.includes("dragon")){
+    return "DRAGONS ARE AWESOME. Especially paper dragons. 🐉";
+  }
+
+  if(text.includes("yarn")){
+    return "YARN!!! THE MOST IMPORTANT CAT TECHNOLOGY. 🧶";
+  }
+
+  if(text.includes("hello") ||
+     text.includes("hi") ||
+     text.includes("hey")){
+    return "MEOW! Hello! What are we doing today?";
+  }
+
+  if(text.includes("game") ||
+     text.includes("play")){
+    return "MEOW! Go to the Cat Arcade! 🎮";
+  }
+
+  if(text.includes("aaaa")){
+    return "AAAAAAAAAAAAAAAAAAAA MEOW!!!";
+  }
+
+  const replies=[
+    "MEOW! Interesting...",
+    "MRRP! Cat.AI has processed this information. 🐈",
+    "PURR... I approve.",
+    "MEOW! That sounds important.",
+    "Hmmm... my cat brain is thinking.",
+    "MEOW! I have no idea, but I support it.",
+    "PURRRR. Continue."
+  ];
+
+  return replies[
+    Math.floor(Math.random()*replies.length)
+  ];
+}
 
 
 /* =====================================================
    CHAT
 ===================================================== */
 
-function addMessage(text,type,save=true) {
+function addMessage(text,type,save=true){
 
-  const div =
-    document.createElement("div");
+  const div=document.createElement("div");
 
-  div.className =
-    "message " + type;
+  div.className="message "+type;
 
-  if(type === "cat") {
+  if(type==="cat"){
 
-    const label =
-      document.createElement("div");
+    const label=document.createElement("div");
 
-    label.className =
-      "cat-label";
-
-    label.textContent =
-      "🐈 Cat.AI";
+    label.className="cat-label";
+    label.textContent="🐈 Cat.AI";
 
     div.appendChild(label);
+    div.appendChild(document.createTextNode(text));
 
-    div.appendChild(
-      document.createTextNode(text)
-    );
+  }else{
 
-  } else {
-
-    div.textContent = text;
+    div.textContent=text;
 
   }
 
   messages.appendChild(div);
+  messages.scrollTop=messages.scrollHeight;
 
-  messages.scrollTop =
-    messages.scrollHeight;
-
-  if(save) {
+  if(save){
 
     currentChat.messages.push({
       text,
@@ -1229,260 +1100,184 @@ function addMessage(text,type,save=true) {
     });
 
     if(
-      type === "user" &&
-      currentChat.title === "New Chat"
-    ) {
+      type==="user" &&
+      currentChat.title==="New Chat"
+    ){
 
-      currentChat.title =
-        text.slice(0,30) +
-        (text.length > 30 ? "..." : "");
+      currentChat.title=
+        text.slice(0,30)+
+        (text.length>30?"...":"");
 
     }
 
     saveChat();
-
   }
 }
 
 
-function showWelcome() {
+function showWelcome(){
 
-  addMessage(
-    "MEOW! New chat detected! What are we talking about?",
-    "cat"
-  );
+  if(currentChat.messages.length===0){
+
+    addMessage(
+      "MEOW! New chat detected! What are we talking about?",
+      "cat"
+    );
+
+  }
 
 }
 
 
-async function sendMessage() {
+function sendMessage(){
 
-  const text =
-    input.value.trim();
+  const text=input.value.trim();
 
-  if(!text)
-    return;
+  if(!text)return;
 
   addMessage(text,"user");
 
-  input.value = "";
+  input.value="";
 
-  const thinking =
-    document.createElement("div");
+  setTimeout(()=>{
 
-  thinking.className =
-    "message cat";
-
-  thinking.innerHTML = `
-    <div class="cat-label">
-      🐈 Cat.AI
-    </div>
-    Cat.AI is thinking... 🧠
-  `;
-
-  messages.appendChild(thinking);
-
-  messages.scrollTop =
-    messages.scrollHeight;
-
-  try {
-
-    const response =
-      await fetch("/chat",{
-        method:"POST",
-        headers:{
-          "Content-Type":
-            "application/json"
-        },
-        body:JSON.stringify({
-          message:text
-        })
-      });
-
-    if(!response.ok)
-      throw new Error("Chat request failed");
-
-    const data =
-      await response.json();
-
-    const reply =
-      data.reply ||
-      "MRRP! My brain exploded! 🐈";
-
-    thinking.innerHTML = `
-      <div class="cat-label">
-        🐈 Cat.AI
-      </div>
-    `;
-
-    thinking.appendChild(
-      document.createTextNode(reply)
+    addMessage(
+      catAI(text),
+      "cat"
     );
 
-    currentChat.messages.push({
-      text:reply,
-      type:"cat"
-    });
+  },250);
 
-    saveChat();
-
-  } catch(error) {
-
-    thinking.innerHTML = `
-      <div class="cat-label">
-        🐈 Cat.AI
-      </div>
-      MRRP! I can't reach my brain! 🧠💥
-    `;
-
-  }
 }
 
 
-input.addEventListener(
-  "keydown",
-  function(e) {
+input.addEventListener("keydown",e=>{
 
-    if(e.key === "Enter")
-      sendMessage();
-
+  if(e.key==="Enter"){
+    e.preventDefault();
+    sendMessage();
   }
-);
+
+});
 
 
 /* =====================================================
    CHAT HISTORY
 ===================================================== */
 
-function saveChat() {
+function saveChat(){
 
-  if(!currentChat.messages.length)
-    return;
+  if(!currentChat.messages.length)return;
 
-  const chats =
-    JSON.parse(
-      localStorage.getItem(
-        "catAIChats"
-      ) || "[]"
-    );
+  const chats=JSON.parse(
+    localStorage.getItem("catAIChats") || "[]"
+  );
 
-  const index =
-    chats.findIndex(
-      chat =>
-        chat.id === currentChat.id
-    );
+  const index=chats.findIndex(
+    chat=>chat.id===currentChat.id
+  );
 
-  if(index >= 0)
-    chats[index] = currentChat;
+  if(index>=0)
+    chats[index]=currentChat;
   else
     chats.unshift(currentChat);
 
   localStorage.setItem(
     "catAIChats",
-    JSON.stringify(
-      chats.slice(0,30)
-    )
+    JSON.stringify(chats.slice(0,50))
   );
 
   loadHistory();
 }
 
 
-function loadHistory() {
+function loadHistory(){
 
-  const chats =
-    JSON.parse(
-      localStorage.getItem(
-        "catAIChats"
-      ) || "[]"
-    );
+  const chats=JSON.parse(
+    localStorage.getItem("catAIChats") || "[]"
+  );
 
-  historyBox.innerHTML = "";
+  historyBox.innerHTML="";
 
-  chats.forEach(chat => {
+  chats.forEach(chat=>{
 
-    const item =
-      document.createElement("div");
+    const item=document.createElement("div");
 
-    item.className =
-      "history-item";
+    item.className="history-item";
 
-    item.textContent =
-      "🐾 " +
-      (chat.title || "Untitled Chat");
+    item.textContent=
+      "🐾 "+(chat.title || "Untitled Chat");
 
-    item.onclick =
-      () => loadChat(chat.id);
+    item.onclick=()=>loadChat(chat.id);
 
     historyBox.appendChild(item);
 
   });
+
 }
 
 
-function loadChat(id) {
+function loadChat(id){
 
-  const chats =
-    JSON.parse(
-      localStorage.getItem(
-        "catAIChats"
-      ) || "[]"
-    );
-
-  const chat =
-    chats.find(
-      c => c.id === id
-    );
-
-  if(!chat)
-    return;
-
-  currentChat = chat;
-
-  messages.innerHTML = "";
-
-  currentChat.messages.forEach(
-    message => {
-
-      addMessage(
-        message.text,
-        message.type,
-        false
-      );
-
-    }
+  const chats=JSON.parse(
+    localStorage.getItem("catAIChats") || "[]"
   );
+
+  const chat=chats.find(c=>c.id===id);
+
+  if(!chat)return;
+
+  currentChat=chat;
+
+  messages.innerHTML="";
+
+  currentChat.messages.forEach(message=>{
+
+    addMessage(
+      message.text,
+      message.type,
+      false
+    );
+
+  });
+
 }
 
 
-function newChat() {
+function newChat(){
 
   saveChat();
 
-  currentChat = {
+  currentChat={
     id:Date.now(),
     title:"New Chat",
     messages:[]
   };
 
-  messages.innerHTML = "";
+  messages.innerHTML="";
 
   showWelcome();
 }
 
 
-function clearHistory() {
+function clearHistory(){
 
   if(!confirm(
     "Delete all saved Cat.AI chats?"
-  ))
-    return;
+  ))return;
 
-  localStorage.removeItem(
-    "catAIChats"
-  );
+  localStorage.removeItem("catAIChats");
+
+  currentChat={
+    id:Date.now(),
+    title:"New Chat",
+    messages:[]
+  };
+
+  messages.innerHTML="";
 
   loadHistory();
+  showWelcome();
 }
 
 
@@ -1490,7 +1285,7 @@ function clearHistory() {
    THEMES
 ===================================================== */
 
-function toggleThemeMenu() {
+function toggleThemeMenu(){
 
   document
     .getElementById("themeMenu")
@@ -1499,7 +1294,7 @@ function toggleThemeMenu() {
 }
 
 
-function setTheme(theme) {
+function setTheme(theme){
 
   document.body.classList.remove(
     "theme-og",
@@ -1509,7 +1304,7 @@ function setTheme(theme) {
   );
 
   document.body.classList.add(
-    "theme-" + theme
+    "theme-"+theme
   );
 
   localStorage.setItem(
@@ -1520,10 +1315,8 @@ function setTheme(theme) {
 }
 
 
-const savedTheme =
-  localStorage.getItem(
-    "catAITheme"
-  );
+const savedTheme=
+  localStorage.getItem("catAITheme");
 
 if(savedTheme)
   setTheme(savedTheme);
@@ -1533,36 +1326,35 @@ if(savedTheme)
    PLAYER NAME
 ===================================================== */
 
-function ensurePlayerName(callback) {
+function ensurePlayerName(callback){
 
-  if(playerName) {
+  if(playerName){
 
     callback();
-
     return;
 
   }
 
-  pendingGame =
-    callback;
+  pendingGame=callback;
 
-  nameOverlay.classList.add(
-    "open"
+  nameOverlay.classList.add("open");
+
+  setTimeout(
+    ()=>playerNameInput.focus(),
+    50
   );
 
-  playerNameInput.focus();
 }
 
 
-function savePlayerName() {
+function savePlayerName(){
 
-  const name =
+  const name=
     playerNameInput.value.trim();
 
-  if(!name)
-    return;
+  if(!name)return;
 
-  playerName =
+  playerName=
     name.slice(0,20);
 
   localStorage.setItem(
@@ -1570,39 +1362,26 @@ function savePlayerName() {
     playerName
   );
 
-  nameOverlay.classList.remove(
-    "open"
-  );
+  nameOverlay.classList.remove("open");
 
-  if(pendingGame) {
+  if(pendingGame){
 
-    const callback =
-      pendingGame;
+    const callback=pendingGame;
 
-    pendingGame = null;
+    pendingGame=null;
 
     callback();
 
   }
+
 }
-
-
-playerNameInput.addEventListener(
-  "keydown",
-  function(e) {
-
-    if(e.key === "Enter")
-      savePlayerName();
-
-  }
-);
 
 
 /* =====================================================
    ARCADE
 ===================================================== */
 
-function openArcade() {
+function openArcade(){
 
   arcade.classList.add("open");
 
@@ -1611,46 +1390,44 @@ function openArcade() {
 }
 
 
-function closeArcade() {
+function closeArcade(){
 
   stopGame();
 
-  arcade.classList.remove(
-    "open"
-  );
+  arcade.classList.remove("open");
 
 }
 
 
-function showArcadeTab(tab) {
+function showArcadeTab(tab){
 
   document
     .getElementById("gamesTab")
     .classList.toggle(
       "active",
-      tab === "games"
+      tab==="games"
     );
 
   document
     .getElementById("leaderboardTab")
     .classList.toggle(
       "active",
-      tab === "leaderboard"
+      tab==="leaderboard"
     );
 
-  if(tab === "games")
+  if(tab==="games")
     renderGameList();
   else
-    loadLeaderboard();
+    renderLeaderboard();
 
 }
 
 
 /* =====================================================
-   SIX GAMES
+   GAMES
 ===================================================== */
 
-const games = {
+const games={
 
   mouse:{
     icon:"🐭",
@@ -1663,25 +1440,25 @@ const games = {
   yarn:{
     icon:"🧶",
     title:"Yarn Frenzy",
-    description:"Catch 50 balls of yarn in 30 seconds!",
+    description:"Catch 30 balls of yarn in 30 seconds!",
     time:30,
-    goal:50
+    goal:30
   },
 
   fish:{
     icon:"🐟",
     title:"Fish Frenzy",
-    description:"Catch 30 fish in 30 seconds!",
+    description:"Catch 25 fish in 30 seconds!",
     time:30,
-    goal:30
+    goal:25
   },
 
   shoe:{
     icon:"👟",
     title:"Shoe Destroyer",
-    description:"Destroy 50 suspicious shoes!",
+    description:"Destroy 30 suspicious shoes!",
     time:30,
-    goal:50
+    goal:30
   },
 
   feather:{
@@ -1695,7 +1472,7 @@ const games = {
   box:{
     icon:"📦",
     title:"Box Attack",
-    description:"Find 20 toys hiding in boxes!",
+    description:"Open 20 mystery boxes!",
     time:30,
     goal:20
   }
@@ -1703,96 +1480,82 @@ const games = {
 };
 
 
-function renderGameList() {
+function renderGameList(){
 
-  arcadeView.innerHTML = `
+  arcadeView.innerHTML=`
+
     <div class="game-list">
 
-      ${Object.entries(games)
-        .map(
-          ([id,game]) => `
+      ${Object.entries(games).map(
+        ([id,g])=>`
 
-            <div class="game-card">
+          <div class="game-card">
 
-              <div class="game-card-icon">
-                ${game.icon}
-              </div>
-
-              <h3>
-                ${game.title}
-              </h3>
-
-              <p>
-                ${game.description}
-              </p>
-
-              <button
-                class="play-button"
-                onclick="startGame('${id}')">
-                PLAY
-              </button>
-
+            <div class="game-card-icon">
+              ${g.icon}
             </div>
 
-          `
-        )
-        .join("")}
+            <h3>${g.title}</h3>
+
+            <p>${g.description}</p>
+
+            <button
+              class="play-button"
+              onclick="startGame('${id}')">
+
+              PLAY
+
+            </button>
+
+          </div>
+
+        `
+      ).join("")}
 
     </div>
+
   `;
 
 }
 
 
-/* =====================================================
-   START GAME
-===================================================== */
+function startGame(type){
 
-function startGame(type) {
+  ensurePlayerName(()=>{
 
-  ensurePlayerName(
-    () => {
+    selectedGame=type;
 
-      selectedGame = type;
+    const g=games[type];
 
-      const config =
-        games[type];
+    gameState={
+      running:true,
+      score:0,
+      time:g.time,
+      goal:g.goal,
+      timer:null,
+      target:null,
+      startedAt:performance.now(),
+      type
+    };
 
-      gameState = {
+    renderGameScreen();
 
-        running:true,
+    spawnTarget();
 
-        score:0,
+    gameState.timer=setInterval(()=>{
 
-        time:config.time,
+      if(!gameState.running)return;
 
-        goal:config.goal,
+      gameState.time--;
 
-        timer:null,
+      updateGameStats();
 
-        target:null,
+      if(gameState.time<=0)
+        finishGame(false);
 
-        startedAt:performance.now()
+    },1000);
 
-      };
-
-      renderGameScreen(
-        config.title,
-        config.description
-      );
-
-      spawnTarget(
-        config.icon
-      );
-
-      gameState.timer =
-        setInterval(
-          updateTimer,
-          1000
-        );
-
-    }
-  );
+  });
 
 }
 
@@ -1801,75 +1564,67 @@ function startGame(type) {
    GAME SCREEN
 ===================================================== */
 
-function renderGameScreen(
-  title,
-  description
-) {
+function renderGameScreen(){
 
-  arcadeView.innerHTML = `
+  const g=games[selectedGame];
+
+  arcadeView.innerHTML=`
 
     <div class="game-screen">
 
-      <button
-        class="back-button"
-        onclick="stopGame();renderGameList()">
-        ← Back to Games
-      </button>
-
-      <div style="
-        text-align:center;
-        margin-bottom:5px;
-      ">
+      <div style="text-align:center">
 
         <h2>
-          ${title}
+          ${g.icon} ${g.title}
         </h2>
 
         <div style="
           color:var(--muted);
           font-size:13px;
         ">
-          ${description}
+          ${g.description}
         </div>
 
       </div>
-
 
       <div class="game-stats">
 
         <div>
           Score:
-          <span id="gameScore">
-            0
-          </span>
-          / ${gameState.goal}
+          <span id="gameScore">0</span>
+          / ${g.goal}
         </div>
 
         <div>
           Time:
           <span id="gameTime">
             ${gameState.time}
-          </span>
-          s
+          </span>s
         </div>
 
       </div>
-
 
       <div
         id="gameBoard"
         class="game-board">
       </div>
 
-
       <div
         id="gameMessage"
         class="game-message">
 
         🐈 Cat.AI:
-        ${gameStartMessage()}
+        ${startMessage()}
 
       </div>
+
+      <button
+        class="start-game"
+        onclick="stopGame();renderGameList()">
+
+        ← EXIT GAME
+
+      </button>
 
     </div>
 
@@ -1878,37 +1633,16 @@ function renderGameScreen(
 }
 
 
-function gameStartMessage() {
+function startMessage(){
 
-  if(selectedGame === "shoe")
+  if(selectedGame==="shoe")
     return "HISS! DESTROY THE FOOTWEAR!";
 
-  if(selectedGame === "mouse")
-    return `GO ${playerName.toUpperCase()}! CATCH 20 MICE!`;
-
-  return `MEOW! GO ${playerName.toUpperCase()}!`;
-
-}
-
-
-/* =====================================================
-   TIMER
-===================================================== */
-
-function updateTimer() {
-
-  if(!gameState.running)
-    return;
-
-  gameState.time--;
-
-  updateGameStats();
-
-  if(gameState.time <= 0) {
-
-    finishGame(false);
-
-  }
+  return(
+    "GO "+
+    playerName.toUpperCase()+
+    "! GET IT!"
+  );
 
 }
 
@@ -1917,68 +1651,50 @@ function updateTimer() {
    TARGET
 ===================================================== */
 
-function spawnTarget(icon) {
+function spawnTarget(){
 
-  if(!gameState.running)
-    return;
+  if(!gameState.running)return;
 
-  const board =
-    document.getElementById(
-      "gameBoard"
-    );
+  const board=
+    document.getElementById("gameBoard");
 
-  if(!board)
-    return;
+  if(!board)return;
 
   if(gameState.target)
     gameState.target.remove();
 
-  const target =
-    document.createElement(
-      "button"
-    );
+  const target=
+    document.createElement("button");
 
-  target.className =
-    "target";
+  target.className="target";
 
-  target.textContent =
-    icon;
+  target.textContent=
+    games[selectedGame].icon;
 
-  const maxX =
-    Math.max(
-      0,
-      board.clientWidth - 70
-    );
+  const maxX=
+    Math.max(0,board.clientWidth-65);
 
-  const maxY =
-    Math.max(
-      0,
-      board.clientHeight - 70
-    );
+  const maxY=
+    Math.max(0,board.clientHeight-65);
 
-  target.style.left =
-    Math.random() * maxX + "px";
+  target.style.left=
+    Math.random()*maxX+"px";
 
-  target.style.top =
-    Math.random() * maxY + "px";
+  target.style.top=
+    Math.random()*maxY+"px";
 
-  target.onclick =
-    hitTarget;
+  target.onclick=hitTarget;
 
-  board.appendChild(
-    target
-  );
+  board.appendChild(target);
 
-  gameState.target =
-    target;
+  gameState.target=target;
 
 }
 
 
-function hitTarget() {
+function hitTarget(){
 
-  if(!gameState.running)
-    return;
+  if(!gameState.running)return;
 
   gameState.score++;
 
@@ -1987,9 +1703,8 @@ function hitTarget() {
   playMeow();
 
   if(
-    gameState.score >=
-    gameState.goal
-  ) {
+    gameState.score>=gameState.goal
+  ){
 
     finishGame(true);
 
@@ -1997,11 +1712,17 @@ function hitTarget() {
 
   }
 
-  updateEncouragement();
+  if(
+    [1,5,10,15,20].includes(
+      gameState.score
+    )
+  ){
 
-  spawnTarget(
-    games[selectedGame].icon
-  );
+    updateEncouragement();
+
+  }
+
+  spawnTarget();
 
 }
 
@@ -2010,236 +1731,164 @@ function hitTarget() {
    STATS
 ===================================================== */
 
-function updateGameStats() {
+function updateGameStats(){
 
-  const score =
-    document.getElementById(
-      "gameScore"
-    );
+  const score=
+    document.getElementById("gameScore");
 
-  const time =
-    document.getElementById(
-      "gameTime"
-    );
+  const time=
+    document.getElementById("gameTime");
 
   if(score)
-    score.textContent =
+    score.textContent=
       gameState.score;
 
   if(time)
-    time.textContent =
+    time.textContent=
       gameState.time;
 
 }
 
 
 /* =====================================================
-   CAT.AI ENCOURAGEMENT
+   OFFLINE CAT.AI ENCOURAGEMENT
 ===================================================== */
 
-async function updateEncouragement() {
+function updateEncouragement(){
 
-  const message =
+  const message=
     document.getElementById(
       "gameMessage"
     );
 
-  if(!message)
-    return;
+  if(!message)return;
 
-  const milestones =
-    [1,5,10,15,20,30,40];
+  const lines={
 
-  if(
-    !milestones.includes(
-      gameState.score
-    )
-  )
-    return;
+    mouse:[
+      "MEOW! CATCH THAT MOUSE!",
+      "PURR! NICE CATCH!",
+      "MRRP! KEEP GOING!",
+      "THE MOUSE IS PANICKING!",
+      "MEOW! YOU'RE TOO FAST!"
+    ],
 
-  message.textContent =
-    "🐈 Cat.AI is thinking... 🧠";
+    yarn:[
+      "YARN!!! GET MORE YARN!",
+      "PURR! MORE YARN!",
+      "THE YARN CANNOT ESCAPE!",
+      "MEOW! YARN ACQUIRED!"
+    ],
 
-  try {
+    fish:[
+      "FISH!!! CATCH IT!",
+      "MEOW! NICE FISH!",
+      "THE FISH IS NOT SAFE!",
+      "PURR! KEEP CATCHING!"
+    ],
 
-    const response =
-      await fetch(
-        "/chat",
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-          body:JSON.stringify({
+    shoe:[
+      "HISS! DESTROY THE SHOE!",
+      "THAT SHOE DESERVED IT!",
+      "MEOW! MORE SHOES!",
+      "THE FOOTWEAR MUST FALL!"
+    ],
 
-            message:
-              `You are Cat.AI cheering for ${playerName} during ${games[selectedGame].title}. They have ${gameState.score} points and ${gameState.time} seconds left. Give ONE short excited cat-like encouragement. Maximum 15 words.`
+    feather:[
+      "MEOW! GET THE FEATHER!",
+      "IT'S FLYING AWAY!",
+      "PURR! ALMOST GOT IT!",
+      "CATCH THAT FEATHER!"
+    ],
 
-          })
-        }
-      );
+    box:[
+      "OPEN THE BOX!",
+      "WHAT'S INSIDE?!",
+      "MEOW! BOX ATTACK!",
+      "FIND THE TOY!"
+    ]
 
-    if(!response.ok)
-      throw new Error();
+  };
 
-    const data =
-      await response.json();
+  const list=
+    lines[selectedGame];
 
-    message.textContent =
-      "🐈 Cat.AI: " +
-      (
-        data.reply ||
-        fallbackEncouragement()
-      );
-
-  } catch {
-
-    message.textContent =
-      "🐈 Cat.AI: " +
-      fallbackEncouragement();
-
-  }
-
-}
-
-
-function fallbackEncouragement() {
-
-  if(selectedGame === "shoe")
-    return "HISS! DESTROY MORE SHOES!";
-
-  if(
-    gameState.score >=
-    gameState.goal - 2
-  )
-    return "MRRP! YOU'RE ALMOST THERE!";
-
-  if(gameState.score >= 10)
-    return "MEOW! KEEP GOING!";
-
-  return "PURR! NICE CATCH!";
+  message.textContent=
+    "🐈 Cat.AI: "+
+    list[
+      Math.floor(
+        Math.random()*list.length
+      )
+    ];
 
 }
 
 
 /* =====================================================
-   FINISH GAME
+   FINISH
 ===================================================== */
 
-async function finishGame(won) {
+function finishGame(won){
 
-  if(!gameState.running)
-    return;
+  if(!gameState.running)return;
 
-  gameState.running =
-    false;
+  gameState.running=false;
 
-  clearInterval(
-    gameState.timer
-  );
+  clearInterval(gameState.timer);
 
   if(gameState.target)
     gameState.target.remove();
 
-  const completionTime =
+  const elapsed=Math.max(
+    1,
     Math.round(
-      (
-        performance.now() -
-        gameState.startedAt
-      ) / 1000
-    );
+      (performance.now()-
+       gameState.startedAt)/1000
+    )
+  );
 
-  const message =
+  const message=
     document.getElementById(
       "gameMessage"
     );
 
-  if(won) {
+  if(won){
 
-    message.textContent =
-      `🐈 Cat.AI: MEOW!!! ${playerName.toUpperCase()} DID IT! 🎉`;
+    message.textContent=
+      "🐈 Cat.AI: MEOW!!! "+
+      playerName.toUpperCase()+
+      " DID IT! 🎉";
 
     playWinSound();
 
-  } else {
+  }else{
 
-    message.textContent =
-      `🐈 Cat.AI: TIME'S UP! ${gameState.score}/${gameState.goal}!`;
+    message.textContent=
+      "🐈 Cat.AI: TIME'S UP! "+
+      gameState.score+
+      " points!";
 
   }
 
-  await submitScore(
+  saveScore(
+    selectedGame,
     gameState.score,
-    completionTime,
+    elapsed,
     won
   );
 
-  const button =
-    document.createElement(
-      "button"
+  const button=
+    document.querySelector(
+      ".start-game"
     );
 
-  button.className =
-    "start-game";
+  if(button){
 
-  button.textContent =
-    "🏆 VIEW LEADERBOARD";
+    button.textContent=
+      "🏆 VIEW LEADERBOARD";
 
-  button.onclick =
-    () => showArcadeTab(
-      "leaderboard"
-    );
-
-  arcadeView
-    .querySelector(".game-screen")
-    .appendChild(button);
-
-}
-
-
-/* =====================================================
-   SCORE SUBMISSION
-===================================================== */
-
-async function submitScore(
-  score,
-  time,
-  won
-) {
-
-  try {
-
-    await fetch(
-      "/api/scores",
-      {
-        method:"POST",
-        headers:{
-          "Content-Type":
-            "application/json"
-        },
-        body:JSON.stringify({
-
-          name:playerName,
-
-          game:selectedGame,
-
-          score:score,
-
-          time:time,
-
-          won:won
-
-        })
-      }
-    );
-
-  } catch(error) {
-
-    console.error(
-      "Score submission failed:",
-      error
-    );
+    button.onclick=
+      ()=>renderLeaderboard();
 
   }
 
@@ -2247,218 +1896,204 @@ async function submitScore(
 
 
 /* =====================================================
-   LEADERBOARD
+   LOCAL PERMANENT LEADERBOARD
 ===================================================== */
 
-async function loadLeaderboard() {
+function saveScore(
+  game,
+  score,
+  time,
+  won
+){
 
-  arcadeView.innerHTML = `
+  const scores=
+    JSON.parse(
+      localStorage.getItem(
+        "catAILeaderboard"
+      ) || "[]"
+    );
+
+  scores.push({
+
+    name:playerName,
+
+    game,
+
+    score,
+
+    time,
+
+    won,
+
+    date:Date.now()
+
+  });
+
+  scores.sort((a,b)=>{
+
+    if(b.score!==a.score)
+      return b.score-a.score;
+
+    return a.time-b.time;
+
+  });
+
+  localStorage.setItem(
+    "catAILeaderboard",
+    JSON.stringify(
+      scores.slice(0,500)
+    )
+  );
+
+}
+
+
+function getScores(game){
+
+  const scores=
+    JSON.parse(
+      localStorage.getItem(
+        "catAILeaderboard"
+      ) || "[]"
+    );
+
+  return scores
+    .filter(s=>s.game===game)
+    .sort((a,b)=>{
+
+      if(b.score!==a.score)
+        return b.score-a.score;
+
+      return a.time-b.time;
+
+    })
+    .slice(0,50);
+
+}
+
+
+function renderLeaderboard(){
+
+  stopGame();
+
+  const game=
+    games[selectedGame] ||
+    games.mouse;
+
+  const scores=
+    getScores(selectedGame);
+
+  arcadeView.innerHTML=`
 
     <h2>
-      🏆 Global Cat.AI Leaderboard
+      🏆 ${game.title}
     </h2>
 
     <p style="color:var(--muted)">
-      Loading the world's cats...
+      Local Cat.AI Arcade leaderboard
     </p>
 
-    <div class="game-list">
+    <div style="
+      margin-bottom:15px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    ">
 
-      ${Object.entries(games)
-        .map(
-          ([id,game]) => `
+      ${Object.entries(games).map(
+        ([id,g])=>`
 
-            <div class="game-card">
+          <button
+            class="arcade-tab ${id===selectedGame?"active":""}"
+            onclick="selectedGame='${id}';renderLeaderboard()">
 
-              <div class="game-card-icon">
-                ${game.icon}
-              </div>
+            ${g.icon} ${g.title}
 
-              <h3>
-                ${game.title}
-              </h3>
+          </button>
 
-              <button
-                class="play-button"
-                onclick="showGameLeaderboard('${id}')">
-                VIEW SCORES
-              </button>
-
-            </div>
-
-          `
-        )
-        .join("")}
+        `
+      ).join("")}
 
     </div>
+
+    <table class="leaderboard-table">
+
+      <thead>
+
+        <tr>
+          <th>#</th>
+          <th>PLAYER</th>
+          <th>SCORE</th>
+          <th>TIME</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${
+          scores.length
+          ?
+          scores.map((row,i)=>`
+
+            <tr>
+
+              <td>
+                ${i===0?"👑":i+1}
+              </td>
+
+              <td>
+                ${escapeHtml(row.name)}
+              </td>
+
+              <td>
+                ${row.score}
+              </td>
+
+              <td>
+                ${row.time}s
+              </td>
+
+            </tr>
+
+          `).join("")
+          :
+          `
+            <tr>
+              <td colspan="4">
+                No scores yet.
+                Be the first cat! 🐈
+              </td>
+            </tr>
+          `
+        }
+
+      </tbody>
+
+    </table>
 
   `;
 
 }
 
 
-async function showGameLeaderboard(game) {
+/* =====================================================
+   GAME CONTROL
+===================================================== */
 
-  selectedGame = game;
+function stopGame(){
 
-  arcadeView.innerHTML = `
+  gameState.running=false;
 
-    <button
-      class="back-button"
-      onclick="loadLeaderboard()">
-      ← All Leaderboards
-    </button>
+  clearInterval(gameState.timer);
 
-    <h2>
-      🏆 ${games[game].title}
-    </h2>
+  gameState.timer=null;
 
-    <p style="color:var(--muted)">
-      Global Cat.AI Arcade leaderboard
-    </p>
+  if(gameState.target){
 
-    <p>
-      Loading scores...
-    </p>
+    gameState.target.remove();
 
-  `;
-
-  try {
-
-    const response =
-      await fetch(
-        `/api/leaderboard?game=${encodeURIComponent(game)}`
-      );
-
-    if(!response.ok)
-      throw new Error();
-
-    const data =
-      await response.json();
-
-    const rows =
-      data.scores || [];
-
-    arcadeView.innerHTML = `
-
-      <button
-        class="back-button"
-        onclick="loadLeaderboard()">
-        ← All Leaderboards
-      </button>
-
-      <h2>
-        🏆 ${games[game].title}
-      </h2>
-
-      <p style="color:var(--muted)">
-        Global Cat.AI Arcade leaderboard
-      </p>
-
-      ${
-        rows.length
-          ? `
-
-            <table class="leaderboard-table">
-
-              <thead>
-
-                <tr>
-                  <th>#</th>
-                  <th>PLAYER</th>
-                  <th>SCORE</th>
-                  <th>TIME</th>
-                </tr>
-
-              </thead>
-
-              <tbody>
-
-                ${
-                  rows.map(
-                    (row,index) => `
-
-                      <tr>
-
-                        <td>
-                          ${
-                            index === 0
-                              ? "👑"
-                              : index + 1
-                          }
-                        </td>
-
-                        <td>
-                          ${escapeHtml(
-                            row.name ||
-                            "Unknown Cat"
-                          )}
-                        </td>
-
-                        <td>
-                          ${Number(
-                            row.score || 0
-                          )}
-                        </td>
-
-                        <td>
-                          ${Number(
-                            row.time || 0
-                          )}s
-                        </td>
-
-                      </tr>
-
-                    `
-                  ).join("")
-                }
-
-              </tbody>
-
-            </table>
-
-          `
-          : `
-
-            <div class="game-message">
-              No scores yet!
-              Be the first cat to play!
-              🐈
-            </div>
-
-          `
-      }
-
-    `;
-
-  } catch(error) {
-
-    arcadeView.innerHTML = `
-
-      <button
-        class="back-button"
-        onclick="loadLeaderboard()">
-        ← All Leaderboards
-      </button>
-
-      <h2>
-        🏆 ${games[game].title}
-      </h2>
-
-      <div class="game-message">
-
-        MRRP! The leaderboard server
-        isn't responding! 🐈
-
-        <br><br>
-
-        Make sure your
-        <b>index.js</b>
-        server is running.
-
-      </div>
-
-    `;
+    gameState.target=null;
 
   }
 
@@ -2469,14 +2104,12 @@ async function showGameLeaderboard(game) {
    ESCAPE HTML
 ===================================================== */
 
-function escapeHtml(text) {
+function escapeHtml(text){
 
-  const div =
-    document.createElement(
-      "div"
-    );
+  const div=
+    document.createElement("div");
 
-  div.textContent =
+  div.textContent=
     String(text);
 
   return div.innerHTML;
@@ -2485,129 +2118,111 @@ function escapeHtml(text) {
 
 
 /* =====================================================
-   GAME CONTROL
-===================================================== */
-
-function stopGame() {
-
-  gameState.running =
-    false;
-
-  clearInterval(
-    gameState.timer
-  );
-
-  gameState.timer =
-    null;
-
-  if(gameState.target) {
-
-    gameState.target.remove();
-
-    gameState.target =
-      null;
-
-  }
-
-}
-
-
-/* =====================================================
    SOUND
 ===================================================== */
 
-function playMeow() {
+let audioContext=null;
 
-  const AudioContext =
+
+function getAudio(){
+
+  const AudioContext=
     window.AudioContext ||
     window.webkitAudioContext;
 
   if(!AudioContext)
-    return;
+    return null;
 
-  const audio =
-    new AudioContext();
+  if(!audioContext)
+    audioContext=
+      new AudioContext();
 
-  const osc =
+  if(audioContext.state==="suspended")
+    audioContext.resume();
+
+  return audioContext;
+
+}
+
+
+function playMeow(){
+
+  const audio=getAudio();
+
+  if(!audio)return;
+
+  const osc=
     audio.createOscillator();
 
-  const gain =
+  const gain=
     audio.createGain();
 
-  osc.type =
-    "sine";
+  const now=
+    audio.currentTime;
+
+  osc.type="sine";
 
   osc.frequency.setValueAtTime(
-    650,
-    audio.currentTime
+    600,
+    now
   );
 
   osc.frequency.exponentialRampToValueAtTime(
     900,
-    audio.currentTime + .08
+    now+.08
   );
 
   osc.frequency.exponentialRampToValueAtTime(
-    420,
-    audio.currentTime + .22
+    430,
+    now+.25
   );
 
   gain.gain.setValueAtTime(
     .001,
-    audio.currentTime
+    now
   );
 
   gain.gain.exponentialRampToValueAtTime(
     .18,
-    audio.currentTime + .02
+    now+.025
   );
 
   gain.gain.exponentialRampToValueAtTime(
     .001,
-    audio.currentTime + .22
+    now+.25
   );
 
   osc.connect(gain);
+  gain.connect(audio.destination);
 
-  gain.connect(
-    audio.destination
-  );
-
-  osc.start();
-
-  osc.stop(
-    audio.currentTime + .22
-  );
+  osc.start(now);
+  osc.stop(now+.25);
 
 }
 
 
-function playWinSound() {
+function playWinSound(){
 
-  const AudioContext =
-    window.AudioContext ||
-    window.webkitAudioContext;
+  const audio=getAudio();
 
-  if(!AudioContext)
-    return;
-
-  const audio =
-    new AudioContext();
+  if(!audio)return;
 
   [523,659,784,1046].forEach(
-    (frequency,index) => {
+    (frequency,i)=>{
 
-      const osc =
+      const osc=
         audio.createOscillator();
 
-      const gain =
+      const gain=
         audio.createGain();
 
-      const start =
-        audio.currentTime +
-        index * .12;
+      const start=
+        audio.currentTime+
+        i*.11;
 
-      osc.frequency.value =
+      osc.type="sine";
+
+      osc.frequency.value=
         frequency;
 
       gain.gain.setValueAtTime(
@@ -2616,26 +2231,20 @@ function playWinSound() {
       );
 
       gain.gain.exponentialRampToValueAtTime(
-        .2,
-        start + .02
+        .18,
+        start+.02
       );
 
       gain.gain.exponentialRampToValueAtTime(
         .001,
-        start + .18
+        start+.18
       );
 
       osc.connect(gain);
-
-      gain.connect(
-        audio.destination
-      );
+      gain.connect(audio.destination);
 
       osc.start(start);
-
-      osc.stop(
-        start + .18
-      );
+      osc.stop(start+.18);
 
     }
   );
@@ -2647,52 +2256,34 @@ function playWinSound() {
    SECRET CAT
 ===================================================== */
 
-function secretMeow() {
+function secretMeow(){
 
-  const cat =
+  const cat=
     document.querySelector(
       ".secret-cat"
     );
 
-  cat.classList.remove(
-    "meowing"
-  );
+  cat.classList.remove("meowing");
 
   void cat.offsetWidth;
 
-  cat.classList.add(
-    "meowing"
-  );
+  cat.classList.add("meowing");
 
   playMeow();
 
-  const bubble =
-    document.createElement(
-      "div"
-    );
+  const bubble=
+    document.createElement("div");
 
-  bubble.textContent =
-    "MEOW! 🐈";
+  bubble.className="meow-bubble";
 
-  bubble.style.cssText = `
-    position:fixed;
-    right:70px;
-    bottom:70px;
-    padding:10px 15px;
-    border-radius:15px;
-    background:var(--panel);
-    color:var(--text);
-    border:1px solid var(--border);
-    z-index:1000;
-    font-weight:bold;
-  `;
+  bubble.textContent="MEOW! 🐈";
 
   document.body.appendChild(
     bubble
   );
 
   setTimeout(
-    () => bubble.remove(),
+    ()=>bubble.remove(),
     1200
   );
 
@@ -2700,15 +2291,39 @@ function secretMeow() {
 
 
 /* =====================================================
+   CLOSE MENUS WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    const menu=
+      document.getElementById(
+        "themeMenu"
+      );
+
+    if(
+      !menu.contains(e.target) &&
+      !e.target.closest(".small-button")
+    ){
+
+      menu.classList.remove("open");
+
+    }
+
+  }
+);
+
+
+/* =====================================================
    STARTUP
 ===================================================== */
 
 loadHistory();
-
 showWelcome();
 
 </script>
 
 </body>
 </html>
-```
